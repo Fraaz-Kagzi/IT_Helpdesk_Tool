@@ -1,0 +1,217 @@
+----------------------------------------------------------------------[create teams]
+Hi,
+ 
+For a MS teams channel, we just need a name and 3 administrators. By default when an MS Teams channel is created it automatically associates a mailbox with it,
+please can you confirm whether you would like this mailbox function to be disabled and hidden from the address book.
+ 
+We can then assign this to the correct team who will set this up for you.
+ 
+Kind Regards
+ 
+Fraaz - IT Helpdesk
+------------------------------------------------------------------------------------------------------------------------------ [it purchase]
+Hi,
+ 
+You will need to purchase one via IT Purchasing
+The link to the catalogue is below .
+https://apps.powerapps.com/play/e/7faa5738-48ee-eb17-8e9b-93481fba5da2/a/817f0a7a-d3d4-4fce-a877-bd64adc395e6
+ 
+For any further queries, please check the following site https://nwsis.sharepoint.com/sites/SYITP/ which contains FAQ'S and other support guides
+ 
+Thanks 
+Fraaz - IT Helpdesk
+
+------------------------------------------------------------------------------------------------------------[mobile it purchase]
+Hi
+ 
+Unfortunately we are unable to process this request. The ordering of Mobile phones now need to be raised through the IT Purchasing Catalogue. You will need to select Hardware and Mobile Devices on the catalogue, and then once all of the boxes are completed, the catalogue will appear and you can then search for the Mobile.
+https://nwsis.sharepoint.com/sites/SYITP/
+IT Helpdesk Team"
+ 
+Thanks
+----------------------------------------------------------------------------------------------------[canon login]
+To login to a canon printer please ensure you have inputted the below
+ 
+Your username will be your firstname.surname or using a middle initial if you use one (Please ensure you do not enter your full email
+Your Password will be your normal login password (NOT your pin)
+The Domain you need to be selecting is lancashirecare_lscft
+ 
+If the above doesn't work, can you please provide a serial number for the printer in question and inform us where this printer is located
+What error message you got when logging in manually and via ID card
+ 
+so we can escalate this to cannon
+ 
+Thanks
+Fraaz - IT Helpdesk
+-----------------------------------------------------------------------[contact it cannon]
+Please could you contact the IT Helpdesk on 01772 695316
+This can be done between 08:30 - 17:00 Monday to Friday
+Quoting the INC/SD Number
+ 
+So we can Investigate the issue you have.
+We may need escalate this to cannon if needed so please can you have the serial number for the printer ready.
+Thanks
+Fraaz - IT Helpdesk
+-----------------------------------------------------------------------[contact it desk]
+Please could you contact the IT Helpdesk on 01772 695316
+This can be done between 08:30 - 17:00 Monday to Friday
+Quoting the INC/SD Number
+ 
+So we can Investigate the issue you have.
+We may need to book in an appointment with a technician if needed.
+Thanks
+Fraaz - IT Helpdesk
+--------------------------------------------------------------------------------------- [book remote technician]
+Please could you contact the IT Helpdesk on 01772 695316
+This can be done between 08:30 - 17:00 Monday to Friday
+Quoting the INC/SD Number
+ 
+So we can book you in for a remote technician appointment
+Thanks
+Fraaz - IT Helpdesk
+----------------------------------------------------------------------------------------------[book field technician]
+Please could you contact the IT Helpdesk on 01772 695316
+This can be done between 08:30 - 17:00 Monday to Friday
+Quoting the INC/SD Number
+ 
+So we can book you in for a field technician appointment
+We will also require a cost code so we can look at your device
+Thanks
+Fraaz - IT Helpdesk
+-------------------------------------------------------------------------------------------[drive]
+Hi there
+ 
+Unfortunately for security and governance purposes we are unable to accept self requested access. 
+
+This request would need to come to the service desk from your line manager.
+ 
+Please could they also state the full drive paths that access is required to (e.g \\lct-fsclfile.xlancashirecare.nhs.uk\shared\LCFT\exampledrivepath)
+
+Can you advise them to let us know if you need Read or Edit permissions to the folder mentioned above, please note full access it not a valid permission
+ 
+Please note, Forwarded and replied to emails will not be logged on our system, it must be a fresh email to IT.Helpdesk@lscft.nhs.uk, Further to note it is not sufficient to simply have line managers CC’d in.
+
+Please call through to the service desk on 01772 695316 quoting the INC/SD number if you have any queries
+ 
+ 
+Kind regards,
+
+Fraaz - IT Helpdesk
+ 
+------------------------------------------------------------------------------[emails] 
+Hi there,
+ 
+Unfortunately for security and governance purposes we are unable to accept self requested access. 
+
+This request would need to come to the service desk from your line manager.
+ 
+Please ensure they state the full mailbox email or display name
+
+Can they provide the level of access, such as read and manage or send permissions.
+ 
+Please note, Forwarded and replied to emails will not be logged on our system, it must be a fresh email to IT.Helpdesk@lscft.nhs.uk, Further to note it is not sufficient to simply have line managers CC’d in.
+
+Please call through to the service desk on 01772 695316 quoting the INC/SD number if you have any queries
+ 
+Kind regards,
+
+Fraaz IT Helpdesk 
+
+--------------------------------------------------------------------------[calender]
+Hi there
+ 
+Unfortunately for security and governance purposes we are unable to accept self requested access. 
+
+This request would need to come to the service desk from your line manager.
+ 
+Please ask them to provide the location of the calendar,  e.g. All Public Folder, Lancashire Care NHS Trust, Example building, Meeting room 1. 
+
+Please Note that the line manager should also state the calendars email or display name and state whether only viewing or editing access is required , please note full access it not a valid permission
+ 
+Please note, Forwarded and replied to emails will not be logged on our system, it must be a fresh email to IT.Helpdesk@lscft.nhs.uk, Further to note it is not sufficient to simply have line managers CC’d in.
+
+Please call through to the service desk on 01772 695316 quoting the INC/SD number if you have any queries
+ 
+Kind regards,
+
+Fraaz IT Helpdesk
+ 
+---------------------------------------------------------[generic]
+Hi there,
+ 
+Unfortunately for security and governance purposes we are unable to accept self requested access. 
+
+This request would need to come to the service desk from your line manager.
+ 
+Please note, Forwarded and replied to emails will not be logged on our system, it must be a fresh email to IT.Helpdesk@lscft.nhs.uk, Further to note it is not sufficient to simply have line managers CC’d in.
+
+Please call through to the service desk on 01772 695316 quoting the INC/SD number if you have any queries
+ 
+Kind regards,
+
+Fraaz - IT Helpdesk 
+---------------------------------------------------------------------------------------------[laptop chargers]
+Hi,
+IT Helpdesk doesn’t supply or replace laptop chargers/power packs. These need to be purchased via IT Purchasing.
+If there is an issue with the laptop itself, please let us know and we can log a job to investigate.
+Kind regards,
+IT Helpdesk
+-----------------------------------------------------------------------------[mobile order forms]
+Hi,
+Please note that mobile phones must now be requested and purchased via the IT Purchasing App.
+Orders are no longer processed via Mobile Communications Device Request Form.
+All mobile phone requests should be submitted using the link below:
+https://apps.powerapps.com/play/e/7faa5738-48ee-eb17-8e9b-93481fba5da2/a/817f0a7a-d3d4-4fce-a877-bd64adc395e6
+Kind regards,
+IT Helpdesk
+----------------------------------------------[connect SecurePrintAnywhere)
+Hi,
+To add the printer, please follow the steps below:
+
+1)In the bottom search bar, type \LCT-RPS202 and press Enter
+2)A window will open showing a list of available printers
+3)Double‑click SecurePrintAnywhere
+4)The printer will connect automatically
+
+Once completed, SecurePrintAnywhere should appear in your list of printers.
+If you’re still experiencing issues, please call the Helpdesk on 01772 695316 between 08:30 – 17:00, Monday to Friday.
+Please quote your INC/SD number and have the printer serial number available.
+Kind regards,
+IT Helpdesk
+
+---------------------------------------------------[cisco install]
+Hi,
+The Cisco Jabber can be installed via the Company Portal.
+Please follow the steps below:
+
+1)Type Company Portal in the bottom search bar and open it
+2)Search for Cisco Jabber
+3)Select it and click Install
+
+If you’re still unable to install the application, please contact the Helpdesk on 01772 695316 between 08:30 – 17:00, Monday to Friday, quoting your incident number.
+Kind regards,
+IT Helpdesk
+-----------------------------------------------------------[set up teams meeting on new outlook]
+Hi,
+When creating the meeting in New Outlook, please make sure the Teams meeting option is switched on.
+How to toggle Teams Meeting in New Outlook
+
+1)Open New Outlook
+2)Go to Calendar and select New event
+3)Enter the meeting title, date, and time
+4)Add attendees by typing their name or NHS email
+5)Toggle Teams meeting ON (switch at the top of the meeting window)
+6)Click Send
+
+Toggling Teams meeting on ensures the invite and Teams link display correctly for all attendees in both New Outlook and Old Outlook.
+If issues continue, please contact the Helpdesk on 01772 695316 between 08:30 – 17:00, Monday to Friday, quoting your incident number.
+Kind regards,
+IT Helpdesk
+
+--------------------------------------[iris]
+Hi,
+To have notes removed, an IRiS form will need to be completed.
+Please submit an IRiS via the portal, or the desktop icon and then reply to this email with the IRiS reference number so it can be followed up.
+Kind regards,
+IT Helpdesk
+ 

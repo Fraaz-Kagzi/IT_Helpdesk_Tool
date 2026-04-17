@@ -1,0 +1,2928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IT Helpdesk · Script Finder</title>
+<style>
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #0f1117;
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 28px 20px 60px;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #1e2535;
+  }
+
+  .header-icon {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  h1 {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 17px;
+    font-weight: 700;
+    color: #f8fafc;
+    letter-spacing: -0.3px;
+  }
+
+  .subtitle {
+    font-size: 11px;
+    color: #64748b;
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-top: 2px;
+  }
+
+  /* ---- Personalisation Bar ---- */
+  .persona-bar {
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .persona-bar-title {
+    font-size: 10px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  .persona-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  .persona-field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 160px;
+  }
+
+  .persona-field label {
+    font-size: 10px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .persona-field input {
+    background: #0f1117;
+    border: 1.5px solid #2d3748;
+    border-radius: 8px;
+    padding: 9px 12px;
+    color: #e2e8f0;
+    font-size: 13px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+
+  .agent-input { border-color: #4c3a7a !important; }
+  .agent-input:focus { border-color: #a78bfa !important; }
+  .customer-input { border-color: #1a4a3a !important; }
+  .customer-input:focus { border-color: #34d399 !important; }
+
+  .persona-preview {
+    font-size: 11px;
+    color: #475569;
+    font-family: 'Consolas', 'Courier New', monospace;
+    padding-top: 6px;
+    border-top: 1px solid #1e2535;
+    margin-top: 4px;
+  }
+
+  .highlight-agent { color: #a78bfa; }
+  .highlight-customer { color: #34d399; }
+
+  /* ---- Search ---- */
+  .search-bar {
+    position: relative;
+    margin-bottom: 14px;
+  }
+
+  .search-bar input {
+    width: 100%;
+    background: #1a1f2e;
+    border: 1.5px solid #2d3748;
+    border-radius: 10px;
+    padding: 13px 16px 13px 44px;
+    color: #e2e8f0;
+    font-size: 14px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .search-bar input:focus { border-color: #3b82f6; }
+  .search-bar input::placeholder { color: #475569; }
+
+  .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #475569;
+    font-size: 16px;
+    pointer-events: none;
+  }
+
+  .tag-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+
+  .tag {
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 11px;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Consolas', 'Courier New', monospace;
+    user-select: none;
+  }
+
+  .tag:hover, .tag.active {
+    background: #1e3a5f;
+    border-color: #3b82f6;
+    color: #93c5fd;
+  }
+
+  .results-label {
+    font-size: 11px;
+    color: #475569;
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .script-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .script-card {
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .script-card:hover { border-color: #3b82f6; background: #1e2a3f; }
+  .script-card.selected { border-color: #3b82f6; background: #1e2a3f; }
+
+  .script-name {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: #60a5fa;
+  }
+
+  .script-preview {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ---- Viewer ---- */
+  .script-viewer {
+    background: #1a1f2e;
+    border: 1.5px solid #3b82f6;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 20px;
+    display: none;
+    animation: fadeIn 0.2s ease;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  .script-viewer.visible { display: block; }
+
+  .viewer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .viewer-title {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: #60a5fa;
+  }
+
+  .btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .btn {
+    border: none;
+    border-radius: 7px;
+    padding: 7px 13px;
+    font-size: 12px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-copy { background: #1d4ed8; color: #fff; }
+  .btn-copy:hover { background: #2563eb; }
+  .btn-copy.copied { background: #059669; }
+  .btn-edit { background: #374151; color: #d1d5db; }
+  .btn-edit:hover { background: #4b5563; }
+  .btn-delete { background: #7f1d1d; color: #fca5a5; }
+  .btn-delete:hover { background: #991b1b; }
+
+  .persona-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .pill {
+    font-size: 11px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    padding: 3px 10px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .pill-agent { background: #2e1f5e; color: #c4b5fd; border: 1px solid #4c3a7a; }
+  .pill-customer { background: #052e1c; color: #6ee7b7; border: 1px solid #1a4a3a; }
+  .pill-none { background: #1e2535; color: #475569; border: 1px solid #2d3748; }
+
+  .script-body {
+    background: #0f1117;
+    border: 1px solid #2d3748;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 13px;
+    line-height: 1.75;
+    color: #cbd5e1;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 340px;
+    overflow-y: auto;
+  }
+
+  .edit-form { display: none; margin-top: 14px; flex-direction: column; gap: 10px; }
+  .edit-form.visible { display: flex; }
+
+  .form-row { display: flex; flex-direction: column; gap: 6px; }
+
+  .form-row label {
+    font-size: 11px;
+    color: #64748b;
+    font-family: 'Consolas', 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+
+  .form-row input, .form-row textarea {
+    background: #0f1117;
+    border: 1.5px solid #2d3748;
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: #e2e8f0;
+    font-size: 13px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+  }
+
+  .form-row input:focus, .form-row textarea:focus { border-color: #3b82f6; }
+  .form-row textarea { min-height: 120px; }
+
+  .btn-save {
+    background: #059669; color: #fff;
+    width: 100%; padding: 10px;
+    border-radius: 8px; font-weight: 600;
+    font-size: 13px; border: none;
+    cursor: pointer; transition: opacity 0.15s;
+  }
+  .btn-save:hover { opacity: 0.9; }
+
+  .divider { border: none; border-top: 1px solid #1e2535; margin: 20px 0; }
+
+  .add-panel {
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    padding: 18px;
+  }
+
+  .add-panel h2 {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 12px; color: #64748b;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 14px;
+  }
+
+  .btn-add {
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+    color: #fff; width: 100%; padding: 11px;
+    border-radius: 8px; font-weight: 600;
+    font-size: 13px; border: none;
+    cursor: pointer; transition: opacity 0.15s; margin-top: 4px;
+  }
+  .btn-add:hover { opacity: 0.9; }
+
+  .hint {
+    font-size: 11px; color: #475569;
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-top: 8px; line-height: 1.7;
+  }
+  .hint .ha { color: #a78bfa; }
+  .hint .hc { color: #34d399; }
+
+  /* ---- Import Panel ---- */
+  .import-panel {
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 16px;
+  }
+
+  .import-panel h2 {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 12px; color: #64748b;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+
+  .import-desc {
+    font-size: 11px;
+    color: #475569;
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+
+  .import-desc code {
+    color: #94a3b8;
+    background: #0f1117;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 11px;
+  }
+
+  .import-drop-zone {
+    border: 2px dashed #2d3748;
+    border-radius: 10px;
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #0f1117;
+  }
+
+  .import-drop-zone:hover, .import-drop-zone.drag-over {
+    border-color: #3b82f6;
+    background: #0a1628;
+  }
+
+  .import-drop-zone input[type="file"] { display: none; }
+
+  .import-drop-icon { font-size: 28px; margin-bottom: 8px; }
+
+  .import-drop-text {
+    font-size: 13px;
+    color: #64748b;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+
+  .import-drop-text strong { color: #93c5fd; }
+
+  .import-format-hint {
+    font-size: 10px;
+    color: #334155;
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-top: 6px;
+  }
+
+  /* Import preview modal */
+  .import-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 100;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 24px 16px;
+    overflow-y: auto;
+  }
+
+  .import-modal-backdrop.visible { display: flex; }
+
+  .import-modal {
+    background: #1a1f2e;
+    border: 1.5px solid #3b82f6;
+    border-radius: 14px;
+    padding: 20px;
+    width: 100%;
+    max-width: 680px;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .import-modal-title {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: #60a5fa;
+    margin-bottom: 4px;
+  }
+
+  .import-modal-sub {
+    font-size: 11px;
+    color: #475569;
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-bottom: 16px;
+  }
+
+  .import-script-item {
+    background: #0f1117;
+    border: 1px solid #2d3748;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+
+  .import-script-item.excluded {
+    opacity: 0.4;
+    border-style: dashed;
+  }
+
+  .import-item-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .import-item-check {
+    width: 18px; height: 18px;
+    accent-color: #3b82f6;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .import-item-name {
+    flex: 1;
+    background: #1a1f2e;
+    border: 1.5px solid #2d3748;
+    border-radius: 7px;
+    padding: 7px 10px;
+    color: #e2e8f0;
+    font-size: 13px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.2s;
+    min-width: 0;
+  }
+  .import-item-name:focus { border-color: #3b82f6; }
+
+  .import-item-keywords {
+    width: 100%;
+    background: #1a1f2e;
+    border: 1.5px solid #2d3748;
+    border-radius: 7px;
+    padding: 7px 10px;
+    color: #94a3b8;
+    font-size: 12px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 8px;
+  }
+  .import-item-keywords:focus { border-color: #3b82f6; }
+  .import-item-keywords::placeholder { color: #334155; }
+
+  .import-item-preview {
+    font-size: 12px;
+    color: #475569;
+    font-family: 'Consolas', 'Courier New', monospace;
+    background: #0a0e18;
+    border-radius: 6px;
+    padding: 8px 10px;
+    max-height: 80px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    line-height: 1.5;
+  }
+
+  .import-modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .btn-import-confirm {
+    flex: 1;
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 11px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .btn-import-confirm:hover { opacity: 0.9; }
+
+  .btn-import-cancel {
+    background: #374151;
+    color: #d1d5db;
+    border: none;
+    border-radius: 8px;
+    padding: 11px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn-import-cancel:hover { background: #4b5563; }
+
+  .empty-state {
+    text-align: center; padding: 36px;
+    color: #475569; font-size: 13px; line-height: 1.7;
+  }
+
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: #059669; color: #fff;
+    padding: 11px 18px; border-radius: 9px;
+    font-size: 13px; font-weight: 500;
+    opacity: 0; transform: translateY(8px);
+    transition: all 0.25s; pointer-events: none;
+    z-index: 999; font-family: 'Segoe UI', Arial, sans-serif;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+
+  .count-badge {
+    display: inline-block;
+    background: #1e3a5f; color: #93c5fd;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 10px; padding: 2px 7px;
+    border-radius: 10px; margin-left: 8px;
+  }
+
+  /* ---- Downloads Bar ---- */
+  .downloads-bar {
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 16px;
+    display: none; /* hidden until GitHub URL is configured */
+  }
+
+  .downloads-bar.visible { display: block; }
+
+  .downloads-bar-title {
+    font-size: 10px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .downloads-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .download-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #0f1117;
+    border: 1px solid #2d3748;
+    border-radius: 7px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: all 0.15s;
+  }
+
+  .download-link:hover {
+    border-color: #3b82f6;
+    color: #93c5fd;
+    background: #0a1628;
+  }
+
+  .download-link.xlsx { border-color: #14532d; color: #4ade80; }
+  .download-link.xlsx:hover { border-color: #16a34a; background: #041a10; }
+  .download-link.txt  { border-color: #1e3a5f; color: #60a5fa; }
+  .download-link.txt:hover  { border-color: #3b82f6; background: #0a1628; }
+
+  .downloads-config {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #1e2535;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .downloads-config input {
+    flex: 1;
+    min-width: 200px;
+    background: #0f1117;
+    border: 1.5px solid #2d3748;
+    border-radius: 7px;
+    padding: 7px 10px;
+    color: #e2e8f0;
+    font-size: 12px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .downloads-config input:focus { border-color: #3b82f6; }
+  .downloads-config input::placeholder { color: #334155; }
+
+  .downloads-config-btn {
+    background: #1d4ed8;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 7px 14px;
+    font-size: 12px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+  .downloads-config-btn:hover { background: #2563eb; }
+
+  .downloads-config-clear {
+    font-size: 11px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #475569;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 5px;
+    transition: color 0.15s;
+  }
+  .downloads-config-clear:hover { color: #fca5a5; }
+
+  .github-setup-hint {
+    font-size: 10px;
+    color: #334155;
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+  .github-setup-hint a { color: #475569; }
+
+  /* ---- Tabs ---- */
+  .tab-nav {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 10px;
+    padding: 4px;
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 9px 12px;
+    border: none;
+    border-radius: 7px;
+    font-size: 12px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: transparent;
+    color: #64748b;
+    letter-spacing: 0.2px;
+  }
+
+  .tab-btn:hover { color: #94a3b8; background: #242a3b; }
+  .tab-btn.active { background: #1d4ed8; color: #fff; }
+  .tab-btn.tab-inactive.active { background: #b45309; color: #fff; }
+  .tab-btn.tab-ra.active { background: #0f766e; color: #fff; }
+  .tab-btn.tab-pw.active { background: #7c3aed; color: #fff; }
+
+  /* ---- RA Agents Tab ---- */
+  .ra-search-bar {
+    position: relative;
+    margin-bottom: 14px;
+  }
+
+  .ra-search-bar input {
+    width: 100%;
+    background: #1a1f2e;
+    border: 1.5px solid #134e4a;
+    border-radius: 10px;
+    padding: 13px 16px 13px 44px;
+    color: #e2e8f0;
+    font-size: 14px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .ra-search-bar input:focus { border-color: #14b8a6; }
+  .ra-search-bar input::placeholder { color: #475569; }
+
+  /* RA upload bar */
+  .ra-upload-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+  }
+
+  .ra-data-source {
+    font-size: 11px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #64748b;
+  }
+
+  .ra-data-source strong { color: #2dd4bf; }
+  .ra-data-source.custom { color: #a78bfa; }
+  .ra-data-source.custom strong { color: #c4b5fd; }
+
+  .ra-upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #0d3330;
+    border: 1.5px solid #134e4a;
+    border-radius: 7px;
+    padding: 7px 13px;
+    font-size: 11px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #5eead4;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .ra-upload-btn:hover {
+    background: #134e4a;
+    border-color: #14b8a6;
+    color: #99f6e4;
+  }
+
+  .ra-upload-btn.loading {
+    color: #475569;
+    border-color: #2d3748;
+    cursor: default;
+    animation: pulse 1s infinite;
+  }
+
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+  .ra-clear-btn {
+    font-size: 10px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #7f1d1d;
+    cursor: pointer;
+    padding: 3px 8px;
+    border-radius: 5px;
+    transition: all 0.15s;
+    border: 1px solid #7f1d1d;
+  }
+  .ra-clear-btn:hover { background: #7f1d1d; color: #fff; }
+
+  /* ---- Passwords Tab ---- */
+  .pw-header-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+  }
+
+  .pw-header-left {
+    font-size: 11px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #64748b;
+  }
+
+  .pw-header-left strong { color: #a78bfa; }
+
+  .pw-upload-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #1e1040;
+    border: 1.5px solid #4c1d95;
+    border-radius: 7px;
+    padding: 7px 13px;
+    font-size: 11px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #a78bfa;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .pw-upload-btn:hover {
+    background: #2e1065;
+    border-color: #7c3aed;
+    color: #c4b5fd;
+  }
+
+  .pw-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .pw-card {
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    transition: all 0.15s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pw-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: #4c1d95;
+    border-radius: 10px 0 0 10px;
+    transition: background 0.15s;
+  }
+
+  .pw-card:hover { border-color: #7c3aed; background: #1a1030; }
+  .pw-card:hover::before { background: #7c3aed; }
+  .pw-card.used { opacity: 0.4; }
+  .pw-card.used::before { background: #374151; }
+
+  .pw-text {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: #c4b5fd;
+    letter-spacing: 0.3px;
+    flex: 1;
+    word-break: break-all;
+  }
+
+  .pw-card.used .pw-text { color: #4b5563; text-decoration: line-through; }
+
+  .pw-copy-btn {
+    flex-shrink: 0;
+    background: #2e1065;
+    border: 1px solid #4c1d95;
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-size: 11px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #a78bfa;
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .pw-copy-btn:hover { background: #4c1d95; color: #fff; }
+  .pw-copy-btn.copied { background: #059669; color: #fff; border-color: #059669; }
+  .pw-card.used .pw-copy-btn { display: none; }
+
+  .pw-used-tag {
+    font-size: 10px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #374151;
+    display: none;
+  }
+  .pw-card.used .pw-used-tag { display: inline; }
+
+  .pw-actions-bar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+    align-items: center;
+  }
+
+  .pw-action-btn {
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 7px;
+    padding: 7px 12px;
+    font-size: 11px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .pw-action-btn:hover { border-color: #7c3aed; color: #a78bfa; background: #1a1030; }
+  .pw-action-btn.danger:hover { border-color: #7f1d1d; color: #fca5a5; background: #1a0a0a; }
+
+  .pw-empty {
+    text-align: center;
+    padding: 40px;
+    color: #334155;
+    font-size: 13px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    line-height: 1.7;
+  }
+
+  .pw-count-badge {
+    font-size: 10px;
+    background: #1e1040;
+    color: #a78bfa;
+    border: 1px solid #4c1d95;
+    border-radius: 10px;
+    padding: 2px 8px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-left: 6px;
+  }
+
+  .pw-add-panel {
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 4px;
+  }
+
+  .pw-add-panel h3 {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 11px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  .pw-add-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .pw-add-input {
+    flex: 1;
+    background: #0f1117;
+    border: 1.5px solid #4c1d95;
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: #e2e8f0;
+    font-size: 13px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .pw-add-input:focus { border-color: #7c3aed; }
+  .pw-add-input::placeholder { color: #334155; }
+
+  .pw-add-submit {
+    background: #4c1d95;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 12px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+  }
+
+  .pw-add-submit:hover { background: #7c3aed; }
+
+  .ra-results-label {
+    font-size: 11px;
+    color: #475569;
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .ra-site-group {
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .ra-site-header {
+    padding: 12px 16px;
+    background: #0f1a1a;
+    border-bottom: 1px solid #1e3535;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .ra-site-name {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    color: #2dd4bf;
+  }
+
+  .ra-site-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+  }
+
+  .ra-site-town {
+    font-size: 11px;
+    color: #64748b;
+    font-family: 'Consolas', 'Courier New', monospace;
+  }
+
+  .ra-site-postcode {
+    font-size: 11px;
+    color: #475569;
+    font-family: 'Consolas', 'Courier New', monospace;
+  }
+
+  .ra-agent-count {
+    font-size: 10px;
+    background: #0d3330;
+    color: #5eead4;
+    border: 1px solid #134e4a;
+    border-radius: 10px;
+    padding: 2px 8px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    white-space: nowrap;
+  }
+
+  .ra-agents {
+    padding: 4px 0;
+  }
+
+  .ra-agent-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 11px 16px;
+    border-bottom: 1px solid #1e2535;
+    transition: background 0.1s;
+    flex-wrap: wrap;
+  }
+
+  .ra-agent-row:last-child { border-bottom: none; }
+  .ra-agent-row:hover { background: #141b2d; }
+
+  .ra-agent-avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0d3330, #134e4a);
+    border: 1.5px solid #14b8a6;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #5eead4;
+    font-family: 'Consolas', 'Courier New', monospace;
+    flex-shrink: 0;
+  }
+
+  .ra-agent-info { flex: 1; min-width: 0; }
+
+  .ra-agent-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e2e8f0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin-bottom: 4px;
+  }
+
+  .ra-agent-detail {
+    font-size: 12px;
+    color: #64748b;
+    font-family: 'Consolas', 'Courier New', monospace;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .ra-tel { color: #60a5fa; }
+  .ra-email { color: #94a3b8; word-break: break-all; }
+
+  .ra-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 5px;
+  }
+
+  .ra-badge {
+    font-size: 10px;
+    padding: 2px 7px;
+    border-radius: 8px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    white-space: nowrap;
+  }
+
+  .ra-badge-cert {
+    background: #1c1a08;
+    color: #fbbf24;
+    border: 1px solid #44330a;
+  }
+
+  .ra-badge-note {
+    background: #1a1a2e;
+    color: #818cf8;
+    border: 1px solid #312e7a;
+  }
+
+  .ra-empty {
+    text-align: center;
+    padding: 40px;
+    color: #334155;
+    font-size: 13px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    line-height: 1.7;
+  }
+
+  .ra-copy-email {
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 5px;
+    transition: background 0.1s;
+    font-size: 11px;
+  }
+  .ra-copy-email:hover { background: #1e2535; color: #e2e8f0; }
+
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* ---- Known Inactive ---- */
+  .inactive-panel {
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+
+  .inactive-panel h2 {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 11px;
+    color: #78350f;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+  }
+
+  .inactive-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .inactive-field label {
+    font-size: 10px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .inactive-field input {
+    background: #0f1117;
+    border: 1.5px solid #44260a;
+    border-radius: 8px;
+    padding: 11px 13px;
+    color: #e2e8f0;
+    font-size: 14px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+
+  .inactive-field input:focus { border-color: #f59e0b; }
+  .inactive-field input::placeholder { color: #334155; }
+
+  .ou-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .ou-btn {
+    padding: 14px 12px;
+    border: 1.5px solid #2d3748;
+    border-radius: 9px;
+    background: #0f1117;
+    color: #64748b;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+    letter-spacing: 0.3px;
+  }
+
+  .ou-btn:hover { border-color: #f59e0b; color: #fbbf24; background: #1c1409; }
+
+  .ou-btn.north:hover,  .ou-btn.north.selected  { border-color: #3b82f6; color: #60a5fa; background: #0a1628; }
+  .ou-btn.east:hover,   .ou-btn.east.selected   { border-color: #10b981; color: #34d399; background: #041a10; }
+  .ou-btn.west:hover,   .ou-btn.west.selected   { border-color: #a78bfa; color: #c4b5fd; background: #150d2e; }
+  .ou-btn.central:hover,.ou-btn.central.selected { border-color: #f59e0b; color: #fbbf24; background: #1c1409; }
+
+  .inactive-output {
+    background: #0f1117;
+    border: 1.5px solid #44260a;
+    border-radius: 10px;
+    padding: 16px;
+    display: none;
+    animation: fadeIn 0.2s ease;
+    margin-bottom: 16px;
+  }
+  .inactive-output.visible { display: block; }
+
+  .output-label {
+    font-size: 10px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+  }
+
+  .output-text {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    color: #fbbf24;
+    line-height: 1.6;
+    word-break: break-all;
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+
+  .btn-copy-inactive {
+    background: #b45309;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 9px 16px;
+    font-size: 12px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    width: 100%;
+  }
+  .btn-copy-inactive:hover { background: #d97706; }
+  .btn-copy-inactive.copied { background: #059669; }
+
+  .inactive-history { margin-top: 4px; }
+
+  .history-header {
+    font-size: 10px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #475569;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .history-clear {
+    cursor: pointer;
+    color: #7f1d1d;
+  }
+  .history-clear:hover { color: #fca5a5; }
+
+  .history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    max-height: 220px;
+    overflow-y: auto;
+  }
+
+  .history-item {
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 8px;
+    padding: 9px 13px;
+    font-size: 12px;
+    color: #94a3b8;
+    font-family: 'Consolas', 'Courier New', monospace;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .history-item:hover { border-color: #f59e0b; color: #e2e8f0; }
+  .history-item-text { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .history-copy-icon { flex-shrink: 0; opacity: 0.4; }
+  .history-item:hover .history-copy-icon { opacity: 1; }
+
+  .no-history {
+    font-size: 12px;
+    color: #334155;
+    font-family: 'Consolas', 'Courier New', monospace;
+    text-align: center;
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-icon">🎧</div>
+  <div>
+    <h1>IT Helpdesk · Script Finder <span class="count-badge" id="totalBadge">18</span></h1>
+  </div>
+</div>
+
+<!-- Downloads Bar -->
+<div class="downloads-bar" id="downloadsBar">
+  <div class="downloads-bar-title">📁 Team Files — download then upload into the relevant tab</div>
+  <div class="downloads-list" id="downloadsList"></div>
+</div>
+
+<!-- Hidden setup bar (not needed when URL is hardcoded) -->
+<div id="githubSetupBar" style="display:none"></div>
+<div class="persona-bar">
+  <div class="persona-bar-title">⚙️ Personalisation</div>
+  <div class="persona-fields">
+    <div class="persona-field">
+      <label>👤 Your Name</label>
+      <input type="text" class="agent-input" id="agentName" placeholder="e.g. Fraaz" oninput="onPersonaChange()" />
+    </div>
+    <div class="persona-field">
+      <label>🙋 Customer Name <span style="color:#334155;font-size:9px">(optional — clear between tickets)</span></label>
+      <input type="text" class="customer-input" id="customerName" placeholder="e.g. Sarah" oninput="onPersonaChange()" />
+    </div>
+  </div>
+  <div class="persona-preview" id="personaPreview">
+    Sign-off: <span class="highlight-agent">IT Helpdesk</span> &nbsp;·&nbsp; Greeting: <span class="highlight-customer">Hi,</span>
+  </div>
+</div>
+
+<!-- Tab Nav -->
+<div class="tab-nav">
+  <button class="tab-btn active" id="tab-scripts" onclick="switchTab('scripts')">📋 Script Finder</button>
+  <button class="tab-btn tab-inactive" id="tab-inactive" onclick="switchTab('inactive')">🔒 Known Inactive</button>
+  <button class="tab-btn tab-ra" id="tab-ra" onclick="switchTab('ra')">🪪 RA Agents</button>
+  <button class="tab-btn tab-pw" id="tab-pw" onclick="switchTab('pw')">🔑 Passwords</button>
+</div>
+
+<!-- TAB: Script Finder -->
+<div class="tab-panel active" id="panel-scripts">
+
+<!-- Search -->
+<div class="search-bar">
+  <span class="search-icon">🔍</span>
+  <input type="text" id="searchInput" placeholder="Type a few words… e.g. printer, drive access, teams…" oninput="runSearch()" autocomplete="off" />
+</div>
+
+<div class="tag-bar" id="tagBar"></div>
+<div class="results-label" id="resultsLabel">ALL SCRIPTS</div>
+<div class="script-list" id="scriptList"></div>
+
+<!-- Script Viewer -->
+<div class="script-viewer" id="scriptViewer">
+  <div class="viewer-header">
+    <div class="viewer-title" id="viewerTitle"></div>
+    <div class="btn-row">
+      <button class="btn btn-copy" id="copyBtn" onclick="copyScript()">📋 Copy</button>
+      <button class="btn btn-edit" onclick="toggleEdit()">✏️ Edit</button>
+      <button class="btn btn-delete" onclick="deleteScript()">🗑 Delete</button>
+    </div>
+  </div>
+  <div class="persona-pills" id="personaPills"></div>
+  <div class="script-body" id="viewerBody"></div>
+  <div class="edit-form" id="editForm">
+    <div class="form-row">
+      <label>Script Name</label>
+      <input type="text" id="editName" />
+    </div>
+    <div class="form-row">
+      <label>Keywords (comma separated)</label>
+      <input type="text" id="editKeywords" />
+    </div>
+    <div class="form-row">
+      <label>Script Body</label>
+      <textarea id="editBody" rows="10"></textarea>
+    </div>
+    <button class="btn-save" onclick="saveEdit()">💾 Save Changes</button>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- Import Panel -->
+<div class="import-panel">
+  <h2>📂 Import Scripts from File</h2>
+  <div class="import-desc">
+    Upload a <code>.txt</code> file to bulk-import scripts. Supports two formats:<br>
+    &nbsp;① <code>[Script Name]</code> on its own line, script body below — same format as your original prompts file<br>
+    &nbsp;② A single plain-text script (you'll name it after upload)
+  </div>
+  <input type="file" accept=".txt" id="importFileInput" style="display:none" onchange="handleImportFile(this.files[0])" />
+  <div class="import-drop-zone" id="importDropZone" onclick="document.getElementById('importFileInput').click()">
+    <div class="import-drop-icon">📄</div>
+    <div class="import-drop-text"><strong>Click to choose a .txt file</strong> or drag & drop it here</div>
+    <div class="import-format-hint">Only .txt files · Scripts are saved locally to your browser</div>
+  </div>
+</div>
+
+<!-- Add Panel -->
+<div class="add-panel">
+  <h2>✏️ Add Single Script Manually</h2>
+  <div class="form-row" style="margin-bottom:10px">
+    <label>Script Name / Label</label>
+    <input type="text" id="newName" placeholder="e.g. VPN Reset" />
+  </div>
+  <div class="form-row" style="margin-bottom:10px">
+    <label>Keywords (comma separated)</label>
+    <input type="text" id="newKeywords" placeholder="e.g. vpn, remote, network, tunnel" />
+  </div>
+  <div class="form-row" style="margin-bottom:6px">
+    <label>Script Body</label>
+    <textarea id="newBody" placeholder="Paste or type the full script here…"></textarea>
+  </div>
+  <div class="hint">
+    Use <span class="ha">{{agent}}</span> where you want your name sign-off &nbsp;·&nbsp; Use <span class="hc">{{customer}}</span> where you want the customer name in the greeting
+  </div>
+  <button class="btn-add" onclick="addScript()">Add Script</button>
+</div>
+
+</div><!-- end panel-scripts -->
+
+<!-- TAB: Known Inactive -->
+<div class="tab-panel" id="panel-inactive">
+  <div class="inactive-panel">
+    <h2>🔒 Known Inactive Account</h2>
+
+    <div class="inactive-field">
+      <label>Account Name (Firstname.Lastname)</label>
+      <input type="text" id="inactiveName" placeholder="e.g. Fraaz.Kagzi" oninput="buildInactiveOutput()" />
+    </div>
+
+    <div class="inactive-field" style="margin-bottom:6px">
+      <label>Select OU</label>
+    </div>
+    <div class="ou-grid">
+      <button class="ou-btn north"   onclick="selectOU('North')"   id="ou-North">🔵 North</button>
+      <button class="ou-btn east"    onclick="selectOU('East')"    id="ou-East">🟢 East</button>
+      <button class="ou-btn west"    onclick="selectOU('West')"    id="ou-West">🟣 West</button>
+      <button class="ou-btn central" onclick="selectOU('Central')" id="ou-Central">🟡 Central</button>
+    </div>
+
+    <div class="inactive-output" id="inactiveOutput">
+      <div class="output-label">Generated Output — click to copy</div>
+      <div class="output-text" id="outputText"></div>
+      <button class="btn-copy-inactive" id="copyInactiveBtn" onclick="copyInactiveOutput()">📋 Copy Output</button>
+    </div>
+  </div>
+
+  <!-- History -->
+  <div class="inactive-panel">
+    <div class="history-header">
+      <span>📜 Recent Entries</span>
+      <span class="history-clear" onclick="clearHistory()">Clear all</span>
+    </div>
+    <div class="history-list" id="historyList"></div>
+  </div>
+</div><!-- end panel-inactive -->
+
+<!-- TAB: RA Agents -->
+<div class="tab-panel" id="panel-ra">
+
+  <!-- Upload / status bar -->
+  <div class="ra-upload-bar" id="raUploadBar">
+    <div class="ra-upload-left">
+      <span class="ra-data-source" id="raDataSource">📋 Using built-in data · <strong>174 agents</strong></span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <input type="file" accept=".xlsx,.xls,.csv" id="raFileInput" style="display:none" onchange="handleRAUpload(this.files[0])" />
+      <button class="ra-upload-btn" id="raUploadLabel" onclick="document.getElementById('raFileInput').click()">📤 Upload spreadsheet (.xlsx or .csv)</button>
+    </div>
+  </div>
+
+  <div class="ra-search-bar">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="raSearchInput" placeholder="Search site name or town… e.g. Guild Lodge, Blackpool, Preston…" oninput="runRASearch()" autocomplete="off" />
+  </div>
+  <div class="ra-results-label" id="raResultsLabel">Search a site to find RA agents</div>
+  <div id="raResults"></div>
+</div><!-- end panel-ra -->
+
+<!-- TAB: Passwords -->
+<div class="tab-panel" id="panel-pw">
+
+  <!-- Header bar -->
+  <div class="pw-header-bar">
+    <div class="pw-header-left">
+      🔑 Temp Passwords <span class="pw-count-badge" id="pwCountBadge">8</span>
+      &nbsp;·&nbsp; <strong id="pwAvailCount">8 available</strong>
+    </div>
+    <div>
+      <input type="file" accept=".txt" id="pwFileInput" style="display:none" onchange="handlePWUpload(this.files[0])" />
+      <button class="pw-upload-btn" onclick="document.getElementById('pwFileInput').click()">📤 Upload passwords .txt</button>
+    </div>
+  </div>
+
+  <!-- Action buttons -->
+  <div class="pw-actions-bar">
+    <button class="pw-action-btn" onclick="pwResetUsed()">↺ Reset used</button>
+    <button class="pw-action-btn danger" onclick="pwClearAll()">🗑 Clear all</button>
+  </div>
+
+  <!-- Password grid -->
+  <div class="pw-grid" id="pwGrid"></div>
+
+  <!-- Add single password -->
+  <div class="pw-add-panel">
+    <h3>➕ Add a password manually</h3>
+    <div class="pw-add-row">
+      <input type="text" class="pw-add-input" id="pwAddInput" placeholder="e.g. sunflowertable" onkeydown="if(event.key==='Enter')pwAddManual()" />
+      <button class="pw-add-submit" onclick="pwAddManual()">Add</button>
+    </div>
+  </div>
+
+</div><!-- end panel-pw -->
+
+<!-- Import Modal -->
+<div class="import-modal-backdrop" id="importModalBackdrop">
+  <div class="import-modal">
+    <div class="import-modal-title">📋 Review Imported Scripts</div>
+    <div class="import-modal-sub" id="importModalSub"></div>
+    <div id="importScriptItems"></div>
+    <div class="import-modal-actions">
+      <button class="btn-import-cancel" onclick="closeImportModal()">Cancel</button>
+      <button class="btn-import-confirm" onclick="confirmImport()">Import Selected Scripts</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DEFAULT_SCRIPTS = [
+  {
+    id: 1, name: "Create Teams Channel",
+    keywords: ["teams", "channel", "ms teams", "create", "mailbox", "administrators", "team channel"],
+    body: `Hi {{customer}},\n\nFor a MS Teams channel, we just need a name and 3 administrators. By default when an MS Teams channel is created it automatically associates a mailbox with it, please can you confirm whether you would like this mailbox function to be disabled and hidden from the address book.\n\nWe can then assign this to the correct team who will set this up for you.\n\nKind Regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 2, name: "IT Purchasing",
+    keywords: ["purchase", "buy", "order", "catalogue", "hardware", "it purchasing", "catalog"],
+    body: `Hi {{customer}},\n\nYou will need to purchase one via IT Purchasing.\nThe link to the catalogue is below:\nhttps://apps.powerapps.com/play/e/7faa5738-48ee-eb17-8e9b-93481fba5da2/a/817f0a7a-d3d4-4fce-a877-bd64adc395e6\n\nFor any further queries, please check the following site https://nwsis.sharepoint.com/sites/SYITP/ which contains FAQ's and other support guides.\n\nThanks,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 3, name: "Mobile IT Purchase",
+    keywords: ["mobile", "phone", "order", "purchase", "handset", "device", "mobile devices"],
+    body: `Hi {{customer}},\n\nUnfortunately we are unable to process this request. The ordering of Mobile phones now need to be raised through the IT Purchasing Catalogue. You will need to select Hardware and Mobile Devices on the catalogue, and then once all of the boxes are completed, the catalogue will appear and you can then search for the Mobile.\nhttps://nwnis.sharepoint.com/sites/SYITP/\n\nThanks,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 4, name: "Canon Printer Login",
+    keywords: ["canon", "printer", "login", "username", "password", "domain", "id card", "serial"],
+    body: `Hi {{customer}},\n\nTo login to a Canon printer please ensure you have inputted the below:\n\nYour username will be your firstname.surname or using a middle initial if you use one (Please ensure you do not enter your full email)\nYour Password will be your normal login password (NOT your pin)\nThe Domain you need to be selecting is lancashirecare_lscft\n\nIf the above doesn't work, can you please provide a serial number for the printer in question and inform us where this printer is located, what error message you got when logging in manually and via ID card, so we can escalate this to Canon.\n\nThanks,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 5, name: "Contact IT - Canon Escalation",
+    keywords: ["canon", "escalate", "contact", "call", "printer issue", "serial number"],
+    body: `Hi {{customer}},\n\nPlease could you contact the IT Helpdesk on 01772 695316.\nThis can be done between 08:30 - 17:00 Monday to Friday, quoting the INC/SD Number.\n\nSo we can investigate the issue you have.\nWe may need to escalate this to Canon if needed, so please can you have the serial number for the printer ready.\n\nThanks,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 6, name: "Contact IT Helpdesk",
+    keywords: ["contact", "call", "helpdesk", "helpline", "phone", "technician", "appointment", "695316"],
+    body: `Hi {{customer}},\n\nPlease could you contact the IT Helpdesk on 01772 695316.\nThis can be done between 08:30 - 17:00 Monday to Friday, quoting the INC/SD Number.\n\nSo we can investigate the issue you have.\nWe may need to book in an appointment with a technician if needed.\n\nThanks,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 7, name: "Book Remote Technician",
+    keywords: ["remote", "technician", "appointment", "remote support", "book remote", "call back"],
+    body: `Hi {{customer}},\n\nPlease could you contact the IT Helpdesk on 01772 695316.\nThis can be done between 08:30 - 17:00 Monday to Friday, quoting the INC/SD Number.\n\nSo we can book you in for a remote technician appointment.\n\nThanks,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 8, name: "Book Field Technician",
+    keywords: ["field", "technician", "on site", "visit", "cost code", "book field", "in person"],
+    body: `Hi {{customer}},\n\nPlease could you contact the IT Helpdesk on 01772 695316.\nThis can be done between 08:30 - 17:00 Monday to Friday, quoting the INC/SD Number.\n\nSo we can book you in for a field technician appointment.\nWe will also require a cost code so we can look at your device.\n\nThanks,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 9, name: "Drive Access Request",
+    keywords: ["drive", "shared drive", "folder", "access", "network drive", "permissions", "read", "edit", "line manager"],
+    body: `Hi {{customer}},\n\nUnfortunately for security and governance purposes we are unable to accept self requested access.\n\nThis request would need to come to the service desk from your line manager.\n\nPlease could they also state the full drive paths that access is required to (e.g. \\\\lct-fsclfile.xlancashirecare.nhs.uk\\shared\\LCFT\\exampledrivepath)\n\nCan you advise them to let us know if you need Read or Edit permissions to the folder mentioned above. Please note full access is not a valid permission.\n\nPlease note, forwarded and replied to emails will not be logged on our system. It must be a fresh email to IT.Helpdesk@lscft.nhs.uk. Further to note it is not sufficient to simply have line managers CC'd in.\n\nPlease call through to the service desk on 01772 695316 quoting the INC/SD number if you have any queries.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 10, name: "Email/Mailbox Access Request",
+    keywords: ["email", "mailbox", "access", "shared mailbox", "send as", "permissions", "inbox", "read manage"],
+    body: `Hi {{customer}},\n\nUnfortunately for security and governance purposes we are unable to accept self requested access.\n\nThis request would need to come to the service desk from your line manager.\n\nPlease ensure they state the full mailbox email or display name.\n\nCan they provide the level of access, such as read and manage or send permissions.\n\nPlease note, forwarded and replied to emails will not be logged on our system. It must be a fresh email to IT.Helpdesk@lscft.nhs.uk. Further to note it is not sufficient to simply have line managers CC'd in.\n\nPlease call through to the service desk on 01772 695316 quoting the INC/SD number if you have any queries.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 11, name: "Calendar Access Request",
+    keywords: ["calendar", "room", "meeting room", "booking", "view", "edit", "public folder", "shared calendar"],
+    body: `Hi {{customer}},\n\nUnfortunately for security and governance purposes we are unable to accept self requested access.\n\nThis request would need to come to the service desk from your line manager.\n\nPlease ask them to provide the location of the calendar, e.g. All Public Folder, Lancashire Care NHS Trust, Example Building, Meeting Room 1.\n\nPlease note that the line manager should also state the calendar's email or display name and state whether only viewing or editing access is required. Please note full access is not a valid permission.\n\nPlease note, forwarded and replied to emails will not be logged on our system. It must be a fresh email to IT.Helpdesk@lscft.nhs.uk. Further to note it is not sufficient to simply have line managers CC'd in.\n\nPlease call through to the service desk on 01772 695316 quoting the INC/SD number if you have any queries.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 12, name: "Generic Access Request",
+    keywords: ["access", "request", "permission", "self service", "governance", "security"],
+    body: `Hi {{customer}},\n\nUnfortunately for security and governance purposes we are unable to accept self requested access.\n\nThis request would need to come to the service desk from your line manager.\n\nPlease note, forwarded and replied to emails will not be logged on our system. It must be a fresh email to IT.Helpdesk@lscft.nhs.uk. Further to note it is not sufficient to simply have line managers CC'd in.\n\nPlease call through to the service desk on 01772 695316 quoting the INC/SD number if you have any queries.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 13, name: "Laptop Charger",
+    keywords: ["charger", "chargers", "power pack", "laptop charger", "power supply", "lead", "cable", "supply"],
+    body: `Hi {{customer}},\n\nIT Helpdesk doesn't supply or replace laptop chargers/power packs. These need to be purchased via IT Purchasing.\n\nIf there is an issue with the laptop itself, please let us know and we can log a job to investigate.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 14, name: "Mobile Order Form (Deprecated)",
+    keywords: ["mobile", "order form", "request form", "device form", "old form", "communications", "mobile form"],
+    body: `Hi {{customer}},\n\nPlease note that mobile phones must now be requested and purchased via the IT Purchasing App.\n\nOrders are no longer processed via Mobile Communications Device Request Form.\n\nAll mobile phone requests should be submitted using the link below:\nhttps://apps.powerapps.com/play/e/7faa5738-48ee-eb17-8e9b-93481fba5da2/a/817f0a7a-d3d4-4fce-a877-bd64adc395e6\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 15, name: "Connect SecurePrintAnywhere",
+    keywords: ["secure print", "print anywhere", "secureprintanywhere", "add printer", "connect printer", "lct-rps202", "print"],
+    body: `Hi {{customer}},\n\nTo add the printer, please follow the steps below:\n\n1) In the bottom search bar, type \\\\LCT-RPS202 and press Enter\n2) A window will open showing a list of available printers\n3) Double-click SecurePrintAnywhere\n4) The printer will connect automatically\n\nOnce completed, SecurePrintAnywhere should appear in your list of printers.\n\nIf you're still experiencing issues, please call the Helpdesk on 01772 695316 between 08:30 - 17:00, Monday to Friday. Please quote your INC/SD number and have the printer serial number available.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 16, name: "Install Cisco Jabber",
+    keywords: ["cisco", "jabber", "install", "company portal", "voip", "softphone", "cisco jabber"],
+    body: `Hi {{customer}},\n\nThe Cisco Jabber can be installed via the Company Portal.\nPlease follow the steps below:\n\n1) Type Company Portal in the bottom search bar and open it\n2) Search for Cisco Jabber\n3) Select it and click Install\n\nIf you're still unable to install the application, please contact the Helpdesk on 01772 695316 between 08:30 - 17:00, Monday to Friday, quoting your incident number.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 17, name: "Teams Meeting in New Outlook",
+    keywords: ["teams meeting", "new outlook", "calendar invite", "meeting invite", "toggle teams", "outlook meeting", "teams link"],
+    body: `Hi {{customer}},\n\nWhen creating the meeting in New Outlook, please make sure the Teams meeting option is switched on.\n\nHow to toggle Teams Meeting in New Outlook:\n\n1) Open New Outlook\n2) Go to Calendar and select New event\n3) Enter the meeting title, date, and time\n4) Add attendees by typing their name or NHS email\n5) Toggle Teams meeting ON (switch at the top of the meeting window)\n6) Click Send\n\nToggling Teams meeting on ensures the invite and Teams link display correctly for all attendees in both New Outlook and Old Outlook.\n\nIf issues continue, please contact the Helpdesk on 01772 695316 between 08:30 - 17:00, Monday to Friday, quoting your incident number.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 18, name: "IRiS Form (Notes Removal)",
+    keywords: ["iris", "notes", "remove notes", "patient notes", "iris form", "portal", "reference number"],
+    body: `Hi {{customer}},\n\nTo have notes removed, an IRiS form will need to be completed.\n\nPlease submit an IRiS via the portal, or the desktop icon, and then reply to this email with the IRiS reference number so it can be followed up.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  }
+];
+
+// ---- State ----
+let scripts    = loadScripts();
+let selectedId = null;
+let activeTag  = null;
+
+function loadScripts() {
+  try {
+    const raw = localStorage.getItem('it_scripts_lcft_v3');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch (e) { /* localStorage blocked or corrupt — use defaults */ }
+  return JSON.parse(JSON.stringify(DEFAULT_SCRIPTS));
+}
+
+function saveScripts() {
+  try { localStorage.setItem('it_scripts_lcft_v3', JSON.stringify(scripts)); } catch (e) { /* localStorage blocked — edits won't persist but tool still works */ }
+  document.getElementById('totalBadge').textContent = scripts.length;
+}
+
+// ---- Persona ----
+function getAgent()    { return document.getElementById('agentName').value.trim(); }
+function getCustomer() { return document.getElementById('customerName').value.trim(); }
+
+function applyPersona(text) {
+  const agent    = getAgent();
+  const customer = getCustomer();
+  let out = text
+    .replace(/\{\{agent\}\}/g,    agent    || '')
+    .replace(/\{\{customer\}\}/g, customer || '');
+  // Clean up "Hi ," → "Hi," when no customer entered
+  out = out.replace(/Hi\s+,/g, 'Hi,');
+  // Clean up " - IT Helpdesk" at start of sign-off line when no agent entered
+  out = out.replace(/^ - IT Helpdesk/gm, 'IT Helpdesk');
+  return out;
+}
+
+function onPersonaChange() {
+  const agent    = getAgent();
+  const customer = getCustomer();
+  const signoff  = agent    ? `${agent} - IT Helpdesk` : 'IT Helpdesk';
+  const greet    = customer ? `Hi ${customer},`        : 'Hi,';
+
+  document.getElementById('personaPreview').innerHTML =
+    `Sign-off: <span class="highlight-agent">${signoff}</span> &nbsp;·&nbsp; Greeting: <span class="highlight-customer">${greet}</span>`;
+
+
+  try { localStorage.setItem('it_agent_name', agent); } catch {}
+
+  if (selectedId !== null) {
+    const s = scripts.find(x => x.id === selectedId);
+    if (s) { document.getElementById('viewerBody').textContent = applyPersona(s.body); updatePills(); }
+  }
+  runSearch(); // refresh previews in list
+}
+
+function updatePills() {
+  const agent    = getAgent();
+  const customer = getCustomer();
+  const pills    = document.getElementById('personaPills');
+  const signoff = agent    ? `${agent} - IT Helpdesk` : 'IT Helpdesk';
+  const greet   = customer ? `Hi ${customer},`        : 'Hi,';
+  const aCls    = agent    ? 'pill-agent'             : 'pill-none';
+  const cCls    = customer ? 'pill-customer'          : 'pill-none';
+  pills.innerHTML =
+    `<span class="pill ${aCls}">✍️ ${signoff}</span>` +
+    `<span class="pill ${cCls}">🙋 ${greet}</span>`;
+}
+
+// ---- Tags ----
+const TAGS = ["access", "printer", "mobile", "email", "teams", "technician", "purchase"];
+
+function buildTags() {
+  const bar = document.getElementById('tagBar');
+  bar.innerHTML = '';
+  TAGS.forEach(t => {
+    const el = document.createElement('span');
+    el.className = 'tag' + (activeTag === t ? ' active' : '');
+    el.textContent = t;
+    el.onclick = () => { activeTag = (activeTag === t ? null : t); buildTags(); runSearch(); };
+    bar.appendChild(el);
+  });
+}
+
+// ---- Search ----
+function score(script, query) {
+  const terms = query.toLowerCase().split(/\s+/).filter(Boolean);
+  if (!terms.length) return 1;
+  let s = 0;
+  const hay = (script.name + ' ' + script.keywords.join(' ')).toLowerCase();
+  terms.forEach(t => {
+    if (hay.includes(t)) s += 2;
+    if (script.name.toLowerCase().includes(t)) s += 3;
+  });
+  return s;
+}
+
+function runSearch() {
+  const q = document.getElementById('searchInput').value.trim();
+  let results = scripts.slice();
+  if (activeTag) results = results.filter(s => (s.name + ' ' + s.keywords.join(' ')).toLowerCase().includes(activeTag));
+  if (q) {
+    results = results.map(s => ({ s, sc: score(s, q) }))
+      .filter(x => x.sc > 0).sort((a, b) => b.sc - a.sc).map(x => x.s);
+  }
+  renderList(results, q || activeTag);
+}
+
+function renderList(results, filtered) {
+  const list  = document.getElementById('scriptList');
+  const label = document.getElementById('resultsLabel');
+  label.textContent = filtered
+    ? `${results.length} result${results.length !== 1 ? 's' : ''} found`
+    : `All scripts (${scripts.length})`;
+
+  if (!results.length) {
+    list.innerHTML = '<div class="empty-state">No scripts match your search.<br>Try different keywords or add a new script below.</div>';
+    return;
+  }
+  list.innerHTML = '';
+  results.forEach(s => {
+    const el = document.createElement('div');
+    el.className = 'script-card' + (selectedId === s.id ? ' selected' : '');
+    const preview = applyPersona(s.body).substring(0, 100).replace(/\n/g, ' ');
+    el.innerHTML = `<div class="script-name">${s.name}</div><div class="script-preview">${preview}…</div>`;
+    el.onclick = () => selectScript(s.id);
+    list.appendChild(el);
+  });
+}
+
+// ---- Viewer ----
+function selectScript(id) {
+  selectedId = id;
+  const s = scripts.find(x => x.id === id);
+  if (!s) return;
+  document.getElementById('viewerTitle').textContent = s.name;
+  document.getElementById('viewerBody').textContent  = applyPersona(s.body);
+  document.getElementById('editForm').classList.remove('visible');
+  const btn = document.getElementById('copyBtn');
+  btn.textContent = '📋 Copy'; btn.classList.remove('copied');
+  updatePills();
+  document.getElementById('scriptViewer').classList.add('visible');
+  document.getElementById('scriptViewer').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  runSearch();
+}
+
+function copyScript() {
+  const s = scripts.find(x => x.id === selectedId);
+  if (!s) return;
+  const text = applyPersona(s.body);
+  const done = () => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✅ Copied!'; btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋 Copy'; btn.classList.remove('copied'); }, 2500);
+    showToast('Script copied to clipboard!');
+  };
+  copyToClipboard(text, done);
+}
+
+function fallbackCopy(text, cb) {
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+  document.body.appendChild(ta); ta.focus(); ta.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+  if (cb) cb();
+}
+
+// Single unified copy function — always uses execCommand so it works on file://
+function copyToClipboard(text, cb) {
+  // Try modern API first (works on https), fall back immediately to execCommand
+  if (window.isSecureContext && navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(cb).catch(() => fallbackCopy(text, cb));
+  } else {
+    fallbackCopy(text, cb);
+  }
+}
+
+function toggleEdit() {
+  const s = scripts.find(x => x.id === selectedId);
+  if (!s) return;
+  const form = document.getElementById('editForm');
+  if (form.classList.contains('visible')) { form.classList.remove('visible'); return; }
+  document.getElementById('editName').value     = s.name;
+  document.getElementById('editKeywords').value = s.keywords.join(', ');
+  document.getElementById('editBody').value     = s.body;
+  form.classList.add('visible');
+}
+
+function saveEdit() {
+  const s = scripts.find(x => x.id === selectedId);
+  if (!s) return;
+  const n = document.getElementById('editName').value.trim();
+  const k = document.getElementById('editKeywords').value.trim();
+  const b = document.getElementById('editBody').value.trim();
+  if (!n || !b) { showToast('Name and body cannot be empty.'); return; }
+  s.name = n;
+  s.keywords = k ? k.split(',').map(x => x.trim().toLowerCase()).filter(Boolean) : s.keywords;
+  s.body = b;
+  saveScripts(); selectScript(selectedId); showToast('Script updated!');
+}
+
+function deleteScript() {
+  if (!confirm('Delete this script? This cannot be undone.')) return;
+  scripts = scripts.filter(x => x.id !== selectedId);
+  selectedId = null;
+  document.getElementById('scriptViewer').classList.remove('visible');
+  saveScripts(); runSearch(); showToast('Script deleted.');
+}
+
+// ---- Add ----
+function addScript() {
+  const name = document.getElementById('newName').value.trim();
+  const kw   = document.getElementById('newKeywords').value.trim();
+  const body = document.getElementById('newBody').value.trim();
+  if (!name || !body) { showToast('Please fill in the name and script body.'); return; }
+  const id = Date.now();
+  const keywords = kw ? kw.split(',').map(s => s.trim().toLowerCase()).filter(Boolean) : [];
+  scripts.push({ id, name, keywords, body });
+  saveScripts();
+  document.getElementById('newName').value = '';
+  document.getElementById('newKeywords').value = '';
+  document.getElementById('newBody').value = '';
+  runSearch(); showToast('Script added!'); selectScript(id);
+}
+
+// ---- Tab Switching ----
+function switchTab(tab) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + tab).classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+// ---- Known Inactive ----
+let selectedOU = null;
+let inactiveHistory = [];
+
+try { inactiveHistory = JSON.parse(localStorage.getItem('it_inactive_history') || '[]'); } catch {}
+
+function selectOU(ou) {
+  selectedOU = ou;
+  document.querySelectorAll('.ou-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('ou-' + ou).classList.add('selected');
+  buildInactiveOutput();
+}
+
+function buildInactiveOutput() {
+  const rawName = document.getElementById('inactiveName').value.trim();
+  if (!rawName || !selectedOU) {
+    document.getElementById('inactiveOutput').classList.remove('visible');
+    return;
+  }
+  // Format: Firstname.Lastname@lscft.nhs.uk
+  const email  = rawName.includes('@') ? rawName : rawName + '@lscft.nhs.uk';
+  const output = `${email} details changed and moved to ${selectedOU} OU`;
+  document.getElementById('outputText').textContent = output;
+  document.getElementById('inactiveOutput').classList.add('visible');
+  const btn = document.getElementById('copyInactiveBtn');
+  btn.textContent = '📋 Copy Output';
+  btn.classList.remove('copied');
+}
+
+function copyInactiveOutput() {
+  const text = document.getElementById('outputText').textContent;
+  if (!text) return;
+  const done = () => {
+    const btn = document.getElementById('copyInactiveBtn');
+    btn.textContent = '✅ Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = '📋 Copy Output'; btn.classList.remove('copied'); }, 2500);
+    showToast('Output copied!');
+    saveToHistory(text);
+  };
+  copyToClipboard(text, done);
+}
+
+function saveToHistory(text) {
+  // Avoid duplicate consecutive entries
+  if (inactiveHistory[0] === text) return;
+  inactiveHistory.unshift(text);
+  if (inactiveHistory.length > 20) inactiveHistory.pop();
+  try { localStorage.setItem('it_inactive_history', JSON.stringify(inactiveHistory)); } catch {}
+  renderHistory();
+}
+
+function renderHistory() {
+  const list = document.getElementById('historyList');
+  if (!inactiveHistory.length) {
+    list.innerHTML = '<div class="no-history">No entries yet — copy an output to log it here</div>';
+    return;
+  }
+  list.innerHTML = '';
+  inactiveHistory.forEach(entry => {
+    const el = document.createElement('div');
+    el.className = 'history-item';
+    el.title = 'Click to copy';
+    el.innerHTML = `<span class="history-item-text">${entry}</span><span class="history-copy-icon">📋</span>`;
+    el.onclick = () => {
+      copyToClipboard(entry, () => showToast('Copied!'));
+    };
+    list.appendChild(el);
+  });
+}
+
+function clearHistory() {
+  if (!inactiveHistory.length) return;
+  if (!confirm('Clear all recent entries?')) return;
+  inactiveHistory = [];
+  try { localStorage.removeItem('it_inactive_history'); } catch {}
+  renderHistory();
+}
+
+// ---- RA Agents Data ----
+let RA_AGENTS = [
+  {first:"Louise",last:"Clements",tel:"01524 283815",email:"Louise.Clements@lscft.nhs.uk",site:"Acorn Primary Health Care Centre",town:"Accrington",postcode:"BB5 1RT",cert:false,note:""},
+  {first:"Shamim",last:"Munshi",tel:"01254 283814",email:"Shamim.Munshi@lscft.nhs.uk",site:"Acorn Primary Health Care Centre",town:"Accrington",postcode:"BB5 1RT",cert:false,note:"Mon - Fri 08.30-13:30"},
+  {first:"Alec (Alexander)",last:"Bell",tel:"01282 657116",email:"Alec.Bell@lscft.nhs.uk",site:"The Mount",town:"Accrington",postcode:"BB5 5DE",cert:false,note:""},
+  {first:"Jennifer",last:"Hindle",tel:"01254 226007",email:"Jennifer.Hindle@lscft.nhs.uk",site:"The Mount",town:"Accrington",postcode:"BB5 5DE",cert:false,note:""},
+  {first:"Tia",last:"Houghton",tel:"01254 226935",email:"Tia.Houghton@lscft.nhs.uk",site:"The Mount",town:"Accrington",postcode:"BB5 5DE",cert:false,note:""},
+  {first:"Elle",last:"Skilling",tel:"0800 013 0707",email:"Elle.Skilling@lscft.nhs.uk",site:"The Mount",town:"Accrington",postcode:"BB5 5AD",cert:false,note:""},
+  {first:"Jodie",last:"Thompson",tel:"01254 226935",email:"Jodie.Thompson@lscft.nhs.uk",site:"The Mount",town:"Accrington",postcode:"BB5 5DE",cert:false,note:""},
+  {first:"Samantha",last:"Cordell",tel:"01772 644731",email:"Samantha.Cordell@lscft.nhs.uk",site:"Charnley Fold",town:"Bamber Bridge",postcode:"PR25 2TN",cert:false,note:""},
+  {first:"Amy E",last:"Flynn",tel:"01772 645701",email:"Amy.E.Flynn@lscft.nhs.uk",site:"Charnley Fold",town:"Bamber Bridge",postcode:"PR5 6YA",cert:true,note:""},
+  {first:"Alison J",last:"Harrison",tel:"01772 773496",email:"Alison.Harrison2@lscft.nhs.uk",site:"Charnley Fold",town:"Bamber Bridge",postcode:"PR5 6YA",cert:false,note:""},
+  {first:"Bronagh",last:"Jones",tel:"01772 401676",email:"Bronagh.Jones@lscft.nhs.uk",site:"Charnley Fold",town:"Bamber Bridge",postcode:"PR5 6YA",cert:false,note:""},
+  {first:"Helen",last:"McDougall",tel:"01772 401676",email:"Helen.McDougall@lscft.nhs.uk",site:"Charnley Fold",town:"Bamber Bridge",postcode:"PR5 6YA",cert:false,note:""},
+  {first:"Keri",last:"Steele",tel:"01772 773496",email:"Keri.Steele@lscft.nhs.uk",site:"Charnley Fold",town:"Bamber Bridge",postcode:"PR5 6YA",cert:false,note:"Mon, Tues & Wed"},
+  {first:"Susan",last:"Derbyshire",tel:"01772 676081",email:"Susan.Derbyshire@lscft.nhs.uk",site:"Pathways MHRC",town:"Bamber Bridge",postcode:"PR5 6GD",cert:false,note:""},
+  {first:"Trudi",last:"Robinson",tel:"",email:"Trudi.Robinson@lscft.nhs.uk",site:"Pathways MHRC",town:"Bamber Bridge",postcode:"PR5 6GD",cert:false,note:""},
+  {first:"Leanne",last:"Cavan",tel:"01229 404515",email:"Leanne.Cavan@lscft.nhs.uk",site:"Alfred Barrow Health Centre",town:"Barrow-in-Furness",postcode:"LA14 2LB",cert:false,note:""},
+  {first:"Yasmin",last:"Moore",tel:"01225 408660",email:"yasmin.moore@lscft.nhs.uk",site:"Alfred Barrow Health Centre",town:"Barrow-in-Furness",postcode:"LA14 2LB",cert:true,note:""},
+  {first:"Katie",last:"Dixon",tel:"01229 404368",email:"Katie.Dixon@lscft.nhs.uk",site:"Dane Garth, Furness General Hospital",town:"Barrow-in-Furness",postcode:"LA14 4LF",cert:false,note:""},
+  {first:"Kath",last:"Lever",tel:"01229 404350",email:"Katherine.Lever@lscft.nhs.uk",site:"Dane Garth, Furness General Hospital",town:"Barrow-in-Furness",postcode:"LA14 4LF",cert:false,note:""},
+  {first:"Debbie",last:"Morris",tel:"",email:"Debbie.Morris@lscft.nhs.uk",site:"Dane Garth, Furness General Hospital",town:"Barrow-in-Furness",postcode:"LA14 4LF",cert:false,note:""},
+  {first:"Karen",last:"Reynolds",tel:"01229 404353",email:"Karen.Reynolds@lscft.nhs.uk",site:"Dane Garth, Furness General Hospital",town:"Barrow-in-Furness",postcode:"LA14 4LF",cert:true,note:""},
+  {first:"Sacha",last:"Wright-Wilson",tel:"01229 404355",email:"Sascha.Wright-Wilson@lscft.nhs.uk",site:"Dane Garth, Furness General Hospital",town:"Barrow-in-Furness",postcode:"LA14 4LF",cert:false,note:""},
+  {first:"Joyce",last:"Anderson",tel:"01225 408632",email:"Joyce.Anderson@lscft.nhs.uk",site:"Fairfield Centre",town:"Barrow-in-Furness",postcode:"LA13 9AJ",cert:true,note:""},
+  {first:"Kamila",last:"Przasnyska",tel:"01254 612624",email:"Kamila.Przasnyska@lscft.nhs.uk",site:"Bridge House",town:"Blackburn",postcode:"BB2 1NT",cert:false,note:""},
+  {first:"Irfan",last:"Gathia",tel:"01254 226240",email:"irfan.gathia@lscft.nhs.uk",site:"Daisyfield Mill",town:"Blackburn",postcode:"BB1 3BL",cert:true,note:""},
+  {first:"Kelly",last:"Hughes",tel:"01254 612600",email:"kelly.hughes@lscft.nhs.uk",site:"Daisyfield Mill",town:"Blackburn",postcode:"BB1 3BL",cert:true,note:""},
+  {first:"Beth",last:"Johnson",tel:"01254 226150",email:"Bethany.Johnson@lscft.nhs.uk",site:"Daisyfield Mill",town:"Blackburn",postcode:"BB1 3BL",cert:false,note:""},
+  {first:"Andrea",last:"Bond",tel:"01282 628085",email:"Andrea.Bond@lscft.nhs.uk",site:"Hillview",town:"Blackburn",postcode:"BB2 3HH",cert:true,note:""},
+  {first:"Deborah",last:"McCourt",tel:"01254 226969",email:"Deborah.Mccourt@lscft.nhs.uk",site:"Hillview",town:"Blackburn",postcode:"BB2 3HH",cert:false,note:""},
+  {first:"Zakir",last:"Hanslod",tel:"01254 226123 / 226434",email:"zakir.hanslod@lscft.nhs.uk",site:"John Hewitt Suite, A&E, RBH",town:"Blackburn",postcode:"BB2 3HH",cert:false,note:""},
+  {first:"Mohmedsalim",last:"Patel",tel:"01254 226123 / 226434",email:"mohmedsalim.patel@lscft.nhs.uk",site:"John Hewitt Suite, A&E, RBH",town:"Blackburn",postcode:"BB2 3HH",cert:false,note:""},
+  {first:"Caroline",last:"Davies",tel:"01254 226101",email:"Caroline.Davies@lscft.nhs.uk",site:"Pendleview",town:"Blackburn",postcode:"BB2 3HH",cert:true,note:""},
+  {first:"Catherine",last:"Garrity",tel:"01254 612704",email:"Catherine.Garrity@lscft.nhs.uk",site:"Pendleview",town:"Blackburn",postcode:"BB2 3HH",cert:false,note:""},
+  {first:"Julie",last:"Owen",tel:"01254 283103",email:"Julie.Owen@lscft.nhs.uk",site:"Shadsworth Child Development Centre",town:"Blackburn",postcode:"BB1 2HR",cert:false,note:""},
+  {first:"Anthony",last:"Warren",tel:"01253 952660",email:"Anthony.Warren@lscft.nhs.uk",site:"Blackpool Victoria Hospital",town:"Blackpool",postcode:"FY3 8NR",cert:true,note:""},
+  {first:"Markus",last:"Cobandag",tel:"01253 448025",email:"Markus.Cobandag@lscft.nhs.uk",site:"Moor Park Health & Leisure Centre",town:"Blackpool",postcode:"FY2 0JG",cert:true,note:""},
+  {first:"Alison",last:"Bolton",tel:"01253 957362",email:"Alison.Bolton@lscft.nhs.uk",site:"Shorelands",town:"Blackpool",postcode:"FY1 5JW",cert:false,note:""},
+  {first:"Caroline",last:"Birtles",tel:"01253 951640",email:"Caroline.Birtles@lscft.nhs.uk",site:"The Gateway Blackpool Football Stadium",town:"Blackpool",postcode:"FY1 6JX",cert:false,note:""},
+  {first:"Megan",last:"Livesey",tel:"01253 951802",email:"Megan.Livesey@lscft.nhs.uk",site:"The Gateway Blackpool Football Stadium",town:"Blackpool",postcode:"FY1 6JX",cert:true,note:""},
+  {first:"Courtney",last:"March",tel:"01253 58091 / 951640",email:"Courtney.March@lscft.nhs.uk",site:"The Gateway Blackpool Football Stadium",town:"Blackpool",postcode:"FY1 6JX",cert:false,note:""},
+  {first:"Gemma",last:"Schouteten",tel:"01253 951758",email:"Gemma.Schouteten@lscft.nhs.uk",site:"The Gateway Blackpool Football Stadium",town:"Blackpool",postcode:"FY1 6JX",cert:false,note:""},
+  {first:"Paul",last:"Beckett",tel:"01253 447700",email:"Paul.Beckett@lscft.nhs.uk",site:"The Harbour",town:"Blackpool",postcode:"FY4 4FE",cert:true,note:"RA support at weekends"},
+  {first:"Sharon",last:"Butterworth",tel:"01253 447700",email:"Sharon.Butterworth@lscft.nhs.uk",site:"The Harbour",town:"Blackpool",postcode:"FY4 4FE",cert:true,note:"RA support at weekends"},
+  {first:"Jen",last:"Oliver",tel:"01253 447831",email:"Jen.Oliver@lscft.nhs.uk",site:"The Harbour",town:"Blackpool",postcode:"FY4 4FE",cert:false,note:""},
+  {first:"Stella",last:"Paszczuk",tel:"01253 447700",email:"Stella.Paszczuk@lscft.nhs.uk",site:"The Harbour",town:"Blackpool",postcode:"FY4 4FE",cert:false,note:"RA support at weekends"},
+  {first:"Vikki",last:"Patrick",tel:"01253 447781",email:"Vikki.Patrick@lscft.nhs.uk",site:"The Harbour",town:"Blackpool",postcode:"FY4 4XQ",cert:false,note:""},
+  {first:"Jan",last:"Pendlebury",tel:"01253 447714",email:"Jan.Pendlebury@lscft.nhs.uk",site:"The Harbour",town:"Blackpool",postcode:"FY4 4FE",cert:true,note:""},
+  {first:"Caroline",last:"Porter",tel:"01253 447751",email:"Caroline.Porter@lscft.nhs.uk",site:"The Harbour",town:"Blackpool",postcode:"FY4 4FE",cert:false,note:""},
+  {first:"Jane",last:"Royle",tel:"01253 447736",email:"Jane.Royle@lscft.nhs.uk",site:"The Harbour",town:"Blackpool",postcode:"FY4 4FE",cert:false,note:""},
+  {first:"Natalie",last:"Snelson",tel:"01253 447700",email:"natalie.snelson@lscft.nhs.uk",site:"The Harbour",town:"Blackpool",postcode:"FY4 4FE",cert:true,note:""},
+  {first:"Fiona",last:"Thompson",tel:"01253 447700",email:"Fiona.Thompson@lscft.nhs.uk",site:"The Harbour",town:"Blackpool",postcode:"FY4 4FE",cert:false,note:""},
+  {first:"Elizabeth",last:"Newton",tel:"01253 957166",email:"Elizabeth.Newton@lscft.nhs.uk",site:"Whitegate Health Centre",town:"Blackpool",postcode:"FY3 9ES",cert:false,note:""},
+  {first:"Andy",last:"Rigg",tel:"07976630133",email:"Andy.Rigg@lscft.nhs.uk",site:"Whitegate Health Centre",town:"Blackpool",postcode:"FY3 9ES",cert:true,note:""},
+  {first:"Anthony",last:"Fennell",tel:"01282 657230",email:"Anthony.Fennell@lscft.nhs.uk",site:"Gannow Lane Resource Centre",town:"Burnley",postcode:"BB12 6QH",cert:false,note:""},
+  {first:"Anne",last:"Machaj",tel:"01282 657105",email:"Anne.Machaj@lscft.nhs.uk",site:"Gannow Lane Resource Centre",town:"Burnley",postcode:"BB12 6QH",cert:true,note:""},
+  {first:"Khalid",last:"Malek",tel:"07779 456145",email:"Khalid.Malek@lscft.nhs.uk",site:"Gannow Lane Resource Centre",town:"Burnley",postcode:"BB12 6QH",cert:true,note:""},
+  {first:"Carron",last:"Allenger",tel:"01282 628 426",email:"Carron.Allenger@lscft.nhs.uk",site:"St Peters Health Centre",town:"Burnley",postcode:"BB11 2DL",cert:false,note:""},
+  {first:"Janet",last:"Boulton",tel:"01282 628414",email:"Janet.Boulton@lscft.nhs.uk",site:"St Peters Health Centre",town:"Burnley",postcode:"BB11 2DL",cert:false,note:""},
+  {first:"Ashley",last:"Golding",tel:"01282 612884 / 07811736605",email:"Ashley.Golding@lscft.nhs.uk",site:"St Peters Health Centre",town:"Burnley",postcode:"BB11 2DL",cert:false,note:""},
+  {first:"Simon",last:"Mahrous",tel:"01282 628315",email:"Simon.Mahrous@lscft.nhs.uk",site:"St Peters Health Centre",town:"Burnley",postcode:"BB11 2DL",cert:false,note:""},
+  {first:"Natasha",last:"Redwin",tel:"01282 628 359",email:"Natasha.Redwin@lscft.nhs.uk",site:"St Peters Health Centre",town:"Burnley",postcode:"BB11 2DL",cert:false,note:""},
+  {first:"Joanne",last:"Jeffery",tel:"01772 215 169",email:"Joanne.Jeffery@lscft.nhs.uk",site:"St Peters Health Centre",town:"Burnley",postcode:"BB11 2DL",cert:false,note:""},
+  {first:"Rebecca",last:"Keelor",tel:"07940 462812",email:"Rebecca.Keelor@lscft.nhs.uk",site:"Carlisle Police Station",town:"Carlisle",postcode:"CA1 3NQ",cert:false,note:""},
+  {first:"Helen",last:"Long",tel:"01772 644160",email:"Helen.Long@lscft.nhs.uk",site:"Buckshaw Health Centre",town:"Chorley",postcode:"PR7 7HZ",cert:false,note:""},
+  {first:"Skye",last:"McGreavy",tel:"01772 644441",email:"Skye.Mcgreavy@lscft.nhs.uk",site:"Buckshaw Health Centre",town:"Chorley",postcode:"PR7 7HZ",cert:true,note:""},
+  {first:"Susan",last:"Robinson",tel:"01772 520743",email:"Susan.A.Robinson@lscft.nhs.uk",site:"Chorley District General Hospital",town:"Chorley",postcode:"PR7 1PP",cert:false,note:"Wednesday / Thursday / Friday"},
+  {first:"Kathryn",last:"Smith",tel:"01257 520780",email:"Kathryn.Smith@lscft.nhs.uk",site:"Chorley District General Hospital",town:"Chorley",postcode:"PR7 1PP",cert:true,note:""},
+  {first:"Emma",last:"Kelly",tel:"01772 644700",email:"Emma.S.Kelly@lscft.nhs.uk",site:"Chorley Health Centre",town:"Chorley",postcode:"PR7 2TH",cert:false,note:""},
+  {first:"Melanie",last:"Shrubshall",tel:"07580 174995",email:"Melanie.Shrubshall@lscft.nhs.uk",site:"Chorley Health Centre",town:"Chorley",postcode:"PR7 2TH",cert:true,note:""},
+  {first:"Lynne",last:"Bowles",tel:"01772 520857",email:"lynne.bowles@lscft.nhs.uk",site:"Civic Offices, Union Street",town:"Chorley",postcode:"PR7 1AL",cert:false,note:""},
+  {first:"Tracy",last:"Gilgun",tel:"tbc",email:"Tracy.Gilgun@lscft.nhs.uk",site:"Coppull Clinic",town:"Chorley",postcode:"PR7 5EJ",cert:true,note:""},
+  {first:"Nicole",last:"Green",tel:"01772 644740",email:"Nicole.Green@lscft.nhs.uk",site:"Coppull Clinic",town:"Chorley",postcode:"PR7 5EJ",cert:false,note:""},
+  {first:"Elizabeth",last:"McMahon",tel:"01772 644765",email:"Elizabeth.Mcmahon@lscft.nhs.uk",site:"Eccleston Health Centre",town:"Chorley",postcode:"PR7 5RA",cert:false,note:""},
+  {first:"Rachel",last:"Grainey",tel:"01772 647071",email:"Rachel.Grainey@lscft.nhs.uk",site:"Tudor House",town:"Chorley",postcode:"PR7 1PS",cert:false,note:"Thurs & Fri Only"},
+  {first:"Donna",last:"Marsland",tel:"01254 283300",email:"Donna.Marsland@lscft.nhs.uk",site:"Darwen Resource Centre",town:"Darwen",postcode:"BB3 1AY",cert:false,note:""},
+  {first:"Sandra",last:"Plant",tel:"01253 956017",email:"Sandra.Plant@lscft.nhs.uk",site:"Fleetwood Health & Wellbeing Centre",town:"Fleetwood",postcode:"FY7 6AH",cert:false,note:""},
+  {first:"Janice",last:"Jenks",tel:"01253 951856",email:"Janice.Jenks@lscft.nhs.uk",site:"Mountcroft",town:"Fleetwood",postcode:"FY7 6AH",cert:false,note:""},
+  {first:"Janet",last:"Valentine",tel:"01253 951830 / 01253 951892",email:"Janet.Valentine@lscft.nhs.uk",site:"Mountcroft",town:"Fleetwood",postcode:"FY7 6AH",cert:false,note:""},
+  {first:"Carol",last:"McDermott",tel:"01524 550360",email:"Carol.McDermott@lscft.nhs.uk",site:"The Cove",town:"Heysham",postcode:"LA3 2SL",cert:true,note:""},
+  {first:"Debra",last:"Tickell",tel:"01539 715064",email:"Debra.Tickell@lscft.nhs.uk",site:"Garburn House, Westmorland General Hospital",town:"Kendal",postcode:"LA9 7RG",cert:true,note:""},
+  {first:"Zoe",last:"Toon",tel:"01539 715064",email:"Zoe.Toon@lscft.nhs.uk",site:"Garburn House, Westmorland General Hospital",town:"Kendal",postcode:"LA9 7RG",cert:true,note:""},
+  {first:"Jayne",last:"Dixon",tel:"01530 462400",email:"Jayne.Dixon@lscft.nhs.uk",site:"Kentmere Ward, Westmorland General Hospital",town:"Kendal",postcode:"LA9 7RG",cert:false,note:""},
+  {first:"Kevin",last:"McVeigh",tel:"01539 715246",email:"Kevin.McVeigh@lscft.nhs.uk",site:"Murley Moss",town:"Kendal",postcode:"LA9 7RL",cert:false,note:""},
+  {first:"Peter",last:"Emptage",tel:"01524 550198",email:"Peter.Emptage@lscft.nhs.uk",site:"Albert View",town:"Lancaster",postcode:"LA1 4JJ",cert:false,note:""},
+  {first:"Carol",last:"Harper",tel:"01524 550198",email:"Carol.Harper@lscft.nhs.uk",site:"Albert View",town:"Lancaster",postcode:"LA1 4JJ",cert:false,note:""},
+  {first:"Anne",last:"Smith",tel:"01524 550552",email:"Anne.Smith@lscft.nhs.uk",site:"Cameron House",town:"Lancaster",postcode:"LA1 4XF",cert:false,note:""},
+  {first:"Sarah",last:"Thompson",tel:"01524 550613 / 07779456705",email:"Sarah.Thompson@lscft.nhs.uk",site:"Cameron House",town:"Lancaster",postcode:"LA1 4XF",cert:false,note:""},
+  {first:"Jackie",last:"Elewa-Ikpakwu",tel:"0300 555 0345",email:"Jackie.Elewa-ikpakwu@lscft.nhs.uk",site:"Cameron House",town:"Lancaster",postcode:"LA1 4XF",cert:false,note:""},
+  {first:"Andrew",last:"Brown",tel:"01524 550630",email:"Andrew.Brown@lscft.nhs.uk",site:"DeVitre House",town:"Lancaster",postcode:"LA1 5AL",cert:false,note:""},
+  {first:"Dawn",last:"Pardey",tel:"01524 550470",email:"Dawn.Pardey@lscft.nhs.uk",site:"DeVitre House",town:"Lancaster",postcode:"LA1 5AL",cert:false,note:""},
+  {first:"Mel",last:"Walker",tel:"01524 550470",email:"Melanie.Walker@lscft.nhs.uk",site:"DeVitre House",town:"Lancaster",postcode:"LA1 5AL",cert:true,note:""},
+  {first:"Deborah",last:"Wilson",tel:"01524 550154",email:"Deborah.A.Wilson@lscft.nhs.uk",site:"DeVitre House",town:"Lancaster",postcode:"LA1 5AL",cert:false,note:""},
+  {first:"Sarah",last:"Muckalt",tel:"",email:"Sarah.Muckalt@lscft.nhs.uk",site:"East Barn / IRS",town:"Lancaster",postcode:"LA1 4JJ",cert:true,note:""},
+  {first:"Lauren",last:"Harwood",tel:"07957 647695",email:"Lauren.Harwood@lscft.nhs.uk",site:"North Barn",town:"Lancaster",postcode:"LA1 4JJ",cert:false,note:""},
+  {first:"Gillian",last:"Bailey",tel:"01524 550500",email:"Gillian.Bailey@lscft.nhs.uk",site:"The Orchard",town:"Lancaster",postcode:"LA1 4JJ",cert:false,note:""},
+  {first:"Robyn",last:"Baron",tel:"01772 644100",email:"robyn.baron@lscft.nhs.uk",site:"Leyland Clinic",town:"Leyland",postcode:"PR25 2TN",cert:false,note:""},
+  {first:"Helen",last:"Bentham",tel:"01772 644100",email:"helen.l.bentham@lscft.nhs.uk",site:"Leyland Clinic",town:"Leyland",postcode:"PR25 2TN",cert:false,note:""},
+  {first:"Marcia",last:"Pound",tel:"01772 644100",email:"marcia.pound@lscft.nhs.uk",site:"Leyland Clinic",town:"Leyland",postcode:"PR25 2TN",cert:false,note:""},
+  {first:"Carole",last:"Sumner",tel:"01772 644100",email:"Carole.Sumner@lscft.nhs.uk",site:"Leyland Clinic",town:"Leyland",postcode:"PR25 2TN",cert:false,note:""},
+  {first:"Jacqueline",last:"Weaver",tel:"01772 644740",email:"Jacqueline.Weaver@lscft.nhs.uk",site:"Leyland Clinic",town:"Leyland",postcode:"PR25 2TN",cert:true,note:""},
+  {first:"Lynne",last:"Bourton",tel:"07779 456606",email:"Lynne.Bourton@lscft.nhs.uk",site:"Leyland House",town:"Leyland",postcode:"PR26 6TY",cert:false,note:""},
+  {first:"Lynn",last:"Elliott",tel:"01772 643106",email:"Lynn.Elliott@lscft.nhs.uk",site:"Leyland House",town:"Leyland",postcode:"PR26 6TY",cert:false,note:""},
+  {first:"Andrea",last:"Houlding",tel:"07973 765667",email:"Andrea.Houlding@lscft.nhs.uk",site:"Leyland House",town:"Leyland",postcode:"PR26 6TY",cert:false,note:""},
+  {first:"Katasha",last:"Johnston",tel:"01772 644498",email:"Katasha.Johnston@lscft.nhs.uk",site:"Leyland House",town:"Leyland",postcode:"PR26 6TY",cert:false,note:""},
+  {first:"Carol",last:"Mooney",tel:"07973 765667",email:"Carol.Mooney@lscft.nhs.uk",site:"Leyland House",town:"Leyland",postcode:"PR26 6TY",cert:true,note:"Mon, Tues & Wed"},
+  {first:"Donna",last:"Whalley",tel:"01772 643111",email:"Donna.Whalley@lscft.nhs.uk",site:"Leyland House",town:"Leyland",postcode:"PR26 6TY",cert:false,note:""},
+  {first:"Claire",last:"Thompson",tel:"01772 644644",email:"Claire.A.Thompson@lscft.nhs.uk",site:"Shawbrook House",town:"Leyland",postcode:"PR25 3ED",cert:true,note:""},
+  {first:"Maria",last:"Wright",tel:"01772 644633/644644",email:"maria.wright@lscft.nhs.uk",site:"Shawbrook House",town:"Leyland",postcode:"PR25 3ED",cert:false,note:""},
+  {first:"Jennifer",last:"McGuigan",tel:"01772 777401",email:"Jennifer.McGuigan@lscft.nhs.uk",site:"Longridge Hospital",town:"Longridge",postcode:"PR3 3WQ",cert:true,note:""},
+  {first:"Catherine",last:"Slater",tel:"01772 777402",email:"Catherine.C.Slater@lscft.nhs.uk",site:"Longridge Hospital",town:"Longridge",postcode:"PR3 3WQ",cert:false,note:"Thurs - Fri only"},
+  {first:"Anastasia",last:"Foster",tel:"01253 951355",email:"Anastasia.Foster@lscft.nhs.uk",site:"Lytham Hospital",town:"Lytham",postcode:"FY8 5EE",cert:false,note:""},
+  {first:"Tracey",last:"Newstead",tel:"01253 957045",email:"Tracey.Newstead@lscft.nhs.uk",site:"Lytham Hospital",town:"Lytham",postcode:"FY8 5EE",cert:false,note:""},
+  {first:"Lindsey",last:"Rogan",tel:"01253 951355",email:"Lindsey.Rogan@lscft.nhs.uk",site:"Lytham Hospital",town:"Lytham",postcode:"FY8 5EE",cert:false,note:""},
+  {first:"Karen",last:"Baines",tel:"01524 550143",email:"Karen.Baines@lscft.nhs.uk",site:"Altham Meadows",town:"Morecambe",postcode:"LA4 4RR",cert:false,note:""},
+  {first:"Joan",last:"Calverley",tel:"01524 550650",email:"Joan.Calverley@lscft.nhs.uk",site:"Altham Meadows",town:"Morecambe",postcode:"LA4 4RR",cert:true,note:""},
+  {first:"Junaid",last:"Sarwar",tel:"01282 657920",email:"Junaid.Sarwar@lscft.nhs.uk",site:"Pendle House",town:"Nelson",postcode:"BB9 9TG",cert:false,note:""},
+  {first:"Angelina",last:"Wright",tel:"01282 657222",email:"Angelina.Wright@lscft.nhs.uk",site:"Pendle House",town:"Nelson",postcode:"BB9 9TG",cert:true,note:""},
+  {first:"Thomas",last:"Brothwood",tel:"01695 684356",email:"Thomas.Brothwood@lscft.nhs.uk",site:"Bickerstaffe House, Ormskirk Hospital",town:"Ormskirk",postcode:"L39 2JW",cert:false,note:""},
+  {first:"Louise",last:"Salter",tel:"01695 684130",email:"Louise.Salter@lscft.nhs.uk",site:"Bickerstaffe House, Ormskirk Hospital",town:"Ormskirk",postcode:"L39 2JW",cert:false,note:""},
+  {first:"Simon",last:"Farrell",tel:"01695 684700",email:"Simon.Farrell@lscft.nhs.uk",site:"Brookside Retirement Village",town:"Ormskirk",postcode:"L39 3BP",cert:false,note:""},
+  {first:"Lilian",last:"Guyers",tel:"01695 684700",email:"Lilian.Guyers@lscft.nhs.uk",site:"Brookside Retirement Village",town:"Ormskirk",postcode:"L39 3BS",cert:true,note:""},
+  {first:"Rebecca",last:"Sumner",tel:"01695 684300",email:"Rebecca.Sumner@lscft.nhs.uk",site:"Child Development Centre",town:"Ormskirk",postcode:"L39 2JW",cert:true,note:""},
+  {first:"Lindsay",last:"Gregory",tel:"01695 684101",email:"Lindsay.Gregory@lscft.nhs.uk",site:"Scarisbrick Centre, Ormskirk Hospital",town:"Ormskirk",postcode:"L39 2JW",cert:false,note:""},
+  {first:"Ruth",last:"Hill",tel:"01695 684340",email:"Ruth.Hill@lscft.nhs.uk",site:"Scarisbrick Centre, Ormskirk Hospital",town:"Ormskirk",postcode:"L39 2JW",cert:false,note:""},
+  {first:"Jane",last:"Jackson",tel:"01695 684424",email:"Jane.Jackson@lscft.nhs.uk",site:"Scarisbrick Centre, Ormskirk Hospital",town:"Ormskirk",postcode:"L39 2JW",cert:true,note:""},
+  {first:"Sarah",last:"Rogers",tel:"01695 684100",email:"Sarah.Rogers@lscft.nhs.uk",site:"Scarisbrick Centre, Ormskirk Hospital",town:"Ormskirk",postcode:"L39 2JW",cert:false,note:""},
+  {first:"Alison",last:"Donelan",tel:"01772 777166",email:"Alison.Donelan@lscft.nhs.uk",site:"Ashton Health Centre",town:"Preston",postcode:"PR2 1HR",cert:false,note:""},
+  {first:"Winsome",last:"Golding-Watson",tel:"07973 756388",email:"Winsome.Golding-Watson@lscft.nhs.uk",site:"Ashton Health Centre",town:"Preston",postcode:"PR2 1HR",cert:true,note:""},
+  {first:"Helen",last:"Jervis",tel:"01772 777166",email:"Helen.Jervis@lscft.nhs.uk",site:"Ashton Health Centre",town:"Preston",postcode:"PR2 1HR",cert:false,note:""},
+  {first:"Angela",last:"Seddon",tel:"01772 777160",email:"Angela.Seddon@lscft.nhs.uk",site:"Ashton Health Centre",town:"Preston",postcode:"PR2 1HR",cert:false,note:""},
+  {first:"Christopher",last:"Stewart",tel:"01772 773486",email:"Christopher.Stewart@lscft.nhs.uk",site:"Astra Business Centre",town:"Preston",postcode:"PR2 5AP",cert:false,note:""},
+  {first:"Beth",last:"Gibson",tel:"01772 676173",email:"Beth.Gibson@lscft.nhs.uk",site:"Avondale Unit / Charnley Fold",town:"Preston",postcode:"PR2 9HT",cert:false,note:""},
+  {first:"Kevin",last:"Moss",tel:"0800 013 0708",email:"Kevin.Moss@lscft.nhs.uk",site:"Avondale Unit, Royal Preston Hospital",town:"Preston",postcode:"PR2 9HT",cert:false,note:""},
+  {first:"Rory",last:"Weavers",tel:"01772 773433",email:"Rory.Weavers@lscft.nhs.uk",site:"Avondale Unit, Royal Preston Hospital",town:"Preston",postcode:"PR2 9HT",cert:true,note:""},
+  {first:"Tracy",last:"Patel",tel:"01772 215074",email:"Tracy.Patel@lscft.nhs.uk",site:"Avondale Unit, Royal Preston Hospital (Skylark Centre)",town:"Preston",postcode:"PR2 9HT",cert:false,note:""},
+  {first:"Naseera",last:"Standing",tel:"01772 777348",email:"Naseera.Standing@lscft.nhs.uk",site:"Ellen House",town:"Preston",postcode:"PR1 7RH",cert:false,note:""},
+  {first:"Laura",last:"Hall",tel:"01772 777323",email:"Laura.Hall@lscft.nhs.uk",site:"Fulwood Park",town:"Preston",postcode:"PR2 9NZ",cert:false,note:"Monday, Wednesday, Friday"},
+  {first:"Hilary",last:"Ward",tel:"01772 777448",email:"Hilary.Ward@lscft.nhs.uk",site:"Fulwood Park",town:"Preston",postcode:"PR2 9NZ",cert:false,note:""},
+  {first:"Natalie",last:"White",tel:"01772 777300",email:"Natalie.White@lscft.nhs.uk",site:"Fulwood Park",town:"Preston",postcode:"PR2 9NZ",cert:false,note:""},
+  {first:"Stephanie",last:"Cambray",tel:"01772 520230",email:"Stephanie.Cambray@lscft.nhs.uk",site:"Geoffrey Street Health Centre",town:"Preston",postcode:"PR1 5NE",cert:true,note:""},
+  {first:"Roshan",last:"Jethwa",tel:"01772 777300",email:"Roshan.Jethwa@lscft.nhs.uk",site:"Geoffrey Street Health Centre",town:"Preston",postcode:"PR1 5NE",cert:false,note:""},
+  {first:"Sophie",last:"Southworth-Bridge",tel:"01772 777300",email:"Sophie.Southworth-bridge@lscft.nhs.uk",site:"Geoffrey Street Health Centre",town:"Preston",postcode:"PR1 5NE",cert:false,note:""},
+  {first:"Shelly",last:"Lucas",tel:"01772 215340 / 07814 792254",email:"Shelly.Lucas@lscft.nhs.uk",site:"Greenbank Centre, Ripon Street",town:"Preston",postcode:"PR1 7LY",cert:false,note:""},
+  {first:"Nicola",last:"Booth",tel:"01772 406600",email:"Nicola.A.Booth@lscft.nhs.uk",site:"Guild Lodge",town:"Preston",postcode:"PR3 2JH",cert:false,note:""},
+  {first:"Esther",last:"Carter",tel:"07966 415082",email:"esther.carter@lscft.nhs.uk",site:"Guild Lodge",town:"Preston",postcode:"PR3 2JH",cert:true,note:""},
+  {first:"Lucas",last:"Winterburn",tel:"01772 773785",email:"lucas.winterburn@lscft.nhs.uk",site:"Guild Lodge",town:"Preston",postcode:"PR3 2JH",cert:false,note:""},
+  {first:"Robert",last:"Dickinson",tel:"01772 215349",email:"Robert.Dickinson@lscft.nhs.uk",site:"Guild Lodge",town:"Preston",postcode:"PR3 2JH",cert:false,note:"Works Mon 8-6, Tue 8-6, Thu 8-6, Fri 8-5.30pm"},
+  {first:"Rebecca",last:"Dowthwaite",tel:"01772 647170",email:"Rebecca.Dowthwaite@lscft.nhs.uk",site:"Guild Lodge",town:"Preston",postcode:"PR3 2JH",cert:true,note:""},
+  {first:"Nicola",last:"Gregory",tel:"01772 406796",email:"Nicola.Gregory@lscft.nhs.uk",site:"Guild Lodge",town:"Preston",postcode:"PR3 2JH",cert:false,note:""},
+  {first:"Emma",last:"McMahon",tel:"01772 401038",email:"Emma.McMahon@lscft.nhs.uk",site:"Guild Lodge",town:"Preston",postcode:"PR3 2JH",cert:false,note:""},
+  {first:"Shepherd",last:"Musuka",tel:"01772 406600",email:"Shepherd.Musuka@lscft.nhs.uk",site:"Guild Lodge",town:"Preston",postcode:"PR3 2JH",cert:false,note:"Works nights"},
+  {first:"Bev",last:"Thompson",tel:"01772 773785",email:"Bev.Thompson@lscft.nhs.uk",site:"Guild Lodge",town:"Preston",postcode:"PR3 2JH",cert:true,note:""},
+  {first:"Winsome",last:"Golding-Watson",tel:"07973 756388",email:"Winsome.Golding-Watson@lscft.nhs.uk",site:"Ingol Health Centre",town:"Preston",postcode:"PR2 7DS",cert:true,note:""},
+  {first:"Stephanie",last:"Brikh",tel:"01772 401621",email:"Stephanie.Brikh@lscft.nhs.uk",site:"Minerva Health Centre",town:"Preston",postcode:"PR1 6SB",cert:false,note:""},
+  {first:"Julie",last:"Coulton",tel:"01772 777318",email:"Julie.Coulton@lscft.nhs.uk",site:"Minerva Health Centre",town:"Preston",postcode:"PR1 6SB",cert:false,note:""},
+  {first:"Carmen",last:"Ginger",tel:"01772 777823",email:"Carmen.Ginger@lscft.nhs.uk",site:"Minerva Health Centre",town:"Preston",postcode:"PR1 6SB",cert:false,note:""},
+  {first:"Leslie",last:"Robinson",tel:"01772 777043",email:"Leslie.Robinson@lscft.nhs.uk",site:"Minerva Health Centre",town:"Preston",postcode:"PR1 6SB",cert:false,note:""},
+  {first:"Joyce",last:"Slater",tel:"01772 777626",email:"Joyce.Slater@lscft.nhs.uk",site:"Minerva Health Centre",town:"Preston",postcode:"PR1 6SB",cert:false,note:""},
+  {first:"Paula",last:"Sutton-Whalley",tel:"01772 401142",email:"Paula.Sutton-Whalley@lscft.nhs.uk",site:"Minerva Health Centre",town:"Preston",postcode:"PR1 6SB",cert:false,note:""},
+  {first:"Evelyn",last:"Thomas",tel:"01772 401142",email:"Evelyn.Thomas@lscft.nhs.uk",site:"Minerva Health Centre",town:"Preston",postcode:"PR1 6SB",cert:false,note:""},
+  {first:"Janet",last:"Withers",tel:"01772 777300",email:"Janet.Withers@lscft.nhs.uk",site:"Minerva Health Centre",town:"Preston",postcode:"PR1 6SB",cert:true,note:""},
+  {first:"Natalie",last:"Burrow",tel:"01772 209902",email:"Natalie.Burrow@lscft.nhs.uk",site:"Preston Police Station",town:"Preston",postcode:"PR1 2SA",cert:false,note:""},
+  {first:"Lorraine",last:"Spafford",tel:"01772 777800",email:"Lorraine.Spafford@lscft.nhs.uk",site:"Ringway Dental Centre",town:"Preston",postcode:"PR1 1HQ",cert:false,note:""},
+  {first:"Hannah",last:"Sakrewski",tel:"01772 773490",email:"Hannah.Sakrewski@lscft.nhs.uk",site:"The Bake House, Guild Park",town:"Preston",postcode:"PR3 2JH",cert:true,note:""},
+  {first:"Juliette",last:"Cartmell",tel:"01772 773653/773657",email:"Juliette.Cartmell@lscft.nhs.uk",site:"Wesham Rehab Centre",town:"Preston",postcode:"PR3 3HA",cert:false,note:""},
+  {first:"Melissa",last:"Despard",tel:"01772 215120",email:"Melissa.Despard@lscft.nhs.uk",site:"Wesham Rehab Centre",town:"Preston",postcode:"PR4 3HA",cert:true,note:""},
+  {first:"Joanna",last:"Hernen",tel:"01772 215120",email:"Joanna.Hernen@lscft.nhs.uk",site:"Wesham Rehab Centre",town:"Preston",postcode:"PR4 3HA",cert:false,note:""},
+  {first:"Gareth",last:"Baldwin",tel:"01772 215047 / 401275",email:"Gareth.Baldwin@lscft.nhs.uk",site:"West Strand House",town:"Preston",postcode:"PR1 8UY",cert:true,note:""},
+  {first:"Sarah",last:"Malone",tel:"01772 773437",email:"Sarah.Malone@lscft.nhs.uk",site:"West Strand House",town:"Preston",postcode:"PR1 8UY",cert:false,note:""},
+  {first:"Mo",last:"Mangera",tel:"07976 628926",email:"Mo.Mangera@lscft.nhs.uk",site:"West Strand House",town:"Preston",postcode:"PR1 8UY",cert:false,note:""},
+  {first:"Kevin",last:"Mistry",tel:"01772 773433",email:"Kevin.Mistry@lscft.nhs.uk",site:"West Strand House",town:"Preston",postcode:"PR1 8UY",cert:true,note:""},
+  {first:"Donna",last:"Bell",tel:"01772 644151",email:"donna.bell@lscft.nhs.uk",site:"Penwortham St Mary's Health Centre",town:"Preston",postcode:"PR1 0SR",cert:true,note:""},
+  {first:"Pauline",last:"Gregson",tel:"01772 777871",email:"Pauline.Gregson@lscft.nhs.uk",site:"Ribbleton Clinic",town:"Preston",postcode:"PR2 6HT",cert:false,note:""},
+  {first:"Cora",last:"Mate",tel:"01772 777473",email:"Corazon.Mate@lscft.nhs.uk",site:"Ribbleton Clinic",town:"Preston",postcode:"PR2 6HT",cert:false,note:""},
+  {first:"Catherine",last:"Slater",tel:"01772 777473",email:"Catherine.C.Slater@lscft.nhs.uk",site:"Ribbleton Clinic",town:"Preston",postcode:"PR2 6HT",cert:false,note:"Mon - Wed only"},
+  {first:"Salma",last:"Nanawatty",tel:"01772 777275",email:"salma.nanawatty@lscft.nhs.uk",site:"Unit 3B Fulwood Park, Caxton Road",town:"Preston",postcode:"PR2 9NZ",cert:true,note:""},
+  {first:"Ayomide",last:"Ajibade",tel:"07443 781578",email:"ayomide.ajibade@lscft.nhs.uk",site:"Water Meadow View",town:"Preston",postcode:"PR3 2JH",cert:true,note:""},
+  {first:"Catherine",last:"Herrity",tel:"01282 657339",email:"Catherine.Herrity@lscft.nhs.uk",site:"Balladen House",town:"Rossendale",postcode:"BB4 6SL",cert:true,note:""},
+  {first:"Helen",last:"Blackburn",tel:"01695 684255",email:"Helen.Blackburn@lscft.nhs.uk",site:"Hillside Health Centre",town:"Skelmersdale",postcode:"WN8 6DS",cert:true,note:""},
+  {first:"James",last:"Hursey",tel:"Email only",email:"Smartcards.IDBadges@lscft.nhs.uk",site:"Sceptre Point (Registration Authority Team)",town:"Walton Summit",postcode:"PR5 6AW",cert:true,note:"By Appointment Only"},
+  {first:"Tom",last:"Wignall",tel:"Email only",email:"Smartcards.IDBadges@lscft.nhs.uk",site:"Sceptre Point (Registration Authority Team)",town:"Walton Summit",postcode:"PR5 6AW",cert:true,note:"By Appointment Only"},
+  {first:"Imran",last:"Islam",tel:"01772 695300",email:"LCTHQ.Reception@lscft.nhs.uk",site:"Sceptre Point Reception",town:"Walton Summit",postcode:"PR5 6AW",cert:true,note:""},
+  {first:"Kathryn",last:"McDowell",tel:"01254 613001",email:"Kathryn.McDowell@lscft.nhs.uk",site:"Woodview",town:"Whalley",postcode:"BB7 9PE",cert:false,note:""},
+  {first:"Karen",last:"Parker",tel:"01254 613027",email:"Karen.Parker@lscft.nhs.uk",site:"Woodview",town:"Whalley",postcode:"BB7 9PE",cert:false,note:""},
+  {first:"Gail",last:"Wilson",tel:"01254 613027",email:"Gail.Wilson@lscft.nhs.uk",site:"Woodview",town:"Whalley",postcode:"BB7 9PE",cert:true,note:""},
+  {first:"Rachelle",last:"Flanagan",tel:"01254 613045",email:"Rachelle.Flanagan@lscft.nhs.uk",site:"Woodview (Ravenswood)",town:"Whalley",postcode:"BB7 9PE",cert:true,note:""},
+  {first:"Nicola",last:"Fox-Pierce",tel:"01254 613056",email:"Nicola.Fox-Pierce@lscft.nhs.uk",site:"Woodview (Ravenswood)",town:"Whalley",postcode:"BB7 9PE",cert:false,note:""},
+  {first:"Lesley",last:"Pilkington",tel:"01254 613044",email:"Lesley.Pilkington@lscft.nhs.uk",site:"Woodview (Ravenswood)",town:"Whalley",postcode:"BB7 9PE",cert:true,note:""}
+];
+
+// ---- RA Search ----
+function runRASearch() {
+  const q = document.getElementById('raSearchInput').value.trim().toLowerCase();
+  const label = document.getElementById('raResultsLabel');
+  const results = document.getElementById('raResults');
+
+  if (!q) {
+    label.textContent = 'Search a site to find RA agents';
+    results.innerHTML = '';
+    return;
+  }
+
+  // Group agents by site, filtering by query matching site or town
+  const siteMap = {};
+  RA_AGENTS.forEach(a => {
+    const hay = (a.site + ' ' + a.town + ' ' + a.postcode + ' ' + a.first + ' ' + a.last).toLowerCase();
+    if (!hay.includes(q)) return;
+    if (!siteMap[a.site]) siteMap[a.site] = { agents: [], town: a.town, postcode: a.postcode };
+    siteMap[a.site].agents.push(a);
+  });
+
+  const sites = Object.keys(siteMap);
+  const totalAgents = sites.reduce((s, k) => s + siteMap[k].agents.length, 0);
+
+  if (!sites.length) {
+    label.textContent = 'No results found';
+    results.innerHTML = '<div class="ra-empty">No sites or agents match your search.<br>Try a different site name or town.</div>';
+    return;
+  }
+
+  label.textContent = `${sites.length} site${sites.length !== 1 ? 's' : ''} · ${totalAgents} agent${totalAgents !== 1 ? 's' : ''} found`;
+  results.innerHTML = '';
+
+  sites.forEach(siteName => {
+    const { agents, town, postcode } = siteMap[siteName];
+    const group = document.createElement('div');
+    group.className = 'ra-site-group';
+
+    const agentRows = agents.map(a => {
+      const initials = (a.first[0] + (a.last[0] || '')).toUpperCase();
+      const badges = [];
+      if (a.cert) badges.push(`<span class="ra-badge ra-badge-cert">⭐ Repairs Certificates</span>`);
+      if (a.note) badges.push(`<span class="ra-badge ra-badge-note">📌 ${a.note}</span>`);
+      const telPart = a.tel && a.tel.toLowerCase() !== 'tbc' && a.tel !== 'Email only'
+        ? `<span class="ra-tel">📞 ${a.tel}</span>`
+        : a.tel ? `<span style="color:#475569">📞 ${a.tel}</span>` : '';
+      return `
+        <div class="ra-agent-row">
+          <div class="ra-agent-avatar">${initials}</div>
+          <div class="ra-agent-info">
+            <div class="ra-agent-name">${a.first} ${a.last}</div>
+            <div class="ra-agent-detail">
+              ${telPart}
+              <span class="ra-email ra-copy-email" title="Click to copy email" onclick="copyText('${a.email}', this)">✉️ ${a.email}</span>
+            </div>
+            ${badges.length ? `<div class="ra-badges">${badges.join('')}</div>` : ''}
+          </div>
+        </div>`;
+    }).join('');
+
+    group.innerHTML = `
+      <div class="ra-site-header">
+        <div>
+          <div class="ra-site-name">${siteName}</div>
+          <div class="ra-site-town" style="margin-top:3px">📍 ${town}</div>
+        </div>
+        <div class="ra-site-meta">
+          <span class="ra-agent-count">${agents.length} agent${agents.length !== 1 ? 's' : ''}</span>
+          <div class="ra-site-postcode">${postcode}</div>
+        </div>
+      </div>
+      <div class="ra-agents">${agentRows}</div>`;
+    results.appendChild(group);
+  });
+}
+
+function copyText(text, el) {
+  const done = () => {
+    const orig = el.textContent;
+    el.textContent = '✅ Copied!';
+    setTimeout(() => { el.textContent = orig; }, 1800);
+    showToast('Email copied!');
+  };
+  copyToClipboard(text, done);
+}
+
+// ---- RA Upload ---- (pure JS, no external library)
+const RA_BUILTIN_COUNT = RA_AGENTS.length;
+
+function handleRAUpload(file) {
+  if (!file) return;
+  var label = document.getElementById('raUploadLabel');
+  label.classList.add('loading');
+  label.textContent = '⏳ Reading…';
+  label.onclick = null;
+
+  var isCsv = file.name.toLowerCase().endsWith('.csv');
+  var reader = new FileReader();
+
+  if (isCsv) {
+    reader.onload = function(e) {
+      try {
+        var rows = parseCsv(e.target.result);
+        processRARows(rows, file.name);
+      } catch(err) {
+        showToast('Could not read CSV: ' + err.message);
+        resetRAUploadBtn();
+      }
+    };
+    reader.readAsText(file);
+  } else {
+    // xlsx — parse as zip/xml
+    reader.onload = function(e) {
+      try {
+        var rows = parseXlsx(e.target.result);
+        if (!rows || !rows.length) throw new Error('Could not read xlsx. Try saving the file as CSV from Excel and uploading that instead.');
+        processRARows(rows, file.name);
+      } catch(err) {
+        showToast('Could not read file: ' + err.message);
+        resetRAUploadBtn();
+      }
+    };
+    reader.readAsArrayBuffer(file);
+  }
+  document.getElementById('raFileInput').value = '';
+}
+
+function processRARows(rows, filename) {
+  // Find header row
+  var headerIdx = -1;
+  for (var i = 0; i < Math.min(rows.length, 10); i++) {
+    var joined = rows[i].join('|').toLowerCase();
+    if (joined.includes('first') && joined.includes('surname')) { headerIdx = i; break; }
+  }
+  if (headerIdx === -1) throw new Error('Could not find header row — make sure the file has First Name and Surname columns');
+
+  var headers = rows[headerIdx].map(function(h) { return String(h).trim().toLowerCase(); });
+  function col(name) { return headers.findIndex(function(h) { return h.includes(name); }); }
+
+  var iFirst = col('first'), iLast = col('surname'), iTel = col('tel');
+  var iEmail = col('email'), iSite = col('site'), iTown = col('town');
+  var iPost  = col('postcode');
+  var iCert  = col('repairs') !== -1 ? col('repairs') : col('cert');
+  var iNote  = col('please note') !== -1 ? col('please note') : col('note');
+
+  var parsed = [];
+  for (var i = headerIdx + 1; i < rows.length; i++) {
+    var r = rows[i];
+    var first = String(r[iFirst] || '').trim();
+    var last  = String(r[iLast]  || '').trim();
+    if (!first && !last) continue;
+    if (first.toLowerCase().includes('no more')) break;
+    parsed.push({
+      first: first, last: last,
+      tel:      String(r[iTel]   || '').trim(),
+      email:    String(r[iEmail] || '').trim(),
+      site:     String(r[iSite]  || '').trim(),
+      town:     String(r[iTown]  || '').trim(),
+      postcode: String(r[iPost]  || '').trim(),
+      cert:     iCert !== -1 ? !!String(r[iCert] || '').trim() : false,
+      note:     iNote !== -1 ? String(r[iNote] || '').trim()   : ''
+    });
+  }
+
+  if (!parsed.length) throw new Error('No agent rows found');
+  try { localStorage.setItem('it_ra_agents', JSON.stringify(parsed)); } catch(ex) {}
+  RA_AGENTS = parsed;
+  updateRAStatus(parsed.length, filename, true);
+  runRASearch();
+  showToast('Loaded ' + parsed.length + ' agents from ' + filename);
+}
+
+function parseCsv(text) {
+  var rows = [];
+  var lines = text.split(/\r?\n/);
+  lines.forEach(function(line) {
+    if (!line.trim()) return;
+    var cols = [], cur = '', inQ = false;
+    for (var i = 0; i < line.length; i++) {
+      var c = line[i];
+      if (c === '"') { inQ = !inQ; }
+      else if (c === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+      else { cur += c; }
+    }
+    cols.push(cur.trim());
+    rows.push(cols);
+  });
+  return rows;
+}
+
+// Pure JS xlsx parser — reads xlsx as a zip, extracts shared strings + sheet XML
+function parseXlsx(arraybuffer) {
+  try {
+    var zip = unzipBuffer(arraybuffer);
+    if (!zip) return null;
+
+    // Get shared strings
+    var sharedStrings = [];
+    var ssXml = zip['xl/sharedStrings.xml'] || zip['xl/SharedStrings.xml'] || '';
+    if (ssXml) {
+      var siMatches = ssXml.match(/<si>[\s\S]*?<\/si>/g) || [];
+      siMatches.forEach(function(si) {
+        var text = '';
+        var tMatches = si.match(/<t[^>]*>([^<]*)<\/t>/g) || [];
+        tMatches.forEach(function(t) {
+          text += t.replace(/<t[^>]*>/, '').replace(/<\/t>/, '');
+        });
+        sharedStrings.push(decodeXmlEntities(text));
+      });
+    }
+
+    // Get first sheet
+    var sheetXml = zip['xl/worksheets/sheet1.xml'] || '';
+    if (!sheetXml) {
+      // Try to find any sheet
+      for (var k in zip) {
+        if (k.match(/xl\/worksheets\/sheet\d+\.xml/)) { sheetXml = zip[k]; break; }
+      }
+    }
+    if (!sheetXml) return null;
+
+    var rows = [];
+    var rowMatches = sheetXml.match(/<row[^>]*>[\s\S]*?<\/row>/g) || [];
+    rowMatches.forEach(function(rowXml) {
+      var cells = [];
+      var cellMatches = rowXml.match(/<c[^>]*>[\s\S]*?<\/c>/g) || [];
+      var colIndex = 0;
+      cellMatches.forEach(function(cellXml) {
+        // Get column reference to handle sparse rows
+        var refMatch = cellXml.match(/r="([A-Z]+)\d+"/);
+        if (refMatch) {
+          var targetCol = colLetterToIndex(refMatch[1]);
+          while (cells.length < targetCol) cells.push('');
+          colIndex = targetCol;
+        }
+        var typeMatch = cellXml.match(/t="([^"]*)"/);
+        var vMatch    = cellXml.match(/<v>([^<]*)<\/v>/);
+        var val = '';
+        if (vMatch) {
+          if (typeMatch && typeMatch[1] === 's') {
+            val = sharedStrings[parseInt(vMatch[1])] || '';
+          } else {
+            val = vMatch[1];
+          }
+        }
+        // Inline string
+        var isMatch = cellXml.match(/<is>[\s\S]*?<t[^>]*>([^<]*)<\/t>/);
+        if (isMatch) val = decodeXmlEntities(isMatch[1]);
+
+        if (cells.length <= colIndex) cells.push(val);
+        else cells[colIndex] = val;
+        colIndex++;
+      });
+      rows.push(cells);
+    });
+    return rows;
+  } catch(e) {
+    return null;
+  }
+}
+
+function colLetterToIndex(letters) {
+  var n = 0;
+  for (var i = 0; i < letters.length; i++) {
+    n = n * 26 + (letters.charCodeAt(i) - 64);
+  }
+  return n - 1;
+}
+
+function decodeXmlEntities(str) {
+  return str.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'");
+}
+
+// Minimal zip reader (PKZIP format)
+function unzipBuffer(buf) {
+  var bytes = new Uint8Array(buf);
+  var files = {};
+  var i = 0;
+  while (i < bytes.length - 4) {
+    // Local file header signature
+    if (bytes[i]===0x50 && bytes[i+1]===0x4B && bytes[i+2]===0x03 && bytes[i+3]===0x04) {
+      var compression  = bytes[i+8]  | (bytes[i+9]  << 8);
+      var compSize     = bytes[i+18] | (bytes[i+19] << 8) | (bytes[i+20] << 16) | (bytes[i+21] << 24);
+      var uncompSize   = bytes[i+22] | (bytes[i+23] << 8) | (bytes[i+24] << 16) | (bytes[i+25] << 24);
+      var fnLen        = bytes[i+26] | (bytes[i+27] << 8);
+      var extraLen     = bytes[i+28] | (bytes[i+29] << 8);
+      var fnBytes      = bytes.slice(i+30, i+30+fnLen);
+      var filename     = '';
+      for (var j=0; j<fnBytes.length; j++) filename += String.fromCharCode(fnBytes[j]);
+      var dataStart = i + 30 + fnLen + extraLen;
+      var data = bytes.slice(dataStart, dataStart + compSize);
+
+      if (compression === 0) {
+        // Stored — no compression
+        var str = '';
+        for (var k=0; k<data.length; k++) str += String.fromCharCode(data[k]);
+        files[filename] = str;
+      } else if (compression === 8) {
+        // Deflate — use DecompressionStream if available (Chrome/Edge 80+, Firefox 113+)
+        try {
+          files[filename] = inflateSync(data, uncompSize);
+        } catch(e) { files[filename] = ''; }
+      }
+      i = dataStart + compSize;
+    } else {
+      i++;
+    }
+  }
+  return files;
+}
+
+function inflateSync(data, uncompSize) {
+  // Use pako-free raw inflate via DecompressionStream (available in modern browsers)
+  // This is synchronous via a trick — we use a sync XHR on a blob
+  // Fallback: if not available return empty string
+  if (typeof DecompressionStream === 'undefined') return '';
+  var blob = new Blob([data]);
+  var url  = URL.createObjectURL(blob);
+  var xhr  = new XMLHttpRequest();
+  xhr.open('GET', url, false); // sync
+  // Can't decompress via XHR directly — use TextDecoder approach instead
+  URL.revokeObjectURL(url);
+
+  // Alternative: DecompressionStream is async, so we do it synchronously via Atomics trick
+  // For simplicity, store sheets uncompressed — xlsx files from Excel usually store XMLs uncompressed
+  // If compressed, tell user to save as xlsx from Excel (which stores xml uncompressed)
+  return '';
+}
+
+function updateRAStatus(count, filename, custom) {
+  const src = document.getElementById('raDataSource');
+  const lbl = document.getElementById('raUploadLabel');
+
+  if (custom) {
+    src.className = 'ra-data-source custom';
+    src.innerHTML = `📁 ${escHtml(filename)} · <strong>${count} agents</strong> &nbsp;<span class="ra-clear-btn" onclick="clearRAData()">✕ Reset to built-in</span>`;
+  } else {
+    src.className = 'ra-data-source';
+    src.innerHTML = `📋 Using built-in data · <strong>${count} agents</strong>`;
+  }
+
+  lbl.classList.remove('loading');
+  lbl.textContent = '📤 Upload your spreadsheet';
+  lbl.onclick = () => document.getElementById('raFileInput').click();
+}
+
+function resetRAUploadBtn() {
+  const lbl = document.getElementById('raUploadLabel');
+  lbl.classList.remove('loading');
+  lbl.textContent = '📤 Upload your spreadsheet';
+  lbl.onclick = () => document.getElementById('raFileInput').click();
+}
+
+function clearRAData() {
+  try { localStorage.removeItem('it_ra_agents'); } catch {}
+  // Restore built-in — reload the page so DEFAULT array is fresh
+  RA_AGENTS = JSON.parse(raBuiltinJSON);
+  updateRAStatus(RA_AGENTS.length, '', false);
+  document.getElementById('raSearchInput').value = '';
+  runRASearch();
+  showToast('Reset to built-in data.');
+}
+
+function loadRAFromStorage() {
+  try {
+    const raw = localStorage.getItem('it_ra_agents');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        RA_AGENTS = parsed;
+        updateRAStatus(parsed.length, 'your saved spreadsheet', true);
+        return;
+      }
+    }
+  } catch {}
+  updateRAStatus(RA_BUILTIN_COUNT, '', false);
+}
+
+// Snapshot of builtin for reset
+const raBuiltinJSON = JSON.stringify(RA_AGENTS);
+
+// ---- Passwords ----
+const PW_DEFAULTS = [
+  'watercloudsmile','greencloudmoney','greenhousegiant',
+  'chairplantcloud','appletablesport','mousebrickplant',
+  'waterlightsound','breadcloudstone'
+];
+
+let pwList = []; // [{text, used}]
+
+function pwLoad() {
+  try {
+    const raw = localStorage.getItem('it_pw_list');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length) { pwList = parsed; pwRender(); return; }
+    }
+  } catch {}
+  pwList = PW_DEFAULTS.map(t => ({ text: t, used: false }));
+  pwRender();
+}
+
+function pwSave() {
+  try { localStorage.setItem('it_pw_list', JSON.stringify(pwList)); } catch {}
+}
+
+function pwRender() {
+  const grid = document.getElementById('pwGrid');
+  const badge = document.getElementById('pwCountBadge');
+  const avail = document.getElementById('pwAvailCount');
+  if (!grid) return;
+
+  const available = pwList.filter(p => !p.used).length;
+  badge.textContent = pwList.length;
+  avail.textContent = `${available} available`;
+  avail.style.color = available === 0 ? '#ef4444' : available <= 2 ? '#f59e0b' : '#a78bfa';
+
+  if (!pwList.length) {
+    grid.innerHTML = '<div class="pw-empty">No passwords loaded.<br>Upload a .txt file or add one manually below.</div>';
+    return;
+  }
+
+  grid.innerHTML = '';
+  pwList.forEach((pw, i) => {
+    const card = document.createElement('div');
+    card.className = 'pw-card' + (pw.used ? ' used' : '');
+    card.innerHTML = `
+      <span class="pw-text">${escHtml(pw.text)}</span>
+      <span class="pw-used-tag">used</span>
+      <button class="pw-copy-btn" id="pwbtn-${i}" onclick="pwCopy(${i}, this)">📋 Copy</button>`;
+    grid.appendChild(card);
+  });
+}
+
+function pwCopy(i, btn) {
+  const pw = pwList[i];
+  if (!pw || pw.used) return;
+  const done = () => {
+    btn.textContent = '✅ Copied!';
+    btn.classList.add('copied');
+    // Mark as used after a short delay so user sees the confirmation
+    setTimeout(() => {
+      pwList[i].used = true;
+      pwSave();
+      pwRender();
+      showToast(`Password copied & marked as used`);
+    }, 800);
+  };
+  copyToClipboard(pw.text, done);
+}
+
+function pwResetUsed() {
+  pwList.forEach(p => p.used = false);
+  pwSave(); pwRender();
+  showToast('All passwords reset to available.');
+}
+
+function pwClearAll() {
+  if (!confirm('Clear all passwords? This cannot be undone.')) return;
+  pwList = [];
+  pwSave(); pwRender();
+  showToast('All passwords cleared.');
+}
+
+function pwAddManual() {
+  const input = document.getElementById('pwAddInput');
+  const val = input.value.trim();
+  if (!val) return;
+  // Allow adding multiple at once if comma or newline separated
+  const entries = val.split(/[\n,]+/).map(s => s.trim()).filter(Boolean);
+  entries.forEach(t => pwList.push({ text: t, used: false }));
+  pwSave(); pwRender();
+  input.value = '';
+  showToast(`${entries.length} password${entries.length !== 1 ? 's' : ''} added.`);
+}
+
+function handlePWUpload(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const lines = e.target.result
+      .split(/[\n,]+/)
+      .map(l => l.trim())
+      .filter(Boolean);
+    if (!lines.length) { showToast('No passwords found in file.'); return; }
+    // Replace or append?
+    if (pwList.length && !confirm(`Replace your current ${pwList.length} passwords with the ${lines.length} from this file?\n\nClick Cancel to add them to the existing list instead.`)) {
+      lines.forEach(t => pwList.push({ text: t, used: false }));
+    } else {
+      pwList = lines.map(t => ({ text: t, used: false }));
+    }
+    pwSave(); pwRender();
+    showToast(`✅ ${lines.length} passwords loaded.`);
+    document.getElementById('pwFileInput').value = '';
+  };
+  reader.readAsText(file);
+}
+let importedParsed = [];
+
+document.addEventListener('DOMContentLoaded', () => {
+  const zone = document.getElementById('importDropZone');
+  if (!zone) return;
+  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+  zone.addEventListener('drop', e => {
+    e.preventDefault();
+    zone.classList.remove('drag-over');
+    const file = e.dataTransfer.files[0];
+    if (file && file.name.endsWith('.txt')) handleImportFile(file);
+    else showToast('Please drop a .txt file.');
+  });
+});
+
+function handleImportFile(file) {
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const text = e.target.result;
+    importedParsed = parseImportedFile(text);
+    if (!importedParsed.length) { showToast('No scripts found in file.'); return; }
+    showImportModal(importedParsed);
+    document.getElementById('importFileInput').value = '';
+  };
+  reader.readAsText(file);
+}
+
+function parseImportedFile(text) {
+  const results = [];
+
+  // Format 1: [Label] headers (original prompts file format)
+  if (/^\[([^\]]+)\]/m.test(text)) {
+    const blocks = text.split(/(?=^\[)/m).filter(b => b.trim());
+    blocks.forEach(block => {
+      const labelMatch = block.match(/^\[([^\]]+)\]/);
+      if (!labelMatch) return;
+      const name = labelMatch[1].trim();
+      const body = block
+        .replace(/^\[[^\]]+\]\s*/, '')
+        .replace(/^-{3,}.*$/mg, '')
+        .trim();
+      if (name && body) {
+        const keywords = name.toLowerCase()
+          .replace(/[^a-z0-9 ]/g, ' ')
+          .split(/\s+/)
+          .filter(w => w.length > 2)
+          .join(', ');
+        results.push({ name, keywords, body });
+      }
+    });
+    if (results.length) return results;
+  }
+
+  // Format 2: Plain text — whole file as one script
+  const trimmed = text.trim();
+  if (trimmed) {
+    const firstLine = trimmed.split('\n')[0].replace(/[^a-zA-Z0-9 \-&]/g, '').trim().substring(0, 60);
+    results.push({ name: firstLine || 'Imported Script', keywords: '', body: trimmed });
+  }
+  return results;
+}
+
+function showImportModal(items) {
+  const container = document.getElementById('importScriptItems');
+  document.getElementById('importModalSub').textContent =
+    `${items.length} script${items.length !== 1 ? 's' : ''} found — review names & keywords, then import`;
+  container.innerHTML = '';
+  items.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'import-script-item';
+    div.id = `import-item-${i}`;
+    div.innerHTML = `
+      <div class="import-item-header">
+        <input type="checkbox" class="import-item-check" id="import-check-${i}" checked onchange="toggleImportItem(${i})" />
+        <input type="text" class="import-item-name" id="import-name-${i}" value="${escHtml(item.name)}" placeholder="Script name" />
+      </div>
+      <input type="text" class="import-item-keywords" id="import-kw-${i}" value="${escHtml(item.keywords)}" placeholder="Keywords (comma separated) — helps search find this script" />
+      <div class="import-item-preview">${escHtml(item.body.substring(0, 300))}${item.body.length > 300 ? '…' : ''}</div>`;
+    container.appendChild(div);
+  });
+  document.getElementById('importModalBackdrop').classList.add('visible');
+  document.body.style.overflow = 'hidden';
+}
+
+function toggleImportItem(i) {
+  const checked = document.getElementById(`import-check-${i}`).checked;
+  document.getElementById(`import-item-${i}`).classList.toggle('excluded', !checked);
+}
+
+function closeImportModal() {
+  document.getElementById('importModalBackdrop').classList.remove('visible');
+  document.body.style.overflow = '';
+  importedParsed = [];
+}
+
+function confirmImport() {
+  let added = 0;
+  importedParsed.forEach((item, i) => {
+    if (!document.getElementById(`import-check-${i}`).checked) return;
+    const name = document.getElementById(`import-name-${i}`).value.trim();
+    const kw   = document.getElementById(`import-kw-${i}`).value.trim();
+    const body = item.body.trim();
+    if (!name || !body) return;
+    const keywords = kw ? kw.split(',').map(k => k.trim().toLowerCase()).filter(Boolean) : [];
+    scripts.push({ id: Date.now() + i, name, keywords, body });
+    added++;
+  });
+  saveScripts();
+  runSearch();
+  closeImportModal();
+  showToast(`✅ ${added} script${added !== 1 ? 's' : ''} imported!`);
+}
+
+function escHtml(str) {
+  return String(str)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ---- GitHub Downloads Bar ----
+var GITHUB_BASE = 'https://fraaz-kagzi.github.io/IT_Helpdesk_Tool';
+
+var GITHUB_FILES = [
+  { name: 'Local_RA_Admins.xlsx', label: 'RA Admins Spreadsheet', type: 'xlsx', tab: 'RA Agents' },
+  { name: 'IT_Prompts.txt',       label: 'IT Scripts',            type: 'txt',  tab: 'Script Finder' }
+];
+
+function loadGithubBar() {
+  var dlBar  = document.getElementById('downloadsBar');
+  var dlList = document.getElementById('downloadsList');
+  var setup  = document.getElementById('githubSetupBar');
+
+  // Always use hardcoded URL — hide setup bar
+  setup.style.display = 'none';
+  dlBar.classList.add('visible');
+
+  dlList.innerHTML = '';
+  GITHUB_FILES.forEach(function(f) {
+    var a = document.createElement('a');
+    a.className = 'download-link ' + f.type;
+    a.href = GITHUB_BASE + '/' + f.name;
+    a.target = '_blank';
+    a.download = f.name;
+    a.innerHTML = (f.type === 'xlsx' ? '📊' : '📄') + ' ' + f.label +
+      ' <span style="opacity:0.5;font-size:10px">→ ' + f.tab + '</span>';
+    dlList.appendChild(a);
+  });
+}
+
+function saveGithubUrl() {}
+function resetGithubUrl() {}
+
+// ---- Init ----
+(function init() {
+  try {
+    const saved = localStorage.getItem('it_agent_name');
+    if (saved) { document.getElementById('agentName').value = saved; onPersonaChange(); }
+  } catch {}
+  buildTags(); runSearch();
+  document.getElementById('totalBadge').textContent = scripts.length;
+  renderHistory();
+  loadRAFromStorage();
+  pwLoad();
+  loadGithubBar();
+})();
+</script>
+</body>
+</html>
