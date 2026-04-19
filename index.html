@@ -970,6 +970,22 @@
   .pw-used-tag { font-size: 11px; color: var(--text4); display: none; }
   .pw-card.used .pw-used-tag { display: inline; }
 
+  .pw-star-btn {
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--border2);
+    padding: 2px 4px;
+    line-height: 1;
+    transition: color 0.12s, transform 0.12s;
+    border-radius: 4px;
+  }
+  .pw-star-btn:hover { color: #f59e0b; transform: scale(1.2); }
+  .pw-star-btn.starred { color: #f59e0b; }
+  .pw-card.starred-card { border-left-color: #f59e0b; }
+
   .pw-actions-bar {
     display: flex;
     gap: 8px;
@@ -2949,7 +2965,7 @@ const raBuiltinJSON = JSON.stringify(RA_AGENTS);
 const PW_DEFAULTS = [
   'watercloudsmile','greencloudmoney','greenhousegiant',
   'chairplantcloud','appletablesport','mousebrickplant',
-  'waterlightsound','breadcloudstone'
+  'waterlightsound','breadcloudstone','fixedfightjapan'
 ];
 
 let pwList = []; // [{text, used}]
@@ -2959,10 +2975,13 @@ function pwLoad() {
     const raw = localStorage.getItem('it_pw_list');
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (Array.isArray(parsed) && parsed.length) { pwList = parsed; pwRender(); return; }
+      if (Array.isArray(parsed) && parsed.length) {
+        pwList = parsed.map(p => ({ text: p.text, used: !!p.used, starred: !!p.starred }));
+        pwRender(); return;
+      }
     }
   } catch {}
-  pwList = PW_DEFAULTS.map(t => ({ text: t, used: false }));
+  pwList = PW_DEFAULTS.map(t => ({ text: t, used: false, starred: false }));
   pwRender();
 }
 
@@ -2979,23 +2998,35 @@ function pwRender() {
   const available = pwList.filter(p => !p.used).length;
   badge.textContent = pwList.length;
   avail.textContent = `${available} available`;
-  avail.style.color = available === 0 ? '#ef4444' : available <= 2 ? '#f59e0b' : '#a78bfa';
+  avail.style.color = available === 0 ? '#ef4444' : available <= 2 ? '#f59e0b' : 'var(--text2)';
 
   if (!pwList.length) {
     grid.innerHTML = '<div class="pw-empty">No passwords loaded.<br>Upload a .txt file or add one manually below.</div>';
     return;
   }
 
+  // Build index-tagged list sorted: starred first, then unstarred
+  const indexed = pwList.map((pw, i) => ({ pw, i }));
+  indexed.sort((a, b) => (b.pw.starred ? 1 : 0) - (a.pw.starred ? 1 : 0));
+
   grid.innerHTML = '';
-  pwList.forEach((pw, i) => {
+  indexed.forEach(({ pw, i }) => {
     const card = document.createElement('div');
-    card.className = 'pw-card' + (pw.used ? ' used' : '');
+    card.className = 'pw-card' + (pw.used ? ' used' : '') + (pw.starred ? ' starred-card' : '');
     card.innerHTML = `
+      <button class="pw-star-btn${pw.starred ? ' starred' : ''}" title="${pw.starred ? 'Unfavourite' : 'Favourite'}" onclick="pwToggleStar(${i})">&#9733;</button>
       <span class="pw-text">${escHtml(pw.text)}</span>
       <span class="pw-used-tag">used</span>
-      <button class="pw-copy-btn" id="pwbtn-${i}" onclick="pwCopy(${i}, this)"> Copy</button>`;
+      <button class="pw-copy-btn" id="pwbtn-${i}" onclick="pwCopy(${i}, this)">Copy</button>`;
     grid.appendChild(card);
   });
+}
+
+function pwToggleStar(i) {
+  if (!pwList[i]) return;
+  pwList[i].starred = !pwList[i].starred;
+  pwSave();
+  pwRender();
 }
 
 function pwCopy(i, btn) {
@@ -3034,7 +3065,7 @@ function pwAddManual() {
   if (!val) return;
   // Allow adding multiple at once if comma or newline separated
   const entries = val.split(/[\n,]+/).map(s => s.trim()).filter(Boolean);
-  entries.forEach(t => pwList.push({ text: t, used: false }));
+  entries.forEach(t => pwList.push({ text: t, used: false, starred: false }));
   pwSave(); pwRender();
   input.value = '';
   showToast(`${entries.length} password${entries.length !== 1 ? 's' : ''} added.`);
@@ -3051,9 +3082,9 @@ function handlePWUpload(file) {
     if (!lines.length) { showToast('No passwords found in file.'); return; }
     // Replace or append?
     if (pwList.length && !confirm(`Replace your current ${pwList.length} passwords with the ${lines.length} from this file?\n\nClick Cancel to add them to the existing list instead.`)) {
-      lines.forEach(t => pwList.push({ text: t, used: false }));
+      lines.forEach(t => pwList.push({ text: t, used: false, starred: false }));
     } else {
-      pwList = lines.map(t => ({ text: t, used: false }));
+      pwList = lines.map(t => ({ text: t, used: false, starred: false }));
     }
     pwSave(); pwRender();
     showToast(` ${lines.length} passwords loaded.`);
