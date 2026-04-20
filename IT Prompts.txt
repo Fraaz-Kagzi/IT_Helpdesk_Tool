@@ -214,4 +214,355 @@ To have notes removed, an IRiS form will need to be completed.
 Please submit an IRiS via the portal, or the desktop icon and then reply to this email with the IRiS reference number so it can be followed up.
 Kind regards,
 IT Helpdesk
- 
+
+--------------------------------------[new account created]
+Hi,
+
+This account has now been set up. Please call the IT helpdesk on 01772 695316 to obtain a login.
+
+Please ensure the user registers for MFA as soon as possible - this is a mandatory requirement.
+
+Kind regards,
+IT
+
+--------------------------------------[company portal sync]
+Hi,
+
+There has been a fix for this issue. Use the search bar at the bottom of the screen and search for 'Company Portal.' There will be a 'Settings' option at the bottom left of the tab. Click on 'Sync.' Allow it to sync once then restart the device.
+
+If this issue persists please call the helpdesk so we can book you in for a remote appointment for a technician to have a look at this for you.
+
+Kind regards,
+IT
+
+--------------------------------------[mfa download enrol]
+Hi,
+
+You can download the MFA app via the 'Company Portal.' You can find that by searching 'Company Portal' on the search bar at the bottom of the screen, then search 'MFA.' Once downloaded you can enrol.
+
+Guide: https://nwsis.sharepoint.com/sites/DIOFF/SitePages/Multifactor-Authentication.aspx
+
+If you have any issues then contact us again.
+
+Kind regards,
+IT
+
+--------------------------------------[mfa reset re-enrol]
+Hi,
+
+It appears MFA is asking for a code which has been set up on a desktop PC. I can reset this for you, but you will need to sign up again.
+
+I would recommend signing back up on a device that you always have access to, as if you need to approve a login it will go to this device. Users usually set it up on their personal devices.
+
+Is this something you want to go ahead with?
+
+Kind regards,
+IT
+
+--------------------------------------[account changes made]
+Hi,
+
+I have made the changes to your account as requested.
+
+Please allow 24 hours for this to sync and get back in touch if any issues.
+
+Kind regards,
+IT
+
+--------------------------------------[dialog group access]
+Hi,
+
+I have added the user(s) to the correct dialog and group. Please allow an hour for this to sync.
+
+Kind regards,
+IT
+
+--------------------------------------[username change]
+Hi,
+
+Please can you confirm what username you require to change to. Please can you also confirm if these changes have been made with HR and workforce systems, as they will all need to match before we can change anything on our side.
+
+Kind regards,
+IT
+
+--------------------------------------[usb permissions line manager]
+Hi,
+
+Your line manager will have to email us to give you USB permissions to access this.
+
+Please also speak to your line manager about the license, as this software requires an active license to use. If there is none, you will have to purchase one.
+
+Unfortunately we don't advise on how to use this software - please contact your line manager or email digital.training@lscft.nhs.uk for further guidance.
+
+Kind regards,
+IT
+
+--------------------------------------[software company portal]
+Hi,
+
+This is something that you can download yourself via the Company Portal. You can find this by using the search bar at the bottom and typing 'Company Portal' and then searching for your software.
+
+Kind regards,
+IT
+
+--------------------------------------[windip download]
+Hi,
+
+You can download Windip from the Company Portal. To do this, use the search bar at the bottom and search for 'Company Portal.' Open the app and then search for 'Windip' and install the full version.
+
+If you have any issues then please call the service desk so we can look at this further.
+
+Kind regards,
+IT
+
+--------------------------------------[workforce systems hero]
+Hi,
+
+You will need to contact the workforce systems team. You can find them by using the 'HERO' icon on your desktop. From there you can launch their helpdesk and submit a ticket.
+
+Kind regards,
+IT
+
+--------------------------------------[esr workforce]
+Hi,
+
+ESR is a workforce system application. You can find them by going onto an LSCFT device and finding the 'HERO' icon on the desktop. Once opened, go to 'Launch Service Desk.' From there you will be able to submit a ticket with them.
+
+Kind regards,
+IT
+
+--------------------------------------[send from outlook]
+Hi,
+
+Thanks for the information. Have you got the 'From' field visible? You can find this by opening a new email. At the top of the tab go to Options and ensure that 'From' is selected. The 'From' field should now be loaded - just click on it and either add or select the email addresses you need to send from.
+
+Kind regards,
+IT
+
+--------------------------------------[out of office placed]
+Hi,
+
+I have placed the out of office on the account as requested.
+
+Kind regards,
+IT
+
+--------------------------------------[new user processing notes]
+FOR PROCESSING NEW USERS:
+Taken out of office, added address and checked account, member of, and general tabs. Moved to correct OU.
+
+(DUPLICATE / expired account):
+Copied details from new account to original. Duplicated new account. Moved original to Temp Staffing OU and unhid mailbox on Exchange, also enabled it on AD.
+
+--------------------------------------[leaver processing notes]
+FOR PROCESSING LEAVERS:
+Put leaver's location in office tab with this SD number. Added to leavers OU. Changed password on AD. Hid mailbox on Exchange.
+
+--------------------------------------[new user rio access]
+Hi,
+
+This account has been created as per your request. Please ask the user to contact the IT Helpdesk and quote the incident reference to retrieve their login credentials.
+
+Please note: Rio access is granted by the IT Trainer once the user has attended training.
+
+Please advise them they must enrol onto MFA as this is now a mandatory requirement across the trust. A guide on how to enrol can be found via the MFA button on Trustnet.
+
+Kind regards,
+IT Helpdesk
+
+--------------------------------------[cito access granted]
+Hi,
+
+I have granted access to CITO - please allow a few hours for this to sync.
+
+Kind regards,
+IT Helpdesk
+
+--------------------------------------[duplicate account check]
+Hi,
+
+Thank you for your request for a new user account. I just wondered if they have ever worked for the Trust before, as we already have someone by that name on the system.
+
+If they haven't worked for the Trust before, please provide us with their middle initial and we can create the account.
+
+Should you have any further questions or queries, please visit the IT Service Desk SharePoint page - this page contains information which could answer your question at a click of a button.
+
+Kind regards,
+IT Helpdesk
+
+--------------------------------------[usb permissions granted]
+Hi,
+
+I have granted USB permissions for this user as requested. Please allow a few hours for this to sync and get them to call us if it doesn't work.
+
+Kind regards,
+IT
+
+--------------------------------------[epma download]
+Hi,
+
+You should be able to download EPMA from the 'Company Portal.' Use the search box at the bottom of the screen and search for 'Company Portal.' From there search for 'EPMA' and download the latest version.
+
+If you are having issues, please call the helpdesk on 01772 695316 quoting this job's INC number so we can investigate further.
+
+Kind regards,
+IT
+
+--------------------------------------[new user additional details]
+Hi,
+
+Please could you provide some updated details for the user's account? We need their:
+- Base site
+- Contact number
+- Manager's name
+- Start date and expiration date for the account
+- Any previous access which needs to be removed
+
+Kind regards,
+IT
+
+--------------------------------------[wireless certificate issue]
+Issue: Wireless network at Fulwood Park asks for a certificate when connecting.
+
+Advised user to find an ethernet port/port replicator as an alternative connection method while this is investigated.
+
+--------------------------------------[calendar access granted]
+Hi,
+
+I have granted access to the calendar as requested. Please allow a few hours for these permissions to sync over.
+
+Kind regards,
+IT
+
+--------------------------------------[login username format]
+Hi,
+
+Please can you confirm you're using the correct login details. It will be:
+
+Username: first.surname@xlancashirecare.nhs.uk
+Password: your normal IT login (15 character minimum)
+
+Kind regards,
+IT
+
+--------------------------------------[shared mailbox access granted]
+Hi,
+
+I have granted access to the shared mailbox as requested. Please allow a few hours for these permissions to sync over.
+
+Kind regards,
+IT
+
+--------------------------------------[shared mailbox confirm permissions]
+Hi,
+
+Please can you confirm what permissions you want to give for the shared mailbox(es).
+
+The permissions are as follows:
+
+Send as
+The Send as permission allows the delegate to send an email from this mailbox. The message will appear to have been sent from the mailbox owner.
+
+Read and manage (Full Access)
+The Full Access permission allows a delegate to open this mailbox and behave as the mailbox owner.
+
+Kind regards,
+IT
+
+--------------------------------------[distribution list access granted]
+Hi,
+
+I have granted access to the distribution list as requested. Please allow a few hours for these permissions to sync over.
+
+Kind regards,
+IT
+
+--------------------------------------[shared drive access granted]
+Hi,
+
+I have granted access to the shared drive folder as requested. Please allow a few hours for these permissions to sync over.
+
+Kind regards,
+IT
+
+--------------------------------------[shared drive path not found]
+Hi,
+
+Please can you provide us with the full file paths of where you want to grant access, as we cannot find those files on the shared drive.
+
+Kind regards,
+IT
+
+--------------------------------------[account extended]
+Hi,
+
+I have extended the account until the date specified.
+
+Kind regards,
+IT
+
+--------------------------------------[account expiry removed]
+Hi,
+
+I have removed the expiry on the account.
+
+Kind regards,
+IT
+
+--------------------------------------[account re-enabled]
+Hi,
+
+I have re-enabled the account. If they know the password, they will be able to get in within an hour of receiving this email. If not, please get them to call the helpdesk to obtain their login credentials.
+
+Kind regards,
+IT
+
+--------------------------------------[purchase it equipment]
+Hi,
+
+You would have to buy a new one from the IT purchasing portal. You can find it by opening a new web browser on an LSCFT device, going to the main Trustnet page, then navigating to Digital Hub > IT Order Form.
+
+Kind regards,
+IT
+
+--------------------------------------[smartcard pin not appearing]
+Hi,
+
+This may be a software issue. Please open 'Hidden Icons' at the bottom right corner of the screen and check if 'NHS Credential Management' and 'Identity Agent' are there (hover over icons to see names).
+
+If they are not there:
+1. Put your smartcard in the machine
+2. Search for 'NHS Credential Management' at the bottom left of the screen and open it
+3. Do the same for 'Identity Agent'
+4. The PIN box should now open - type your PIN in
+
+If the PIN box still doesn't appear, please try in another colleague's machine. If that works, contact us so we can arrange an appointment to check the hardware/software.
+
+If it still doesn't work, please contact us so we can go through the next steps.
+
+Kind regards,
+IT
+
+--------------------------------------[cito word addin]
+To enable the CITO tab in Word:
+
+1. Open Word and go to File > Options
+2. Click Add-Ins in the left-hand menu
+3. In the 'Manage' dropdown at the bottom, select COM Add-ins and click Go
+4. Check the box next to CitoWordAddIn and click OK
+5. Restart Word
+
+If the add-in did not appear in the COM list, Word may have disabled it:
+
+1. Go to File > Options > Add-Ins
+2. In the 'Manage' dropdown, select Disabled Items and click Go
+3. If CITO is listed, select it and click Enable
+4. Restart Word
+
+--------------------------------------[canon serial number not found]
+Hi,
+
+Please could you review the serial number for the printer that you provided, as nothing is showing up for that serial number. Once we have the correct serial number we can log a job with Canon.
+
+Kind regards,
+IT

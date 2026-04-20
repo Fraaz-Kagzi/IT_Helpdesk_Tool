@@ -1326,8 +1326,7 @@
     box-shadow: var(--shadow);
   }
   .ou-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-lt); }
-  .ou-btn.north.selected, .ou-btn.east.selected,
-  .ou-btn.west.selected, .ou-btn.central.selected {
+  .ou-btn.selected {
     border-color: var(--accent); color: #fff; background: var(--accent); box-shadow: var(--shadow-md);
   }
 
@@ -1804,13 +1803,18 @@
     </div>
 
     <div class="inactive-field" style="margin-bottom:6px">
-      <label>Select OU</label>
+      <label>Select OU — quick options</label>
     </div>
     <div class="ou-grid">
       <button class="ou-btn north"   onclick="selectOU('North')"   id="ou-North">North</button>
       <button class="ou-btn east"    onclick="selectOU('East')"    id="ou-East">East</button>
-      <button class="ou-btn bank"    onclick="selectOU('Bank')"    id="ou-West">Bank</button>
+      <button class="ou-btn bank"    onclick="selectOU('Bank')"    id="ou-Bank">Bank</button>
       <button class="ou-btn central" onclick="selectOU('Central')" id="ou-Central">Central</button>
+    </div>
+
+    <div class="inactive-field" style="margin-top:10px">
+      <label>Other OU - type any OU name (overrides quick select above)</label>
+      <input type="text" id="inactiveCustomOU" placeholder="e.g. Central" oninput="onCustomOUInput()" />
     </div>
 
     <div class="inactive-output" id="inactiveOutput">
@@ -2056,7 +2060,193 @@ const DEFAULT_SCRIPTS = [
     id: 18, name: "IRiS Form (Notes Removal)",
     keywords: ["iris", "notes", "remove notes", "patient notes", "iris form", "portal", "reference number"],
     body: `Hi {{customer}},\n\nTo have notes removed, an IRiS form will need to be completed.\n\nPlease submit an IRiS via the portal, or the desktop icon, and then reply to this email with the IRiS reference number so it can be followed up.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  }  ,
+  {
+    id: 19, name: "New Account Created",
+    keywords: ["new account", "account created", "credentials", "call helpdesk", "login", "mfa", "set up", "new user"],
+    body: `Hi {{customer}},\n\nThis account has now been set up. Please call the IT helpdesk on 01772 695316 to obtain a login.\n\nPlease ensure the user registers for MFA as soon as possible - this is a mandatory requirement.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 20, name: "Company Portal Sync Fix",
+    keywords: ["company portal", "sync", "fix", "restart", "settings", "portal", "not loading", "update"],
+    body: `Hi {{customer}},\n\nThere has been a fix for this issue. Use the search bar at the bottom of the screen and search for 'Company Portal.' There will be a 'Settings' option at the bottom left of the tab. Click on 'Sync.' Allow it to sync once then restart the device.\n\nIf this issue persists please call the helpdesk so we can book you in for a remote appointment for a technician to have a look at this for you.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 21, name: "MFA - Download and Enrol",
+    keywords: ["mfa", "multifactor", "enrol", "download", "company portal", "authenticator", "multi factor", "register mfa"],
+    body: `Hi {{customer}},\n\nYou can download the MFA app via the 'Company Portal.' You can find that by searching 'Company Portal' on the search bar at the bottom of the screen, then search 'MFA.' Once downloaded you can enrol.\n\nGuide: https://nwsis.sharepoint.com/sites/DIOFF/SitePages/Multifactor-Authentication.aspx\n\nIf you have any issues then contact us again.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 22, name: "MFA - Reset and Re-enrol",
+    keywords: ["mfa", "reset mfa", "re-enrol", "multifactor", "code", "desktop pc", "mfa reset", "sign up again"],
+    body: `Hi {{customer}},\n\nIt appears MFA is asking for a code which has been set up on a desktop PC. I can reset this for you, but you will need to sign up again.\n\nI would recommend signing back up on a device that you always have access to, as if you need to approve a login it will go to this device. Users usually set it up on their personal devices.\n\nIs this something you want to go ahead with?\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 23, name: "Account Changes Made",
+    keywords: ["account changes", "changes made", "sync", "24 hours", "updated", "done", "complete"],
+    body: `Hi {{customer}},\n\nI have made the changes to your account as requested.\n\nPlease allow 24 hours for this to sync and get back in touch if any issues.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 24, name: "Dialog / Group Access Granted",
+    keywords: ["dialog", "group", "access", "added", "sync", "group access", "dialog access"],
+    body: `Hi {{customer}},\n\nI have added the user(s) to the correct dialog and group. Please allow an hour for this to sync.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 25, name: "Username Change",
+    keywords: ["username", "change username", "hr", "workforce", "name change", "rename account"],
+    body: `Hi {{customer}},\n\nPlease can you confirm what username you require to change to. Please can you also confirm if these changes have been made with HR and workforce systems, as they will all need to match before we can change anything on our side.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 26, name: "USB Permissions - Line Manager Required",
+    keywords: ["usb", "permissions", "line manager", "usb access", "removable", "license", "software license"],
+    body: `Hi {{customer}},\n\nYour line manager will have to email us to give you USB permissions to access this.\n\nPlease also speak to your line manager about the license, as this software requires an active license to use. If there is none, you will have to purchase one.\n\nUnfortunately we don't advise on how to use this software - please contact your line manager or email digital.training@lscft.nhs.uk for further guidance.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 27, name: "Software via Company Portal",
+    keywords: ["software", "company portal", "download", "install", "app", "application", "self install"],
+    body: `Hi {{customer}},\n\nThis is something that you can download yourself via the Company Portal. You can find this by using the search bar at the bottom and typing 'Company Portal' and then searching for your software.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 28, name: "Windip Download",
+    keywords: ["windip", "company portal", "download", "install", "windip install"],
+    body: `Hi {{customer}},\n\nYou can download Windip from the Company Portal. To do this, use the search bar at the bottom and search for 'Company Portal.' Open the app and then search for 'Windip' and install the full version.\n\nIf you have any issues then please call the service desk so we can look at this further.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 29, name: "Workforce Systems - HERO",
+    keywords: ["workforce", "hero", "hero icon", "helpdesk", "systems", "ticket", "workforce systems"],
+    body: `Hi {{customer}},\n\nYou will need to contact the workforce systems team. You can find them by using the 'HERO' icon on your desktop. From there you can launch their helpdesk and submit a ticket.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 30, name: "ESR - Workforce System",
+    keywords: ["esr", "workforce", "hero", "service desk", "workforce system", "esr access"],
+    body: `Hi {{customer}},\n\nESR is a workforce system application. You can find them by going onto an LSCFT device and finding the 'HERO' icon on the desktop. Once opened, go to 'Launch Service Desk.' From there you will be able to submit a ticket with them.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 31, name: "Send From / From Field in Outlook",
+    keywords: ["send from", "from field", "outlook", "delegate", "send as", "email from", "from button"],
+    body: `Hi {{customer}},\n\nThanks for the information. Have you got the 'From' field visible? You can find this by opening a new email. At the top of the tab go to Options and ensure that 'From' is selected. The 'From' field should now be loaded - just click on it and either add or select the email addresses you need to send from.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 32, name: "Out of Office Placed",
+    keywords: ["out of office", "ooo", "away message", "auto reply", "placed", "out of office set"],
+    body: `Hi {{customer}},\n\nI have placed the out of office on the account as requested.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 33, name: "New User Processing Notes (Internal)",
+    keywords: ["new user", "processing", "ou", "move", "account setup", "internal", "new account notes", "processing notes"],
+    body: `FOR PROCESSING NEW USERS:\nTaken out of office, added address and checked account, member of, and general tabs. Moved to correct OU.\n\n(DUPLICATE / expired account):\nCopied details from new account to original. Duplicated new account. Moved original to Temp Staffing OU and unhid mailbox on Exchange, also enabled it on AD.`
+  },
+  {
+    id: 34, name: "Leaver Processing Notes (Internal)",
+    keywords: ["leaver", "processing", "leavers ou", "exchange", "ad", "internal", "leaver notes", "offboarding"],
+    body: `FOR PROCESSING LEAVERS:\nPut leaver's location in office tab with this SD number. Added to leavers OU. Changed password on AD. Hid mailbox on Exchange.`
+  },
+  {
+    id: 35, name: "New User - Rio Access",
+    keywords: ["rio", "new user", "rio access", "it trainer", "training", "mfa", "account created"],
+    body: `Hi {{customer}},\n\nThis account has been created as per your request. Please ask the user to contact the IT Helpdesk and quote the incident reference to retrieve their login credentials.\n\nPlease note: Rio access is granted by the IT Trainer once the user has attended training.\n\nPlease advise them they must enrol onto MFA as this is now a mandatory requirement across the trust. A guide on how to enrol can be found via the MFA button on Trustnet.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 36, name: "CITO Access Granted",
+    keywords: ["cito", "access", "granted", "sync", "cito access"],
+    body: `Hi {{customer}},\n\nI have granted access to CITO - please allow a few hours for this to sync.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 37, name: "Duplicate Account Check",
+    keywords: ["duplicate", "account", "new user", "middle initial", "already exists", "duplicate account", "existing account"],
+    body: `Hi {{customer}},\n\nThank you for your request for a new user account. I just wondered if they have ever worked for the Trust before, as we already have someone by that name on the system.\n\nIf they haven't worked for the Trust before, please provide us with their middle initial and we can create the account.\n\nShould you have any further questions or queries, please visit the IT Service Desk SharePoint page - this page contains information which could answer your question at a click of a button.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 38, name: "USB Permissions Granted",
+    keywords: ["usb", "permissions", "granted", "sync", "usb access granted", "removable media"],
+    body: `Hi {{customer}},\n\nI have granted USB permissions for this user as requested. Please allow a few hours for this to sync and get them to call us if it doesn't work.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 39, name: "EPMA Download",
+    keywords: ["epma", "company portal", "download", "install", "medication", "epma install"],
+    body: `Hi {{customer}},\n\nYou should be able to download EPMA from the 'Company Portal.' Use the search box at the bottom of the screen and search for 'Company Portal.' From there search for 'EPMA' and download the latest version.\n\nIf you are having issues, please call the helpdesk on 01772 695316 quoting this job's INC number so we can investigate further.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 40, name: "New User - Additional Details Required",
+    keywords: ["new user", "additional details", "base site", "contact number", "manager", "start date", "expiry", "details required"],
+    body: `Hi {{customer}},\n\nPlease could you provide some updated details for the user's account? We need their:\n- Base site\n- Contact number\n- Manager's name\n- Start date and expiration date for the account\n- Any previous access which needs to be removed\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 41, name: "Wireless - Certificate Issue",
+    keywords: ["wireless", "certificate", "ethernet", "fulwood park", "network", "wifi", "wireless certificate"],
+    body: `Hi {{customer}},\n\nThe wireless network is requesting a certificate when connecting. Please try finding an ethernet port or port replicator as an alternative connection method while we investigate this.\n\nIf you need further assistance, please call the helpdesk on 01772 695316 between 08:30 - 17:00, Monday to Friday, quoting your incident number.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 42, name: "Calendar Access Granted",
+    keywords: ["calendar", "access granted", "permissions", "sync", "calendar access", "granted"],
+    body: `Hi {{customer}},\n\nI have granted access to the calendar as requested. Please allow a few hours for these permissions to sync over.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 43, name: "Login - Check Username Format",
+    keywords: ["login", "username", "format", "password", "xlancashirecare", "can't login", "incorrect username"],
+    body: `Hi {{customer}},\n\nPlease can you confirm you're using the correct login details. It will be:\n\nUsername: first.surname@xlancashirecare.nhs.uk\nPassword: your normal IT login (15 character minimum)\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 44, name: "Shared Mailbox Access Granted",
+    keywords: ["shared mailbox", "access granted", "mailbox", "permissions", "sync", "mailbox granted"],
+    body: `Hi {{customer}},\n\nI have granted access to the shared mailbox as requested. Please allow a few hours for these permissions to sync over.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 45, name: "Shared Mailbox - Confirm Permission Type",
+    keywords: ["shared mailbox", "permissions", "send as", "full access", "read manage", "mailbox permissions", "confirm permissions"],
+    body: `Hi {{customer}},\n\nPlease can you confirm what permissions you want to give for the shared mailbox(es).\n\nThe permissions are as follows:\n\nSend as\nThe Send as permission allows the delegate to send an email from this mailbox. The message will appear to have been sent from the mailbox owner.\n\nRead and manage (Full Access)\nThe Full Access permission allows a delegate to open this mailbox and behave as the mailbox owner.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 46, name: "Distribution List Access Granted",
+    keywords: ["distribution list", "access granted", "dl", "group", "list access", "distribution"],
+    body: `Hi {{customer}},\n\nI have granted access to the distribution list as requested. Please allow a few hours for these permissions to sync over.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 47, name: "Shared Drive Access Granted",
+    keywords: ["shared drive", "drive access", "folder", "granted", "permissions", "network drive", "drive granted"],
+    body: `Hi {{customer}},\n\nI have granted access to the shared drive folder as requested. Please allow a few hours for these permissions to sync over.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 48, name: "Shared Drive - File Path Not Found",
+    keywords: ["shared drive", "file path", "not found", "confirm path", "drive path", "cannot find"],
+    body: `Hi {{customer}},\n\nPlease can you provide us with the full file paths of where you want to grant access, as we cannot find those files on the shared drive.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 49, name: "Account Extended",
+    keywords: ["account", "extended", "expiry", "date", "extend account", "account expiry"],
+    body: `Hi {{customer}},\n\nI have extended the account until the date specified.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 50, name: "Account Expiry Removed",
+    keywords: ["account", "expiry", "removed", "no expiry", "permanent", "remove expiry"],
+    body: `Hi {{customer}},\n\nI have removed the expiry on the account.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 51, name: "Account Re-enabled",
+    keywords: ["account", "re-enabled", "disabled", "locked out", "enable account", "reactivate"],
+    body: `Hi {{customer}},\n\nI have re-enabled the account. If they know the password, they will be able to get in within an hour of receiving this email. If not, please get them to call the helpdesk to obtain their login credentials.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 52, name: "Purchase IT Equipment",
+    keywords: ["purchase", "equipment", "trustnet", "digital hub", "it order form", "buy equipment", "new equipment"],
+    body: `Hi {{customer}},\n\nYou would have to buy a new one from the IT purchasing portal. You can find it by opening a new web browser on an LSCFT device, going to the main Trustnet page, then navigating to Digital Hub > IT Order Form.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 53, name: "Smartcard / PIN Not Appearing",
+    keywords: ["smartcard", "pin", "nhs credential management", "identity agent", "pin box", "smart card", "pin not showing"],
+    body: `Hi {{customer}},\n\nThis may be a software issue. Please open 'Hidden Icons' at the bottom right corner of the screen and check if 'NHS Credential Management' and 'Identity Agent' are there (hover over icons to see names).\n\nIf they are not there:\n1. Put your smartcard in the machine\n2. Search for 'NHS Credential Management' at the bottom left of the screen and open it\n3. Do the same for 'Identity Agent'\n4. The PIN box should now open - type your PIN in\n\nIf the PIN box still doesn't appear, please try in another colleague's machine. If that works, contact us so we can arrange an appointment to check the hardware/software.\n\nIf it still doesn't work, please contact us so we can go through the next steps.\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 54, name: "CITO Word Add-In",
+    keywords: ["cito", "word", "add-in", "enable", "com add-ins", "word addin", "cito tab", "word tab"],
+    body: `Hi {{customer}},\n\nTo enable the CITO tab in Word:\n\n1. Open Word and go to File > Options\n2. Click Add-Ins in the left-hand menu\n3. In the 'Manage' dropdown at the bottom, select COM Add-ins and click Go\n4. Check the box next to CitoWordAddIn and click OK\n5. Restart Word\n\nIf the add-in did not appear in the COM list, Word may have disabled it:\n\n1. Go to File > Options > Add-Ins\n2. In the 'Manage' dropdown, select Disabled Items and click Go\n3. If CITO is listed, select it and click Enable\n4. Restart Word\n\nKind regards,\n{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 55, name: "Canon - Serial Number Not Found",
+    keywords: ["canon", "serial number", "not found", "printer", "recheck", "serial", "canon escalation"],
+    body: `Hi {{customer}},\n\nPlease could you review the serial number for the printer that you provided, as nothing is showing up for that serial number. Once we have the correct serial number we can log a job with Canon.\n\nKind regards,\n{{agent}} - IT Helpdesk`
   }
+
 ];
 
 // ---- State ----
@@ -2066,7 +2256,7 @@ let activeTag  = null;
 
 function loadScripts() {
   try {
-    const raw = localStorage.getItem('it_scripts_lcft_v3');
+    const raw = localStorage.getItem('it_scripts_lcft_v4');
     if (raw) {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed) && parsed.length > 0) return parsed;
@@ -2076,7 +2266,7 @@ function loadScripts() {
 }
 
 function saveScripts() {
-  try { localStorage.setItem('it_scripts_lcft_v3', JSON.stringify(scripts)); } catch (e) { /* localStorage blocked — edits won't persist but tool still works */ }
+  try { localStorage.setItem('it_scripts_lcft_v4', JSON.stringify(scripts)); } catch (e) { /* localStorage blocked — edits won't persist but tool still works */ }
   document.getElementById('totalBadge').textContent = scripts.length;
 }
 
@@ -2319,22 +2509,39 @@ function selectOU(ou) {
   selectedOU = ou;
   document.querySelectorAll('.ou-btn').forEach(b => b.classList.remove('selected'));
   document.getElementById('ou-' + ou).classList.add('selected');
+  // Clear custom OU field when a quick button is used
+  const customField = document.getElementById('inactiveCustomOU');
+  if (customField) customField.value = '';
+  buildInactiveOutput();
+}
+
+function onCustomOUInput() {
+  const custom = document.getElementById('inactiveCustomOU').value.trim();
+  if (custom) {
+    // Deselect quick buttons when user is typing a custom OU
+    document.querySelectorAll('.ou-btn').forEach(b => b.classList.remove('selected'));
+    selectedOU = null;
+  }
   buildInactiveOutput();
 }
 
 function buildInactiveOutput() {
   const rawName = document.getElementById('inactiveName').value.trim();
-  if (!rawName || !selectedOU) {
+  const customOU = document.getElementById('inactiveCustomOU')
+    ? document.getElementById('inactiveCustomOU').value.trim()
+    : '';
+  const activeOU = customOU || selectedOU;
+
+  if (!rawName || !activeOU) {
     document.getElementById('inactiveOutput').classList.remove('visible');
     return;
   }
-  // Format: Firstname.Lastname@lscft.nhs.uk
   const email  = rawName.includes('@') ? rawName : rawName + '@lscft.nhs.uk';
-  const output = `${email} details changed and moved to ${selectedOU} OU`;
+  const output = `${email} details changed and moved to ${activeOU} OU`;
   document.getElementById('outputText').textContent = output;
   document.getElementById('inactiveOutput').classList.add('visible');
   const btn = document.getElementById('copyInactiveBtn');
-  btn.textContent = ' Copy Output';
+  btn.textContent = 'Copy Output';
   btn.classList.remove('copied');
 }
 
