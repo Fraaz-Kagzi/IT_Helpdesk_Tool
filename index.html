@@ -1656,6 +1656,8 @@
     min-height: 16px;
   }
 
+
+
 </style>
 </head>
 <body>
@@ -2021,6 +2023,9 @@
   <div class="site-cards" id="siteCards"></div>
 </div><!-- end panel-site -->
 
+<!-- TAB: Leavers -->
+
+
 <!-- TAB: MFA Resync -->
 <div class="tab-panel" id="panel-mfa">
   <div style="max-width:700px;margin:0 auto;padding:24px 16px;">
@@ -2037,6 +2042,17 @@
         Copy Command
       </button>
       <span id="mfa-copy-confirm" style="display:none;margin-left:12px;color:#4ade80;font-size:0.82rem;font-weight:600;">Copied!</span>
+    </div>
+
+    <!-- v3.14 command block -->
+    <div style="background:#0f172a;border:1px solid #7c3aed;border-radius:10px;padding:18px 20px;margin-bottom:28px;position:relative;">
+      <div style="color:#c4b5fd;font-size:0.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;">PowerShell Command — v3.14</div>
+      <code id="mfa-cmd-v314" style="display:block;color:#e9d5ff;font-family:'Courier New',monospace;font-size:0.95rem;white-space:pre;word-break:break-all;">cd \\lct-sdadmin01\Tools\MFA_Script; .\MFA_Resyncer-test.ps1 -RunForReal</code>
+      <button onclick="copyMfaCmdV314()" id="mfa-copy-btn-v314"
+        style="margin-top:14px;background:#7c3aed;color:#fff;border:none;border-radius:6px;padding:8px 20px;font-size:0.85rem;cursor:pointer;font-weight:600;transition:background .15s;">
+        Copy Command
+      </button>
+      <span id="mfa-copy-confirm-v314" style="display:none;margin-left:12px;color:#4ade80;font-size:0.82rem;font-weight:600;">Copied!</span>
     </div>
 
     <!-- Guide -->
@@ -3768,6 +3784,17 @@ function switchTab(tab) {
   document.getElementById('tab-' + tab).classList.add('active');
 }
 
+function copyMfaCmdV314() {
+  var cmd = document.getElementById('mfa-cmd-v314').textContent;
+  var btn = document.getElementById('mfa-copy-btn-v314');
+  var confirm = document.getElementById('mfa-copy-confirm-v314');
+  copyToClipboard(cmd, function() {
+    if (confirm) { confirm.style.display = 'inline'; setTimeout(function(){ confirm.style.display='none'; }, 2000); }
+    if (btn) { btn.textContent = 'Copied!'; setTimeout(function(){ btn.textContent = 'Copy Command'; }, 2000); }
+    showToast('v3.14 command copied!');
+  });
+}
+
 function copyMfaCmd() {
   const text = document.getElementById('mfa-cmd').innerText;
   const confirm = document.getElementById('mfa-copy-confirm');
@@ -4953,6 +4980,8 @@ function closeLightbox() {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeLightbox();
 });
+
+
 
 // ---- Init ----
 
