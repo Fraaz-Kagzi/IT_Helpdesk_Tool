@@ -937,7 +937,6 @@
 
   .pw-card:hover { border-left-color: var(--accent); box-shadow: var(--shadow-md); }
   .pw-card:hover::before { background: var(--accent); }
-  .pw-card.used { opacity: 0.4; }
 
   .pw-text {
     font-family: 'Consolas', 'Courier New', monospace;
@@ -947,7 +946,6 @@
     flex: 1;
     word-break: break-all;
   }
-  .pw-card.used .pw-text { color: var(--text4); text-decoration: line-through; }
 
   .pw-copy-btn {
     flex-shrink: 0;
@@ -965,10 +963,7 @@
   }
   .pw-copy-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
   .pw-copy-btn.copied { background: var(--green); color: #fff; border-color: var(--green); }
-  .pw-card.used .pw-copy-btn { display: none; }
 
-  .pw-used-tag { font-size: 11px; color: var(--text4); display: none; }
-  .pw-card.used .pw-used-tag { display: inline; }
 
   .pw-star-btn {
     flex-shrink: 0;
@@ -1549,9 +1544,135 @@
   ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: var(--text4); }
 
+
+  /* ---- Login Screen ---- */
+  .login-screen {
+    position: fixed;
+    inset: 0;
+    background: #0f1117;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .login-screen.hidden { display: none; }
+
+  .login-box {
+    background: #1a1f2e;
+    border: 1.5px solid #2d3748;
+    border-radius: 16px;
+    padding: 36px 32px;
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .login-banner {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    max-height: 80px;
+  }
+
+  .login-banner img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .login-title {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 15px;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 6px;
+    letter-spacing: 0.3px;
+  }
+
+  .login-sub {
+    font-size: 12px;
+    color: #475569;
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-bottom: 24px;
+  }
+
+  .login-input {
+    width: 100%;
+    background: #0f1117;
+    border: 1.5px solid #2d3748;
+    border-radius: 9px;
+    padding: 12px 14px;
+    color: #e2e8f0;
+    font-size: 15px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    outline: none;
+    transition: border-color 0.2s;
+    text-align: center;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+
+  .login-input:focus { border-color: #3b82f6; }
+  .login-input.shake {
+    animation: shake 0.35s ease;
+    border-color: #ef4444 !important;
+  }
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+  }
+
+  .login-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #1d4ed8, #1e40af);
+    color: #fff;
+    border: none;
+    border-radius: 9px;
+    padding: 12px;
+    font-size: 14px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .login-btn:hover { opacity: 0.88; }
+
+  .login-error {
+    font-size: 12px;
+    color: #ef4444;
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-top: 10px;
+    min-height: 16px;
+  }
+
 </style>
 </head>
 <body>
+
+<!-- Login Screen -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-banner"><img id="loginBannerImg" alt="IT Helpdesk" /></div>
+    <div class="login-title">IT Helpdesk Tool</div>
+    <div class="login-sub">Enter the password to continue</div>
+    <input type="password" class="login-input" id="loginInput" placeholder="••••••••"
+      onkeydown="if(event.key==='Enter')checkLogin()" autocomplete="off" />
+    <button class="login-btn" onclick="checkLogin()">Unlock</button>
+    <div class="login-error" id="loginError"></div>
+  </div>
+</div>
+
 
 <!-- Boss Corner -->
 <div class="boss-corner" title="Service Desk Final Boss" onclick="this.style.display='none'">
@@ -1628,10 +1749,9 @@
       <div class="how-to-section">
         <div class="how-to-section-label">Tab</div>
         <div class="how-to-section-title">Passwords</div>
-        <p>A local bank of <strong>temporary passwords</strong> you can hand out to users who need a reset. Keeps track of which passwords have already been used so you don't hand the same one out twice.</p>
+        <p>A local bank of <strong>temporary passwords</strong> you can hand out to users who need a reset. Copy passwords to hand out to users needing a reset.</p>
         <ul>
           <li><strong>Copy</strong> — click a password card to copy it. It will be marked as <em>Used</em> automatically so you don't accidentally reuse it.</li>
-          <li><strong>Reset all</strong> — clears the used status on all passwords so the full list is available again.</li>
           <li><strong>Add password</strong> — type a custom word/phrase in the box at the bottom and press Enter or click Add to add it to the pool.</li>
           <li><strong>Upload file</strong> — load a plain text file (one password per line) to bulk-replace the password list.</li>
         </ul>
@@ -1873,7 +1993,6 @@
 
   <!-- Action buttons -->
   <div class="pw-actions-bar">
-    <button class="pw-action-btn" onclick="pwResetUsed()">↺ Reset used</button>
     <button class="pw-action-btn danger" onclick="pwClearAll()"> Clear all</button>
   </div>
 
@@ -2247,7 +2366,1172 @@ const DEFAULT_SCRIPTS = [
     body: `Hi {{customer}},\n\nPlease could you review the serial number for the printer that you provided, as nothing is showing up for that serial number. Once we have the correct serial number we can log a job with Canon.\n\nKind regards,\n{{agent}} - IT Helpdesk`
   }
 
-];
+,
+  {
+    id: 200, name: "Advice and Guidance",
+    keywords: ["advice", "guidance", "lydia", "advice and guidance"],
+    body: `Advice and Guidance is managed by Lydia.Yates@lscft.nhs.uk
+It would be best to contact her about this
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 201, name: "Canon Resolved",
+    keywords: ["canon", "resolved", "complete", "canon job", "repair"],
+    body: `Hi {{customer}},
+
+Please see the resolution notes from Canon below. They have advised the job is now complete. If there are any further issues please call the IT Service Desk on 01772 695316 between 08:30 - 17:00 Mon to Fri quoting your SD number.
+
+Kind regards,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 202, name: "Cisco Jabber - Install",
+    keywords: ["cisco", "jabber", "install", "company portal", "softphone"],
+    body: `Hi {{customer}},
+
+You are now able to install this yourself. Please search for Company Portal in the bottom left corner of your screen.
+Under Applications please find Cisco Jabber and click Install.
+
+If for whatever reason this fails please click retry and if this still doesn't work, go to the settings icon and click sync and retry installing this.
+If this still fails, please could you contact the IT Helpdesk on 01772 695316
+This can be done between 08:30 - 17:00 Monday to Friday, quoting the INC/SD Number,
+so we can book you in for a remote technician appointment.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 203, name: "Cito Access (RiO)",
+    keywords: ["cito", "rio", "access", "cito access"],
+    body: `Hi {{customer}},
+
+If you need access to Cito within RiO, this request would need to come to the service desk from your line manager.
+This is for security and auditing purposes.
+
+Forwarded and replied to emails will not be logged on our system, it must be a fresh email to IT.Helpdesk@lscft.nhs.uk. It is not sufficient to simply have line managers CC'd in.
+Please call through to the service desk on 01772 695316 quoting the INC/SD number.
+
+Kind regards,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 204, name: "Cito Plugin - Word",
+    keywords: ["cito", "plugin", "word", "add-in", "addin", "cito word"],
+    body: `Hi {{customer}},
+
+Please open Word and click File > Options > Add-ins > locate Manage COM Add-ins and click Go.
+See if you can see the Cito plugin — tick it and click OK and it should appear in the top right.
+
+If it is not appearing:
+1. Close any and all instances of MS Word
+2. Search for Company Portal in the bottom left corner of your screen
+3. Search for Cito Word - Integration and click Install, then relaunch Word
+
+If the above doesn't work:
+4. Locate the settings icon in Company Portal and click Sync (may take a few minutes)
+5. Try to install the app again
+
+If this still fails, please contact the IT Helpdesk on 01772 695316 between 08:30 - 17:00 Monday to Friday, quoting the INC/SD Number.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 205, name: "Cito Plugin - Disabled",
+    keywords: ["cito", "plugin", "disabled", "word", "add-in", "inactive"],
+    body: `Hi {{customer}},
+
+Please open Word and click File > Options > Add-ins > locate the dropdown arrow and click it > choose Disabled Items.
+
+You should see Cito listed there — click it and click Enable, then reload Word and see if this fixes the issue.
+
+If this still fails, please contact the IT Helpdesk on 01772 695316 between 08:30 - 17:00 Monday to Friday, quoting the INC/SD Number.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 206, name: "Cito Teams - Open in Desktop",
+    keywords: ["cito", "teams", "word", "desktop app", "teams channel"],
+    body: `Hi {{customer}},
+
+With the migration of Shared Drive locations to MS Teams, to use the Cito Word button as normal, please do the following:
+
+1. Open your Word document in MS Teams channel
+2. Locate the ribbon on Word and select the option that says Editing
+3. Click this and choose 'Open in Desktop'
+
+This will then open in MS Word where you should be able to use the Cito add-in the same way as before.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 207, name: "Default Apps - PDF",
+    keywords: ["default apps", "pdf", "adobe", "acrobat", "open pdf", "default"],
+    body: `Hi {{customer}},
+
+Please search for 'Default Apps' in your search bar.
+Under apps, type Adobe Reader/Acrobat and select it.
+
+Under the extensions please locate the one that says .PDF, click the icon and see if you can change it back to Adobe.
+
+If this works you should then be able to open your PDF in PDF Reader.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 208, name: "EE SIM Details Request",
+    keywords: ["ee", "sim", "mobile", "sim details", "cellular", "ee sim"],
+    body: `Hi {{customer}},
+
+We require some SIM details to escalate this to EE.
+
+Please follow the below:
+Select Settings > Network & Internet > Cellular > Mobile operator settings.
+You should see some SIM details — please copy all the info and reply so we can escalate this for you.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 209, name: "EMIS - Install",
+    keywords: ["emis", "install", "company portal", "organisation id", "emis install"],
+    body: `Hi {{customer}},
+
+You are now able to install this yourself. Please search for Company Portal in the bottom left corner of your screen.
+Under Applications please find EMIS and click Install.
+
+Once installed it will ask for your Organisation ID — please note we are not aware of what this could be, you will need to speak to your manager to obtain this for your access.
+
+If this fails, please click retry or go to the settings icon and click sync and retry.
+If it still fails, please contact the IT Helpdesk on 01772 695316 between 08:30 - 17:00 Monday to Friday, quoting the INC/SD Number.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 210, name: "EMIS - Super User Support",
+    keywords: ["emis", "support", "super user", "emis access", "emis issue"],
+    body: `Hi {{customer}},
+
+Unfortunately we only install EMIS but cannot provide further support past this point.
+You will need to contact your EMIS Super User. If you don't know who this is, please ask your manager — they should be able to help with basic issues and if not they are in contact with EMIS directly.
+
+Kind regards,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 211, name: "Egress - Grant Access & Install",
+    keywords: ["egress", "install", "egress access", "encrypted email", "switch egress"],
+    body: `Hi {{customer}},
+
+I have now granted you access to LSCFT - Egress Authors - User Mailboxes, which is the permission needed to send via Egress. You must install the add-in yourself:
+
+1. Please ensure you close Outlook down completely first
+2. Search for Company Portal in the bottom left corner of your screen
+3. Under Applications please find Egress and click Install
+
+Please note this does not work on Outlook New — only on the Classic version.
+
+If this fails, please contact the IT Helpdesk on 01772 695316 between 08:30 - 17:00 Monday to Friday, quoting the INC/SD Number.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 212, name: "Egress - Private Window Access",
+    keywords: ["egress", "private window", "inprivate", "encrypted", "switch.egress.com"],
+    body: `Hi {{customer}},
+
+If you sign into a private window (open Edge > click the 3 dots in the top right corner > click New InPrivate Window > search switch.egress.com and sign in), you will be able to send encrypted emails outside of the trust.
+
+We can also enable Egress as an add-in via your Outlook but will require your asset tag to do so — can you verify this?
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 213, name: "ePMA - Install & Support",
+    keywords: ["epma", "install", "company portal", "epma access", "team.epma"],
+    body: `Hi {{customer}},
+
+You are now able to install this yourself. Please search for Company Portal in the bottom left corner of your screen.
+Under Applications please find ePMA and click Install.
+
+Please note we do not provide login details — this would need to be raised to Team.ePMA@lscft.nhs.uk.
+
+If this fails, please contact the IT Helpdesk on 01772 695316 between 08:30 - 17:00 Monday to Friday, quoting the INC/SD Number.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 214, name: "Account Expired - Resolved",
+    keywords: ["expired", "account expired", "expiry", "extend account", "expired account"],
+    body: `Hi {{customer}},
+
+This user's account was expired — this has now been amended as per your request.
+
+Please ask the user to contact the IT Helpdesk on 01772 695316 between 08:30 - 17:00 Mon to Friday, quoting this SD/INC number to obtain their new login credentials.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 215, name: "File Path Request",
+    keywords: ["file path", "drive path", "full path", "folder path", "path"],
+    body: `Hi {{customer}},
+
+Can you verify if the user will require READ or EDIT access?
+
+Please provide the full file path for this area in the drive. You can do this by copying and pasting the path URL — go to the area in the drive the user needs access to and click on the small folder icon on the left side in the path URL.
+
+Example:
+\\\\lct-fsclfile.xlancashirecare.nhs.uk\\Shared\\LCFT\\Training\\Intranet Docs
+
+Kind regards,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 216, name: "GlobalProtect VPN",
+    keywords: ["globalprotect", "vpn", "global protect", "remote access", "connect vpn"],
+    body: `Hi {{customer}},
+
+Please ensure you are connected to your home wifi first, then search 'GlobalProtect' in the bottom left corner of your screen.
+
+If you have an option to connect, please do so. If you are still unable to, there should be a small box with 3 lines — click it then click 'Refresh connection' and allow some time to reconnect.
+
+If this still fails, please contact the IT Helpdesk on 01772 695316 between 08:30 - 17:30 Monday to Friday, quoting the INC/SD Number.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 217, name: "Harris Flex - Install",
+    keywords: ["harris flex", "harris", "quadramed", "lth", "harris flex install"],
+    body: `Hi {{customer}},
+
+Harris Flex/Quadramed is a software managed by LTH. To obtain access please fill out the following form:
+https://lancsteachinghospitals-dash.achieveservice.com/en/AchieveForms/?form_uri=sandbox-publish://AF-Process-87580aa1-8592-44e5-8ac6-4bab29f77f3a/AF-Stage-3d2671fb-09aa-469c-8d00-db515477cd44/definition.json
+
+In the meantime, please search for Company Portal in the bottom left corner of your screen.
+Under Applications please find Harris Flex and click Install.
+
+Once installed, please go to Settings > About Device and provide the Device ID, and also confirm your main LSCFT base site.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 218, name: "Identity Agent - RiO Fix",
+    keywords: ["identity agent", "nhs credential management", "smartcard", "api error", "rio fix"],
+    body: `Hi {{customer}},
+
+The error you are experiencing in RiO may be software related. Please follow the steps below:
+
+1. Open 'Hidden Icons' at the bottom right corner of the screen (arrow icon)
+2. Check if 'NHS Credential Management' and 'Identity Agent' are there (hover over icons to see names)
+3. If they are there, right-click each and select Exit
+4. Search for Company Portal in the search bar
+5. Type 'NHS' in the Company Portal search bar
+6. Install/update 'NHS Identity Agent' and 'NHS Credential Management'
+7. Close Company Portal, then open both applications again from the search bar
+
+Once done, put your smartcard back in — the PIN box should appear. Enter your PIN and RiO should work as intended.
+
+If this doesn't work on multiple machines it may be a smartcard fault — please contact your local RA agent.
+
+Please contact the IT Helpdesk on 01772 695316 between 08:30 - 17:30 Monday to Friday if further help is needed.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 219, name: "IRIS - Complete Form",
+    keywords: ["iris", "ulysses", "iris form", "incident", "rio error", "cito error"],
+    body: `Hi {{customer}},
+
+Can you confirm whether this error was made in RiO or Cito?
+
+Please could you complete an IRIS regarding this request: https://ulysses.lscft.nhs.uk/
+Once you have done this, please let us know the reference number and we can assign it to the appropriate team.
+
+Kind regards,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 220, name: "IRIS - Contact Team",
+    keywords: ["iris", "iris contact", "iris down", "iris access", "iris@lscft"],
+    body: `Hi {{customer}},
+
+Please contact IRIS@lscft.nhs.uk as IT does not manage or administrate access to this system.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 221, name: "IT Shortcut - Create Desktop",
+    keywords: ["shortcut", "desktop shortcut", "it shortcut", "trustnet link", "create shortcut"],
+    body: `Hi {{customer}},
+
+It seems like the link you have is an old one. Please follow the below to create a new shortcut:
+
+1. Open Trustnet
+2. Locate the Digital Hub button and click it
+3. Locate the option that says 'Log a job with IT'
+4. Right-click and copy the link
+5. Go to your desktop
+6. Right-click anywhere and click New > Create Shortcut
+7. Paste the copied link and click Next
+8. Name the shortcut 'IT Service Desk'
+
+This will replace the old incorrect link.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 222, name: "Janus C4 - Install",
+    keywords: ["janus", "c4", "janus c4", "install janus"],
+    body: `Hi {{customer}},
+
+Please open Microsoft Edge and copy and paste the following link:
+http://lct-januscn01/c4client/
+
+You will be redirected to the next page — select 'Install Janus C4 Client'.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 223, name: "Known Inactive - Confirm Return",
+    keywords: ["known inactive", "inactive", "wallpaper", "phase return", "white background", "return to work"],
+    body: `Hi {{customer}},
+
+We have marked your account as known inactive following information received from the Workforce team due to an absence from work.
+This is done to prevent your account from being deactivated due to inactivity.
+
+Please can you confirm you have fully returned to work and are no longer on any phased return or keeping in touch days.
+
+If so, please provide the latest contact details:
+- Job title
+- Telephone number
+- Site location
+- Department
+- Manager's name
+
+So we can update our records accordingly.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 224, name: "Known Inactive - Account Updated",
+    keywords: ["known inactive", "account updated", "moved back", "wallpaper", "white background", "door access"],
+    body: `Hi {{customer}},
+
+I have now updated your account accordingly and moved you back to the correct area.
+
+Please allow 24 hours for the 'known inactive' wallpaper to go back to normal — please note this is just a wallpaper and does not restrict any access.
+
+If you are affected by door access issues, this will also rectify within the next 2-3 hours.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 225, name: "LMS-X - Contact Training",
+    keywords: ["lms-x", "lmsx", "e-learning", "training", "mandatory training", "lms"],
+    body: `Hi {{customer}},
+
+Please contact Mandatory.Training@lscft.nhs.uk as IT does not manage or administrate access to the LMS-X E-Learning site.
+
+You can also call 01772 773592.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 226, name: "LMS-X - System Down",
+    keywords: ["lms-x", "lmsx", "down", "portal down", "lms down", "not working"],
+    body: `Hi {{customer}},
+
+We are aware that the LMS-X Portal is currently down.
+The Clinical Education team are aware and looking into this, as it is currently affecting all users.
+
+Please contact Clinical.Education@lscft.nhs.uk if you have any queries.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 227, name: "LPRES - Adobe Reader Fix",
+    keywords: ["lpres", "adobe", "adobe reader", "lpres fix", "pdf lpres"],
+    body: `Hi {{customer}},
+
+You are now able to install this yourself. Please search for Company Portal in the bottom left corner of your screen.
+Under Applications please find Adobe Reader and click Install. Once installed, please reload your LPRES page and this should fix the issue.
+
+If this fails, go to the settings icon and click Sync, then retry installing.
+If it still fails, please contact the IT Helpdesk on 01772 695316 between 08:30 - 17:00 Monday to Friday, quoting the INC/SD Number.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 228, name: "Mailbox Permissions - Clarify",
+    keywords: ["mailbox", "permissions", "shared mailbox", "full access", "send as", "read manage"],
+    body: `Hi {{customer}},
+
+In regards to access to a shared mailbox, please state the full mailbox display name or email address.
+
+The permissions available are:
+1. Full access (read & manage only)
+2. Send permissions
+
+Can you specify which is required? Please note send permissions are a different permission group that must be specified separately.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 229, name: "MFA - Reset / New Device",
+    keywords: ["mfa", "mfa reset", "new device", "authenticator", "multi-factor", "mfa enrol"],
+    body: `Hi {{customer}},
+
+I have revoked your previous MFA methods as you have obtained a new device. You will need to re-enrol yourself into MFA via the link below:
+https://mysignins.microsoft.com/security-info
+
+Please note you will be required to re-enrol before midday tomorrow.
+
+If you struggle, please reach out to your Digital Champions:
+https://nwnis.sharepoint.com/sites/DigitalAdvocatesLSCftTeams/Lists/Digital%20Champions%20List/AllItems.aspx
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 230, name: "MFA - Restricted Account",
+    keywords: ["mfa", "mfa restricted", "nosync", "mfa enrol", "mfa mandatory"],
+    body: `Hi {{customer}},
+
+This account is currently MFA restricted due to failing to enrol into MFA.
+Please ask the user to call the IT Helpdesk on 01772 695316 between 08:30 - 17:30 Monday to Friday, quoting the INC/SD Number, so we can remove the restriction and advise on enrolling into MFA.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 231, name: "MFA - Guide",
+    keywords: ["mfa", "mfa guide", "sign up mfa", "mfa setup", "authenticator setup"],
+    body: `Hi {{customer}},
+
+Please follow the below to find the MFA guide:
+
+1. Open Trustnet home page
+2. Click the purple 'Digital Hub' button
+3. Click 'Sign up to MFA'
+4. Scroll down to find the guides
+
+Smartphone guide:
+https://nwnis.sharepoint.com/sites/DIOFF/SiteAssets/SitePages/Multifactor-Authentication/MFA-Desktop-App-Smartphone-Quick-Guide.pdf?web=1
+
+Desktop guide:
+https://nwnis.sharepoint.com/sites/DIOFF/SiteAssets/SitePages/Multifactor-Authentication/MFA-Desktop-App-Guide-Windows-11.pdf?web=1
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 232, name: "MS Teams - Channel Access",
+    keywords: ["teams", "teams access", "teams channel", "channel owners", "ms teams access"],
+    body: `Hi {{customer}},
+
+Any and all access-related queries will need to be raised to the MS Teams Channel Owners. IT is no longer able to provide access in the same manner as shared drive locations.
+
+To locate the owners of the MS Teams Channel:
+1. Open MS Teams
+2. Locate the Teams tab
+3. Find the correct team
+4. Click the 3 dots and click Manage Team
+5. Select the Members tab
+6. Locate Owners
+
+For further support visit:
+https://nwsis.sharepoint.com/sites/DIDTT/SitePages/Shared-Drive-Migration.aspx
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 233, name: "MS Teams - New Teams Layout",
+    keywords: ["teams", "new teams", "teams layout", "chat channels", "teams update"],
+    body: `Hi {{customer}},
+
+Microsoft has amalgamated Chat and Teams into one location in the new version of MS Teams.
+
+This can be reverted by:
+1. In Teams, click the 3 ellipses next to your initials and select Settings
+2. Select Chats and Channels
+3. Under 'Viewing chats and channels' change from Combined to Separate
+
+Teams will then display again on the left column.
+
+Please note this is a training-related issue and not a technical one.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 234, name: "MS Teams - Repair Addin",
+    keywords: ["teams", "addin", "teams addin", "calendar addin", "teams meeting addin", "repair"],
+    body: `Hi {{customer}},
+
+Please try to repair the Teams add-in for Office:
+
+In Control Panel under Programs, click 'Uninstall a program'.
+Find 'Microsoft Teams Meeting Add-in for Microsoft Office', right-click and click Repair.
+
+Once complete, close Outlook and reopen it. This should restore the Teams meeting add-in in your calendar.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 235, name: "Name Change Process",
+    keywords: ["name change", "name changed", "name update", "change name", "new name"],
+    body: `Hi {{customer}},
+
+The process for a name change is as follows:
+1. Inform HR that your name has changed
+2. Once HR has confirmed the change, inform the IT Helpdesk
+3. We will arrange a 2-hour time slot where you will not be logged into any system
+4. We will send to the clinical team to amend any clinical-related access if applicable
+5. You will then login with your new name
+
+Please also submit a ticket via Workforce Systems:
+https://apps.powerapps.com/play/e/default-0418b648-afb0-4300-94ba-33f2b09eb31f/a/c28d0e5e-e90a-4350-8c51-d8b50c571655
+
+Once HR have confirmed, please provide 3x 2-hour slots between 08:30-17:00 Mon-Fri where you will not be logged in.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 236, name: "NerveCentre - Manager Request",
+    keywords: ["nervecentre", "nerve centre", "nervecentre access"],
+    body: `Hi {{customer}},
+
+This NerveCentre-based request would need to come to the service desk from your line manager.
+This is for security and auditing purposes.
+
+Forwarded and replied emails will not be logged on our system — it must be a fresh email to IT.Helpdesk@lscft.nhs.uk. It is not sufficient to simply have line managers CC'd in.
+Please call through to the service desk on 01772 695316 quoting the INC/SD number.
+
+Kind regards,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 237, name: "New Teams Channel Request",
+    keywords: ["new teams", "create teams", "teams channel", "new channel", "teams setup"],
+    body: `Hi {{customer}},
+
+In order to create a new MS Teams channel, please can you confirm the below:
+
+• Name of Team
+• Who will be the owners (minimum of 3)
+• A mailbox is created automatically as part of the team creation. If the mailbox won't be used, would you prefer it is disabled?
+
+Kind regards,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 238, name: "New User Form",
+    keywords: ["new user", "new account", "user form", "create account", "new user form"],
+    body: `Hi {{customer}},
+
+To create an IT account for this user, please submit a New User Request Form via the link below:
+https://apps.powerapps.com/play/e/7faa5738-48ee-eb17-8e9b-93481fba5da2/a/17e4a1e8-f176-4e6d-882e-e7bc2cf3df4c
+
+Alternatively:
+1. Open Trustnet home page
+2. Click the purple 'Digital Hub' button
+3. Click the New User Form button
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 239, name: "New Account Created",
+    keywords: ["new user", "account created", "credentials", "mfa enrol", "new account", "start date"],
+    body: `Hi {{customer}},
+
+The requested account has been successfully created.
+Please advise the user to contact the IT Helpdesk on 01772 695316 between 08:30 and 17:00, Monday to Friday, quoting the incident reference number to obtain their login credentials.
+
+Please note:
+- Credentials can only be retrieved once the user's official start date has commenced
+- The user must enrol in MFA, which is now mandatory. A guide is available via the MFA button on Trustnet
+- MFA enrolment must be completed within two days of the user's start date
+- RiO access will be granted by the IT Trainer once the user has attended the required training
+
+Kind regards,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 240, name: "NHS.NET - No Longer Created",
+    keywords: ["nhs.net", "nhs net", "nhs.net account", "nhs email", "deleted nhs.net"],
+    body: `Hi {{customer}},
+
+We are no longer creating NHS.net accounts. As of March 2023, LSCFT is now DCB1596 compliant — meaning we can stop using NHS.net inboxes.
+
+Your existing NHS.net account has been deleted due to lack of use and we are unable to create a new one as NHS England has advised us to offload accounts.
+
+You are welcome to use your @lscft.nhs.uk email with the Egress Switch add-in to send encrypted emails externally.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 241, name: "No Response - Resolve",
+    keywords: ["no response", "unable to contact", "resolve", "contact attempts", "failed contact"],
+    body: `Hi {{customer}},
+
+We have tried to contact you on several occasions but were unfortunately unable to do so. As per procedure we will now resolve this job as completed.
+
+If the issue is still of concern, please re-log a job ensuring you have provided your latest contact details. You can also call the IT Helpdesk on 01772 695316.
+
+Kind regards,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 242, name: "OCS - Redirect",
+    keywords: ["ocs", "ocs helpdesk", "ocs support"],
+    body: `Hi {{customer}},
+
+Please contact LCTHelpdesk@ocs.co.uk as they are the relevant team to support this request. IT does not have access to support with this.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 243, name: "Out of Office - Shared Mailbox",
+    keywords: ["out of office", "automatic reply", "ooo", "shared mailbox ooo", "auto reply"],
+    body: `Hi {{customer}},
+
+The automatic reply can be managed by anyone who has access to the shared mailbox:
+
+1. Open a web browser and go to Outlook.office.com
+2. Top right of the screen select your initials then 'Open Another Mailbox'
+3. Type the name of the shared mailbox and press Open
+4. Top right select the settings cog
+5. At the bottom select 'View all Outlook settings'
+6. Select Mail > Automatic Replies and edit the message
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 244, name: "Office 365 - Install",
+    keywords: ["office 365", "365", "o365", "install office", "microsoft office", "company portal"],
+    body: `Hi {{customer}},
+
+Please search for Company Portal in the bottom left corner of your screen.
+Under Applications please find 'LSCFT - 365 Apps' and click Install.
+
+Please note this process can take up to an hour to fully sync over to the latest applications.
+
+If this fails, please contact the IT Helpdesk on 01772 695316 between 08:30 - 17:30 Monday to Friday, quoting the INC/SD Number.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 245, name: "OneDrive - Y Drive Migration",
+    keywords: ["onedrive", "y drive", "ydrive", "migration", "my documents", "onedrive migration"],
+    body: `Hi {{customer}},
+
+As per communications sent out, from October 2024 we migrated data from Y Drive to OneDrive. You should now be able to access your migrated data within:
+OneDrive > Documents > YDrive > My Documents and surrounding folders.
+
+Please note previous shortcuts and quick access to the old Y: storage location will no longer work — you will need to remap these as required.
+
+Please confirm whether you are able to access your data. If you feel you are missing files or folders, please get back to us with some examples so we can investigate.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 246, name: "Outlook - Use Classic Version",
+    keywords: ["outlook", "outlook classic", "outlook new", "shared calendar", "shared mailbox outlook"],
+    body: `Hi {{customer}},
+
+On Windows 11 & Office 365, we recommend using Outlook Classic over Outlook New as the new version does not populate shared calendars and shared mailboxes in the same way.
+
+Please check which version you are using by searching 'Outlook' in the search bar.
+
+If this is Outlook New, please close it and open Outlook Classic — this should fix your issue.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 247, name: "Outlook Sync - Cache Mode",
+    keywords: ["outlook sync", "outlook cache", "cache mode", "outlook slow", "sync outlook"],
+    body: `Hi {{customer}},
+
+Please open Outlook Classic.
+Click File > Account Settings > Account and Sync Settings > untick 'Cache Data Mode'.
+Restart Outlook.
+
+Please let me know if this fixes the issue.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 248, name: "Password - Encrypted Email Policy",
+    keywords: ["password protected", "encrypted email", "egress", "send secure", "domain checker", "ppp"],
+    body: `Hi {{customer}},
+
+Password protecting a document is not a secure way of sending data via email and is not backed by policy.
+
+If you need to send sensitive data to an external organisation, please use the Domain Checker to identify whether the recipient's domain is Trusted or Unsafe:
+https://domainchecker.xlancashirecare.nhs.uk/
+
+- If Trusted: safe to send unencrypted
+- If Unsafe: use the Egress Encryption tool
+
+For Egress please contact the IT Service Desk on 01772 695316.
+You could also consider sharing data via OneDrive — contact Digital.Training@lscft.nhs.uk for help.
+
+Regards,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 249, name: "PowerBI - Portal",
+    keywords: ["powerbi", "power bi", "powerbi access", "power bi request"],
+    body: `Hi {{customer}},
+
+For any Power BI requests, please raise via the Power BI Portal:
+https://nwnis.sharepoint.com/sites/DIDAA
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 250, name: "RA Form - Submit",
+    keywords: ["ra form", "registration authority", "smartcard form", "ra agent form"],
+    body: `Hi {{customer}},
+
+Please submit an RA form using the link below:
+https://nwsis.sharepoint.com/sites/DIRAU/SitePages/RA-Form.aspx
+
+If you want to locate this manually:
+Trustnet > Digital Hub > Registration Authority > RA Form
+
+For any other queries please email smartcards.idbadges@lscft.nhs.uk
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 251, name: "RiO - Access Request (Manager)",
+    keywords: ["rio", "rio access", "rio manager", "manager request rio", "rio self requested"],
+    body: `Hi {{customer}},
+
+Unfortunately for security and governance purposes we are unable to accept self-requested access to RiO.
+This request would need to come to the service desk from your line manager.
+
+Forwarded and replied emails will not be logged on our system — it must be a fresh email to IT.Helpdesk@lscft.nhs.uk. It is not sufficient to simply have line managers CC'd in.
+Please call through to the service desk on 01772 695316 quoting the INC/SD number.
+
+Kind regards,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 252, name: "RiO - Smartcard NHS Credential Fix",
+    keywords: ["rio", "smartcard", "nhs credential", "identity agent", "pin", "rio issue", "api error"],
+    body: `Hi {{customer}},
+
+This may be a software issue. Please open 'Hidden Icons' at the bottom right corner of the screen and check if 'NHS Credential Management' and 'Identity Agent' are there (hover over icons to see names).
+
+If they are not there, put your smartcard in and search for 'NHS Credential Management' at the bottom left of your screen, open it, then do the same for 'Identity Agent'. The PIN box should then open.
+
+If there is still no PIN box, please try in another colleague's machine. If that works, contact us to arrange an appointment to check the hardware/software.
+
+Kind regards,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 253, name: "SharePoint Migration",
+    keywords: ["sharepoint", "migration", "trustnet", "sharepoint migration", "sp migration", "old trustnet"],
+    body: `Hi {{customer}},
+
+Migration to SharePoint Online is now complete. All sites confirmed by services are now live.
+
+Please visit the SharePoint Migration Site Lists page to view current status:
+https://nwnis.sharepoint.com/sites/digital/SitePages/SharePoint%20Migration%20-%20Site%20Lists.aspx
+
+If you are experiencing any issues with your site, please email digital.help@lscft.nhs.uk with:
+- Team / Department
+- Issue Description
+- Name/email of staff member experiencing the issue
+- Link to SharePoint site
+
+Please note shortcuts and saved bookmarks linked to the old Trustnet home page will no longer function — contact digital.help for support.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 254, name: "Simultaneous Connections",
+    keywords: ["simultaneous", "wifi", "wired", "ethernet", "wireless", "monitor ethernet"],
+    body: `Hi {{customer}},
+
+Simultaneous connections are not permitted. Devices will need to either:
+- Use Wireless by connecting to NWSIS-WLAN-D, or
+- Use a port replicator or ethernet cable for a wired connection
+
+If connected to a monitor, please ensure the monitor has a working ethernet connection.
+If you still wish to use wireless despite being connected to your monitor, remove the ethernet cable from the monitor.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 255, name: "Smartcard - No Roles / Expiry",
+    keywords: ["smartcard", "no roles", "expiry", "roles dropped", "ra agent", "smartcard roles"],
+    body: `Hi {{customer}},
+
+IT is not able to update or amend smartcard expiry dates.
+
+The 'No Roles Assigned' error will need to be taken up with your local RA Agent. If the role has expired entirely, please submit a new RA form:
+https://nwnis.sharepoint.com/sites/DIRAU/SitePages/RA-Form.aspx
+
+Alternatively you can email smartcards.idbadges@lscft.nhs.uk for further assistance.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 256, name: "Teams - Background Effects",
+    keywords: ["teams background", "blur background", "teams effects", "virtual background"],
+    body: `Hi {{customer}},
+
+To change your MS Teams background before a meeting starts:
+
+1. Turn on your camera and select Effects and Avatars > Video Effects
+2. Select Blur Background to blur your background
+3. Or select a Teams background to apply it, or upload your own (.JPG, .PNG, or .BMP)
+4. To turn off background effects, select None
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 257, name: "Teams - Reset App",
+    keywords: ["teams", "reset teams", "teams not working", "teams issue", "reinstall teams"],
+    body: `Hi {{customer}},
+
+This is an intermittent issue — a reboot usually fixes it. Failing that:
+
+1. Open Settings
+2. Click Apps
+3. Scroll and find Teams
+4. Click Teams > Advanced Options
+5. Scroll to Reset heading and choose Reset
+6. Wait for it to complete, then reopen Teams
+
+If this still does not work, please use the web version of Teams and call the Helpdesk to arrange a Teams reinstall appointment.
+
+Kind regards,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 258, name: "Video Driver Update",
+    keywords: ["video driver", "screen flicker", "driver update", "dell command", "screen flickering"],
+    body: `Hi {{customer}},
+
+There is currently a new video driver install taking place which is causing screens to flicker.
+
+If you let it run its course this can take 20-30 minutes and should rectify itself.
+You can open Dell Command Update to check the progress of the install.
+
+Once complete, the flickering should stop.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 259, name: "WiFi Certificate Issue",
+    keywords: ["wifi", "wireless", "wifi cert", "network connectivity", "wireless issue", "wlan"],
+    body: `Hi {{customer}},
+
+We had an issue with devices connecting to the network wirelessly which has now been resolved.
+
+If you are still experiencing problems:
+
+Working from home:
+1. Press the Windows key and search Company Portal
+2. Sync Company Portal — once complete you should be able to connect wirelessly again
+
+On site:
+1. Connect your laptop to the network via ethernet cable or port rep monitor
+2. Sync Company Portal
+3. Confirm whether the issue is now resolved
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 260, name: "Windows 11 Upgrade",
+    keywords: ["windows 11", "w11", "upgrade", "windows 11 upgrade", "windows upgrade form"],
+    body: `Hi {{customer}},
+
+To arrange your Windows 11 upgrade, please use the online booking form:
+https://outlook.office365.com/book/Windows11Upgrade@lscft.nhs.uk/?ismsaljsauthenabled=true
+
+Alternatively:
+1. Open Trustnet > Digital Hub
+2. Scroll to the bottom and locate IT Services
+3. Click the Windows 11 Upgrade option
+4. Scroll to find the booking form link
+
+For the latest information please visit:
+https://nwnis.sharepoint.com/sites/DIITS/SitePages/Windows-11@LSCft.aspx
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 261, name: "Workforce Systems",
+    keywords: ["workforce", "esr", "healthroster", "hero", "workforce systems", "loop", "safecare"],
+    body: `Hi {{customer}},
+
+This is an HR Software system — IT does not manage it. Please log a job on the Workforce Systems Service Desk:
+https://apps.powerapps.com/play/e/default-0418b648-afb0-4300-94ba-33f2b09eb31f/a/c28d0e5e-e90a-4350-8c51-d8b50c571655?tenantId=0418b648-afb0-4300-94ba-33f2b09eb31f
+
+Please ensure you populate all the fields.
+
+For ESR queries: ESR.SelfService@lscft.nhs.uk
+For HERO queries: Workforce.Systems@lscft.nhs.uk
+For training: Digital.Training@lscft.nhs.uk
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 262, name: "Other NHS Trust Contacts",
+    keywords: ["elht", "bth", "uhmb", "lthtr", "other trust", "east lancs", "blackpool teaching", "lancashire teaching"],
+    body: `Hi {{customer}},
+
+Here are the contact details for other NHS Trust IT helpdesks:
+
+ELHT – East Lancashire Hospitals Trust
+Email: it.sostenuto@elht.nhs.uk
+Tel: 01254 733135
+
+BTH – Blackpool Teaching Hospitals
+Email: Bfw.systemmail@nhs.net
+Tel: 01253 951016
+
+UHMB – University Hospital of Morecambe Bay
+Email: servicedesk@mbhci.nhs.uk
+Tel: 01524 516000
+
+LTHTR – Lancashire Teaching Hospitals
+Email: it.servicedesk@lthtr.nhs.uk
+Tel: 01772 522185 – Option 1
+
+MLSCU – Midlands and Lancashire Commissioning Support Unit
+Email: mlcsu.servicedesk@nhs.net
+Tel: 0300 555 0212 – Option 5
+
+Kind regards,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 263, name: "Door Access - Known Inactive",
+    keywords: ["door access", "door", "known inactive", "door permission", "site receptionist"],
+    body: `Hi {{customer}},
+
+The reason for the loss of door access is due to your account being placed in the 'Known Inactive OU' following information received from the Workforce team due to an absence from work.
+
+Please confirm you have fully returned to work and are no longer on any phased return or keeping in touch days.
+
+If so, please provide:
+- Job title
+- Site location
+- Expiry date (or confirm permanent)
+- Telephone number
+- Manager's name
+
+So we can update your account. Please allow 2-3 hours for door access to update once processed.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 264, name: "Camera - Teams Issue",
+    keywords: ["camera", "webcam", "camera not working", "teams camera", "camera issue"],
+    body: `Hi {{customer}},
+
+Can you try opening your standard Camera app (search 'camera' in the search bar at the bottom left) and let us know if this shows anything?
+
+Please also ensure your camera shutter is not covering the laptop camera.
+
+This will help us confirm if this is just a Teams issue or a wider issue across multiple applications.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 265, name: "Reactivate Account - Request Info",
+    keywords: ["reactivate", "re-enable", "disabled account", "account reactivate", "old account"],
+    body: `Hi {{customer}},
+
+In order to reactivate this account, please provide the latest contact details:
+
+- Job title
+- Site location
+- Initial start date
+- Expiry date (or confirm permanent)
+- User's telephone number
+- Department
+- Manager's name
+- Any access that needs removing from the previous role?
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 266, name: "Process - Internal Action",
+    keywords: ["internal", "logged", "request logged", "self service", "sostenuto", "portal"],
+    body: `Hi {{customer}},
+
+Thank you for contacting us. Your request has been logged with the appropriate team and will be processed as soon as possible.
+
+Did you know we have a self-service portal? You can log requests, check progress, and provide updates here:
+https://sostenuto/Sostenuto/web/SContacts/
+
+Kind regards,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 267, name: "Best Contact Number Request",
+    keywords: ["contact number", "telephone number", "best number", "landline", "contact details"],
+    body: `Hi {{customer}},
+
+Please can you provide a best suited work-related contact number?
+This can be a landline or office/admin based number, as we require one for your account.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 268, name: "Send From Shared Mailbox",
+    keywords: ["shared mailbox", "send from", "from field", "send as", "from icon"],
+    body: `Hi {{customer}},
+
+If you are unable to send from a shared mailbox, please follow the below:
+
+1. Create a new email
+2. Select Options at the top of the email
+3. Select the From icon
+
+This will generate a From field where you can change the sending mailbox.
+Add the shared mailbox and send the email this way.
+
+If the mailbox is visible but you still cannot send, try removing and re-adding it:
+In the From field, click the dropdown near the shared inbox — click the X to remove it, then re-add it and try again.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 269, name: "Admin App - Remove Run As Admin",
+    keywords: ["admin", "run as administrator", "windip", "run as admin", "application admin"],
+    body: `Hi {{customer}},
+
+1. Locate the WinDIP application icon on your desktop
+2. Right-click the icon and select Properties
+3. Select the Shortcut tab
+4. Click Advanced in the bottom-right corner
+5. Locate the checkbox labelled 'Run as administrator'
+6. Untick 'Run as administrator'
+7. Click OK then Apply
+8. Close Properties and try launching the application again
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 270, name: "Teams File Path - Rename",
+    keywords: ["teams", "file name", "character limit", "teams file", "file path teams"],
+    body: `Hi {{customer}},
+
+The file name in the MS Teams channel is too long and has exceeded the character limit.
+
+Anyone with access to the MS Teams channel can rename the file — reducing the name by 3-4 characters should resolve this.
+
+If you are unsure, speak to the channel owner:
+1. Open MS Teams
+2. Locate Teams tab and find the correct team
+3. Click the 3 dots and click Manage Team
+4. Select Members tab > Locate Owners
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 271, name: "RPS202 / Secure Print Anywhere",
+    keywords: ["rps202", "rps203", "secure print", "print anywhere", "secureprintanywhere"],
+    body: `Hi {{customer}},
+
+In the search bar type \\\\LCT-RPS202 and hit Enter.
+Select and double-click SecurePrintAnywhere to use this.
+
+You can do the same for \\\\LCT-RPS203 if needed.
+
+Please try to print again and let us know if this resolves the issue.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 272, name: "Global Protect - Remote VPN Fix",
+    keywords: ["global protect", "vpn", "remote", "ivanti", "vpn issue", "offsite"],
+    body: `Hi {{customer}},
+
+Please check your GlobalProtect and see if it connects. If it fails, click the 3 lines in the top right corner and click Refresh.
+
+If this doesn't work, please search for 'Ivanti Secure Access Client' and try that.
+
+If both fail, please contact the IT Helpdesk on 01772 695316 between 08:30 - 17:30 Monday to Friday, quoting the INC/SD Number. Please note this will need to be resolved while you are on an LSCFT site.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  },
+  {
+    id: 273, name: "Cerner - Citrix Workspace",
+    keywords: ["cerner", "citrix", "elht", "elht cerner", "citrix workspace"],
+    body: `Hi {{customer}},
+
+I have pushed out Citrix Workspace to your machine.
+
+Staff can access their ELHT Citrix Workspace via:
+https://elhtnhs.cloud.com
+
+Users will be prompted to authenticate with their ELHT domain account and ELHT Citrix Token. Once logged in, staff can launch a Citrix VM for access to Cerner.
+
+Thanks,
+{{agent}} - IT Helpdesk`
+  }];
 
 // ---- State ----
 let scripts    = loadScripts();
@@ -3202,10 +4486,9 @@ function pwRender() {
   const avail = document.getElementById('pwAvailCount');
   if (!grid) return;
 
-  const available = pwList.filter(p => !p.used).length;
   badge.textContent = pwList.length;
-  avail.textContent = `${available} available`;
-  avail.style.color = available === 0 ? '#ef4444' : available <= 2 ? '#f59e0b' : 'var(--text2)';
+  avail.textContent = pwList.length + ' passwords';
+  avail.style.color = 'var(--text2)';
 
   if (!pwList.length) {
     grid.innerHTML = '<div class="pw-empty">No passwords loaded.<br>Upload a .txt file or add one manually below.</div>';
@@ -3219,11 +4502,10 @@ function pwRender() {
   grid.innerHTML = '';
   indexed.forEach(({ pw, i }) => {
     const card = document.createElement('div');
-    card.className = 'pw-card' + (pw.used ? ' used' : '') + (pw.starred ? ' starred-card' : '');
+    card.className = 'pw-card' + (pw.starred ? ' starred-card' : '');
     card.innerHTML = `
       <button class="pw-star-btn${pw.starred ? ' starred' : ''}" title="${pw.starred ? 'Unfavourite' : 'Favourite'}" onclick="pwToggleStar(${i})">&#9733;</button>
       <span class="pw-text">${escHtml(pw.text)}</span>
-      <span class="pw-used-tag">used</span>
       <button class="pw-copy-btn" id="pwbtn-${i}" onclick="pwCopy(${i}, this)">Copy</button>`;
     grid.appendChild(card);
   });
@@ -3238,17 +4520,15 @@ function pwToggleStar(i) {
 
 function pwCopy(i, btn) {
   const pw = pwList[i];
-  if (!pw || pw.used) return;
+  if (!pw) return;
   const done = () => {
     btn.textContent = ' Copied!';
     btn.classList.add('copied');
-    // Mark as used after a short delay so user sees the confirmation
     setTimeout(() => {
-      pwList[i].used = true;
-      pwSave();
-      pwRender();
-      showToast(`Password copied & marked as used`);
-    }, 800);
+      btn.textContent = 'Copy';
+      btn.classList.remove('copied');
+    }, 2000);
+    showToast('Password copied!');
   };
   copyToClipboard(pw.text, done);
 }
@@ -3675,7 +4955,45 @@ document.addEventListener('keydown', function(e) {
 });
 
 // ---- Init ----
+
+// ---- Login ----
+var SITE_PASSWORD = 'sceptre';
+
+function checkLogin() {
+  var input = document.getElementById('loginInput');
+  var err   = document.getElementById('loginError');
+  if ((input.value || '').toLowerCase().trim() === SITE_PASSWORD) {
+    document.getElementById('loginScreen').classList.add('hidden');
+    try { sessionStorage.setItem('it_unlocked', '1'); } catch(e) {}
+    err.textContent = '';
+  } else {
+    input.classList.add('shake');
+    err.textContent = 'Incorrect password. Please try again.';
+    input.value = '';
+    setTimeout(function() { input.classList.remove('shake'); }, 400);
+  }
+}
+
+function initLogin() {
+  // Check if already unlocked this session
+  try {
+    if (sessionStorage.getItem('it_unlocked') === '1') {
+      document.getElementById('loginScreen').classList.add('hidden');
+      return;
+    }
+  } catch(e) {}
+  // Set the login banner image once BOSS_IMG is available
+  var loginBanner = document.getElementById('loginBannerImg');
+  if (loginBanner && typeof BOSS_IMG !== 'undefined') loginBanner.src = BOSS_IMG;
+  // Focus the input
+  setTimeout(function() {
+    var inp = document.getElementById('loginInput');
+    if (inp) inp.focus();
+  }, 100);
+}
+
 (function init() {
+  initLogin();
   try {
     const saved = localStorage.getItem('it_agent_name');
     if (saved) { document.getElementById('agentName').value = saved; onPersonaChange(); }
