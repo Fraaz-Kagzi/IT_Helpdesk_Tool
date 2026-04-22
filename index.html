@@ -3556,7 +3556,7 @@ let activeTag  = null;
 
 function loadScripts() {
   try {
-    const raw = localStorage.getItem('it_scripts_lcft_v4');
+    const raw = localStorage.getItem('it_scripts_lcft_v5');
     if (raw) {
       const parsed = JSON.parse(raw);
       if (Array.isArray(parsed) && parsed.length > 0) return parsed;
@@ -3566,7 +3566,7 @@ function loadScripts() {
 }
 
 function saveScripts() {
-  try { localStorage.setItem('it_scripts_lcft_v4', JSON.stringify(scripts)); } catch (e) { /* localStorage blocked — edits won't persist but tool still works */ }
+  try { localStorage.setItem('it_scripts_lcft_v5', JSON.stringify(scripts)); } catch (e) { /* localStorage blocked — edits won't persist but tool still works */ }
   document.getElementById('totalBadge').textContent = scripts.length;
 }
 
