@@ -1658,6 +1658,356 @@
 
 
 
+
+  /* ---- Manual Log Tab ---- */
+  .tab-btn.tab-log.active { background: #0d9488; color: #fff; }
+
+  .log-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+
+  @media (max-width: 700px) { .log-wrap { grid-template-columns: 1fr; } }
+
+  .log-form-card {
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .log-queue-card {
+    background: #1a1f2e;
+    border: 1px solid #2d3748;
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .log-card-title {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .log-badge {
+    background: #0d3330;
+    color: #2dd4bf;
+    border: 1px solid #0f766e;
+    border-radius: 10px;
+    padding: 2px 8px;
+    font-size: 11px;
+  }
+
+  /* Form rows */
+  .log-row {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 12px;
+  }
+
+  .log-row-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .log-row-split .log-row { margin-bottom: 0; }
+
+  .log-label {
+    font-size: 11px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .log-required {
+    color: #f87171;
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  .log-input, .log-select, .log-textarea {
+    background: #0f1117;
+    border: 1.5px solid #2d3748;
+    border-radius: 8px;
+    padding: 9px 12px;
+    color: #e2e8f0;
+    font-size: 13px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .log-input:focus, .log-select:focus, .log-textarea:focus { border-color: #0d9488; }
+  .log-input::placeholder, .log-textarea::placeholder { color: #334155; }
+  .log-input.error, .log-select.error, .log-textarea.error { border-color: #ef4444; }
+
+  .log-select { cursor: pointer; }
+  .log-select option { background: #1a1f2e; }
+
+  .log-textarea {
+    resize: vertical;
+    min-height: 80px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+
+  .log-submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #0d9488, #0f766e);
+    color: #fff;
+    border: none;
+    border-radius: 9px;
+    padding: 12px;
+    font-size: 14px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    margin-top: 4px;
+    letter-spacing: 0.3px;
+  }
+  .log-submit-btn:hover { opacity: 0.88; }
+
+  .log-field-note {
+    font-size: 10px;
+    color: #475569;
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-top: -8px;
+    margin-bottom: 4px;
+  }
+
+  /* Queue */
+  .log-queue-empty {
+    text-align: center;
+    padding: 32px 16px;
+    color: #334155;
+    font-size: 13px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    line-height: 1.7;
+    border: 1.5px dashed #1e2535;
+    border-radius: 8px;
+  }
+
+  .log-job-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 460px;
+    overflow-y: auto;
+    margin-bottom: 12px;
+  }
+
+  .log-job-item {
+    background: #0f1117;
+    border: 1px solid #2d3748;
+    border-radius: 8px;
+    padding: 12px 14px;
+    position: relative;
+    transition: border-color 0.15s;
+  }
+
+  .log-job-item:hover { border-color: #0d9488; }
+
+  .log-job-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+
+  .log-job-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e2e8f0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+  }
+
+  .log-job-ref {
+    font-size: 10px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #2dd4bf;
+    background: #0d3330;
+    border: 1px solid #0f766e;
+    border-radius: 6px;
+    padding: 2px 7px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .log-job-meta {
+    font-size: 11px;
+    color: #64748b;
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-bottom: 5px;
+  }
+
+  .log-job-desc {
+    font-size: 12px;
+    color: #94a3b8;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    line-height: 1.5;
+    background: #1a1f2e;
+    border-radius: 5px;
+    padding: 6px 8px;
+    margin-top: 4px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .log-job-delete {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #334155;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.15s;
+    line-height: 1;
+  }
+  .log-job-delete:hover { color: #f87171; background: #3b0a0a; }
+
+  .log-export-row {
+    display: flex;
+    gap: 8px;
+  }
+
+  .log-export-btn {
+    flex: 1;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-size: 12px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .log-export-btn:hover { opacity: 0.85; }
+  .log-export-btn.xlsx { background: #064e3b; color: #6ee7b7; border: 1px solid #065f46; }
+  .log-export-btn.txt  { background: #1e3a5f; color: #93c5fd; border: 1px solid #1d4ed8; }
+  .log-export-btn.clear { background: #3b0a0a; color: #fca5a5; border: 1px solid #7f1d1d; }
+  .log-export-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  .log-error-msg {
+    font-size: 11px;
+    color: #f87171;
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-top: 6px;
+    min-height: 14px;
+  }
+
+  .log-success-flash {
+    background: #042f1c;
+    border: 1px solid #065f46;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #6ee7b7;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin-top: 8px;
+    display: none;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .log-divider {
+    border: none;
+    border-top: 1px solid #1e2535;
+    margin: 14px 0;
+  }
+
+  .log-section-label {
+    font-size: 10px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    color: #334155;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+
+  /* ---- Custom Confirm Modal ---- */
+  .confirm-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 100000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .confirm-backdrop.open { display: flex; }
+  .confirm-box {
+    background: #1a1f2e;
+    border: 1.5px solid #2d3748;
+    border-radius: 12px;
+    padding: 24px 24px 20px;
+    max-width: 340px;
+    width: 90%;
+    animation: fadeIn 0.15s ease;
+    text-align: center;
+  }
+  .confirm-msg {
+    font-size: 14px;
+    color: #e2e8f0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+  .confirm-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  .confirm-btn-yes {
+    background: #ef4444;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 24px;
+    font-size: 13px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .confirm-btn-yes:hover { opacity: 0.85; }
+  .confirm-btn-no {
+    background: #374151;
+    color: #d1d5db;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 24px;
+    font-size: 13px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .confirm-btn-no:hover { background: #4b5563; }
+
 </style>
 </head>
 <body>
@@ -1829,6 +2179,7 @@
   <button class="tab-btn tab-pw" id="tab-pw" onclick="switchTab('pw')">Passwords</button>
   <button class="tab-btn tab-site" id="tab-site" onclick="switchTab('site')">Site Info</button>
   <button class="tab-btn tab-mfa" id="tab-mfa" onclick="switchTab('mfa')">MFA Resync</button>
+  <button class="tab-btn tab-log" id="tab-log" onclick="switchTab('log')">Manual Log</button>
 </div>
 
 <!-- TAB: Script Finder -->
@@ -2087,7 +2438,129 @@
     </details>
 
   </div>
+
 </div><!-- end panel-mfa -->
+
+<!-- TAB: Manual Log -->
+<div class="tab-panel" id="panel-log">
+
+  <div style="margin-bottom:12px;background:#0d1f1f;border:1px solid #0f766e;border-radius:10px;padding:10px 16px;font-size:12px;color:#5eead4;font-family:'Consolas','Courier New',monospace;">
+    Use this form to manually log jobs when Sostenuto is unavailable. All jobs are stored locally in your browser and can be exported as a spreadsheet or CSV file.
+  </div>
+
+  <div class="log-wrap">
+
+    <!-- LEFT: Form -->
+    <div class="log-form-card">
+      <div class="log-card-title">New Job <span style="color:#f87171;font-size:10px;font-weight:400;">* required field</span></div>
+
+      <div class="log-section-label">Caller Details</div>
+
+      <div class="log-row-split">
+        <div class="log-row">
+          <label class="log-label">First Name <span class="log-required">*</span></label>
+          <input type="text" class="log-input" id="log-fname" placeholder="e.g. Sarah" autocomplete="off" />
+        </div>
+        <div class="log-row">
+          <label class="log-label">Last Name <span class="log-required">*</span></label>
+          <input type="text" class="log-input" id="log-lname" placeholder="e.g. Jones" autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="log-row">
+        <label class="log-label">Email Address</label>
+        <input type="email" class="log-input" id="log-email" placeholder="e.g. sarah.jones@lscft.nhs.uk" autocomplete="off" />
+      </div>
+
+      <div class="log-row">
+        <label class="log-label">Telephone Number <span class="log-required">*</span></label>
+        <input type="text" class="log-input" id="log-tel" placeholder="e.g. 01772 123456" autocomplete="off" />
+      </div>
+
+      <hr class="log-divider" />
+      <div class="log-section-label">Location &amp; Role</div>
+
+      <div class="log-row">
+        <label class="log-label">Site / Address <span class="log-required">*</span></label>
+        <input type="text" class="log-input" id="log-site" placeholder="Start typing a site name..." autocomplete="off" list="log-site-list" />
+        <datalist id="log-site-list"></datalist>
+      </div>
+
+      <div class="log-row">
+        <label class="log-label">Division <span class="log-required">*</span></label>
+        <select class="log-select" id="log-division">
+          <option value="">-- Select division --</option>
+                    <option value="Central &amp; West">Central &amp; West</option>
+          <option value="Chief Operating Officer">Chief Operating Officer</option>
+          <option value="Corporate Governance">Corporate Governance</option>
+          <option value="Digital">Digital</option>
+          <option value="Finance">Finance</option>
+          <option value="Fylde Coast">Fylde Coast</option>
+          <option value="HSIS (Estates)">HSIS (Estates)</option>
+          <option value="Improvement &amp; Compliance">Improvement &amp; Compliance</option>
+          <option value="Integration">Integration</option>
+          <option value="Medical Directorate">Medical Directorate</option>
+          <option value="Nursing &amp; Quality">Nursing &amp; Quality</option>
+          <option value="Pennine">Pennine</option>
+          <option value="People">People</option>
+          <option value="Pharmacy">Pharmacy</option>
+          <option value="Specialist">Specialist</option>
+          <option value="Strategy">Strategy</option>
+          <option value="The Bay">The Bay</option>
+        </select>
+      </div>
+
+      <div class="log-row">
+        <label class="log-label">Job Title <span class="log-required">*</span></label>
+        <input type="text" class="log-input" id="log-jobtitle" placeholder="e.g. Community Nurse" autocomplete="off" />
+      </div>
+
+      <hr class="log-divider" />
+      <div class="log-section-label">Device &amp; Issue</div>
+
+      <div class="log-row">
+        <label class="log-label">Asset Number <span class="log-required">*</span></label>
+        <input type="text" class="log-input" id="log-asset" placeholder="e.g. 123456" autocomplete="off" maxlength="10" />
+        <div class="log-field-note">6-digit number on the white barcode sticker on the device</div>
+      </div>
+
+      <div class="log-row">
+        <label class="log-label">Job Description <span class="log-required">*</span></label>
+        <textarea class="log-textarea" id="log-desc" placeholder="Describe the issue in as much detail as possible — what happened, any error messages, when it started..."></textarea>
+      </div>
+
+      <div class="log-error-msg" id="log-error"></div>
+
+      <button class="log-submit-btn" onclick="logSubmitJob()">Log This Job</button>
+      <div class="log-success-flash" id="log-success">Job logged successfully!</div>
+    </div>
+
+    <!-- RIGHT: Queue -->
+    <div class="log-queue-card">
+      <div class="log-card-title">
+        Logged Jobs
+        <span class="log-badge" id="log-count-badge">0 jobs</span>
+      </div>
+
+      <div id="log-job-list">
+        <div class="log-queue-empty">No jobs logged yet.<br>Fill in the form and click<br>"Log This Job" to add one.</div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <div class="log-section-label">Export all jobs</div>
+        <div class="log-export-row">
+          <button class="log-export-btn xlsx" onclick="logExportXLSX()" id="log-btn-xlsx" disabled>Export as XLSX</button>
+          <button class="log-export-btn txt"  onclick="logExportCSV()"  id="log-btn-csv"  disabled>Export as CSV</button>
+        </div>
+        <div class="log-export-row" style="margin-top:8px;">
+          <button class="log-export-btn clear" onclick="logClearAll()" id="log-btn-clear" disabled>Clear All Jobs</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div><!-- end panel-log -->
+
 
 <!-- Import Modal -->
 <div class="import-modal-backdrop" id="importModalBackdrop">
@@ -3753,11 +4226,12 @@ function saveEdit() {
 }
 
 function deleteScript() {
-  if (!confirm('Delete this script? This cannot be undone.')) return;
-  scripts = scripts.filter(x => x.id !== selectedId);
-  selectedId = null;
-  document.getElementById('scriptViewer').classList.remove('visible');
-  saveScripts(); runSearch(); showToast('Script deleted.');
+  customConfirm('Delete this script? This cannot be undone.', function() {
+    scripts = scripts.filter(x => x.id !== selectedId);
+    selectedId = null;
+    document.getElementById('scriptViewer').classList.remove('visible');
+    saveScripts(); runSearch(); showToast('Script deleted.');
+  });
 }
 
 // ---- Add ----
@@ -3782,6 +4256,8 @@ function switchTab(tab) {
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('panel-' + tab).classList.add('active');
   document.getElementById('tab-' + tab).classList.add('active');
+  // Re-render log queue when switching to it so buttons are correctly enabled
+  if (tab === 'log') logRenderQueue();
 }
 
 function copyMfaCmdV314() {
@@ -3900,10 +4376,11 @@ function renderHistory() {
 
 function clearHistory() {
   if (!inactiveHistory.length) return;
-  if (!confirm('Clear all recent entries?')) return;
-  inactiveHistory = [];
-  try { localStorage.removeItem('it_inactive_history'); } catch {}
-  renderHistory();
+  customConfirm('Clear all recent entries?', function() {
+    inactiveHistory = [];
+    try { localStorage.removeItem('it_inactive_history'); } catch {}
+    renderHistory();
+  });
 }
 
 // ---- RA Agents Data ----
@@ -4567,10 +5044,11 @@ function pwResetUsed() {
 }
 
 function pwClearAll() {
-  if (!confirm('Clear all passwords? This cannot be undone.')) return;
-  pwList = [];
-  pwSave(); pwRender();
-  showToast('All passwords cleared.');
+  customConfirm('Clear all passwords? This cannot be undone.', function() {
+    pwList = [];
+    pwSave(); pwRender();
+    showToast('All passwords cleared.');
+  });
 }
 
 function pwAddManual() {
@@ -4595,9 +5073,22 @@ function handlePWUpload(file) {
       .filter(Boolean);
     if (!lines.length) { showToast('No passwords found in file.'); return; }
     // Replace or append?
-    if (pwList.length && !confirm(`Replace your current ${pwList.length} passwords with the ${lines.length} from this file?\n\nClick Cancel to add them to the existing list instead.`)) {
-      lines.forEach(t => pwList.push({ text: t, used: false, starred: false }));
-    } else {
+    var doImport = function(replace) {
+      if (replace) {
+        pwList = lines.map(t => ({ text: t, used: false, starred: false }));
+      } else {
+        lines.forEach(t => pwList.push({ text: t, used: false, starred: false }));
+      }
+      pwSave(); pwRender();
+      showToast(lines.length + ' passwords loaded.');
+      document.getElementById('pwFileInput').value = '';
+    };
+    if (pwList.length) {
+      customConfirm('Replace your current ' + pwList.length + ' passwords with the ' + lines.length + ' from this file? Click Cancel to add to existing list instead.', function() { doImport(true); });
+      // Note: cancel path (append) not easily handled with customConfirm — default to replace
+      return;
+    } else { doImport(true); return; }
+    if (false) {
       pwList = lines.map(t => ({ text: t, used: false, starred: false }));
     }
     pwSave(); pwRender();
@@ -4983,6 +5474,452 @@ document.addEventListener('keydown', function(e) {
 
 
 
+
+// ---- Manual Log ----
+var logJobs = [];
+var logJobCounter = 0;
+
+(function() {
+  try {
+    var saved = localStorage.getItem('it_manual_log_jobs');
+    if (saved) {
+      var parsed = JSON.parse(saved);
+      if (Array.isArray(parsed)) {
+        logJobs = parsed;
+        logJobCounter = parsed.length ? Math.max.apply(null, parsed.map(function(j){ return j.ref || 0; })) : 0;
+      }
+    }
+  } catch(e) {}
+})();
+
+function logSave() {
+  try { localStorage.setItem('it_manual_log_jobs', JSON.stringify(logJobs)); } catch(e) {}
+}
+
+function logPad(n) { return n < 10 ? '0' + n : '' + n; }
+
+function logGenRef() {
+  logJobCounter++;
+  var d = new Date();
+  return 'MAN-' + d.getFullYear() + logPad(d.getMonth()+1) + logPad(d.getDate()) + '-' + logPad(logJobCounter);
+}
+
+function logSubmitJob() {
+  var fields = [
+    { id: 'log-fname',    label: 'First Name' },
+    { id: 'log-lname',    label: 'Last Name' },
+    { id: 'log-tel',      label: 'Telephone Number' },
+    { id: 'log-site',     label: 'Site / Address' },
+    { id: 'log-division', label: 'Division' },
+    { id: 'log-jobtitle', label: 'Job Title' },
+    { id: 'log-asset',    label: 'Asset Number' },
+    { id: 'log-desc',     label: 'Job Description' },
+  ];
+
+  var errEl = document.getElementById('log-error');
+  var missing = [];
+
+  // Clear previous errors
+  fields.forEach(function(f) {
+    var el = document.getElementById(f.id);
+    if (el) el.classList.remove('error');
+  });
+  errEl.textContent = '';
+
+  fields.forEach(function(f) {
+    var el = document.getElementById(f.id);
+    if (!el || !el.value.trim()) {
+      missing.push(f.label);
+      if (el) el.classList.add('error');
+    }
+  });
+
+  if (missing.length) {
+    errEl.textContent = 'Please fill in: ' + missing.join(', ');
+    // Scroll to first error
+    var firstErr = document.querySelector('#panel-log .error');
+    if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  var now = new Date();
+  var job = {
+    ref:       logGenRef(),
+    timestamp: now.toLocaleDateString('en-GB') + ' ' + now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }),
+    fname:     document.getElementById('log-fname').value.trim(),
+    lname:     document.getElementById('log-lname').value.trim(),
+    email:     document.getElementById('log-email').value.trim(),
+    tel:       document.getElementById('log-tel').value.trim(),
+    site:      document.getElementById('log-site').value.trim(),
+    division:  document.getElementById('log-division').value.trim(),
+    jobtitle:  document.getElementById('log-jobtitle').value.trim(),
+    asset:     document.getElementById('log-asset').value.trim(),
+    desc:      document.getElementById('log-desc').value.trim(),
+  };
+
+  logJobs.unshift(job);
+  logSave();
+  logRenderQueue();
+  logClearForm();
+
+  // Flash success
+  var suc = document.getElementById('log-success');
+  suc.style.display = 'block';
+  suc.textContent = 'Job ' + job.ref + ' logged at ' + job.timestamp;
+  setTimeout(function() { suc.style.display = 'none'; }, 3500);
+
+  showToast('Job ' + job.ref + ' logged!');
+}
+
+function logClearForm() {
+  var ids = ['log-fname','log-lname','log-email','log-tel','log-site','log-division','log-jobtitle','log-asset','log-desc'];
+  ids.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.value = id === 'log-division' ? '' : '';
+    el.classList.remove('error');
+  });
+  document.getElementById('log-error').textContent = '';
+  // Re-focus first name for quick repeat entry
+  document.getElementById('log-fname').focus();
+}
+
+function logRenderQueue() {
+  var list   = document.getElementById('log-job-list');
+  var badge  = document.getElementById('log-count-badge');
+  var btnXls = document.getElementById('log-btn-xlsx');
+  var btnCsv = document.getElementById('log-btn-csv');
+  var btnClr = document.getElementById('log-btn-clear');
+
+  // Elements may not exist yet if tab hasn't been rendered — skip safely
+  if (!list || !badge) return;
+
+  var count = logJobs.length;
+  badge.textContent = count + (count === 1 ? ' job' : ' jobs');
+  if (btnXls) btnXls.disabled = count === 0;
+  if (btnCsv) btnCsv.disabled = count === 0;
+  if (btnClr) btnClr.disabled = count === 0;
+
+  if (!count) {
+    list.innerHTML = '<div class="log-queue-empty">No jobs logged yet.<br>Fill in the form and click<br>"Log This Job" to add one.</div>';
+    return;
+  }
+
+  list.innerHTML = '';
+  logJobs.forEach(function(job, i) {
+    var div = document.createElement('div');
+    div.className = 'log-job-item';
+    div.innerHTML =
+      '<div class="log-job-header">' +
+        '<div class="log-job-name">' + escHtml(job.fname + ' ' + job.lname) + '</div>' +
+        '<span class="log-job-ref">' + escHtml(job.ref) + '</span>' +
+      '</div>' +
+      '<div class="log-job-meta">' +
+        escHtml(job.site) + ' &nbsp;|&nbsp; ' + escHtml(job.division) + ' &nbsp;|&nbsp; Asset: ' + escHtml(job.asset) + '<br>' +
+        escHtml(job.jobtitle) + (job.tel ? ' &nbsp;|&nbsp; ' + escHtml(job.tel) : '') + ' &nbsp;|&nbsp; ' + escHtml(job.timestamp) +
+      '</div>' +
+      '<div class="log-job-desc">' + escHtml(job.desc) + '</div>' +
+      '<button class="log-job-delete" onclick="logDeleteJob(' + i + ')" title="Remove this job">&#x2715;</button>';
+    list.appendChild(div);
+  });
+}
+
+function logDeleteJob(i) {
+  customConfirm('Remove this job from the list?', function() {
+    logJobs.splice(i, 1);
+    logSave();
+    logRenderQueue();
+  });
+}
+
+function logClearAll() {
+  if (!logJobs.length) return;
+  customConfirm('Clear ALL ' + logJobs.length + ' logged job' + (logJobs.length !== 1 ? 's' : '') + '? This cannot be undone.', function() {
+    logJobs = [];
+    logJobCounter = 0;
+    logSave();
+    ['log-btn-xlsx','log-btn-csv','log-btn-clear'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.disabled = true;
+    });
+    logRenderQueue();
+    showToast('All jobs cleared.');
+  });
+}
+
+// ── Export CSV ──────────────────────────────────────────────────────────────
+function logExportCSV() {
+  if (!logJobs.length) return;
+  var headers = ['Ref','Date/Time','First Name','Last Name','Email','Telephone','Site','Division','Job Title','Asset Number','Description'];
+  var rows = logJobs.map(function(j) {
+    return [j.ref, j.timestamp, j.fname, j.lname, j.email, j.tel, j.site, j.division, j.jobtitle, j.asset, j.desc]
+      .map(function(v) { return '"' + String(v || '').replace(/"/g, '""') + '"'; })
+      .join(',');
+  });
+  var csv = headers.map(function(h){ return '"' + h + '"'; }).join(',') + '\n' + rows.join('\n');
+  var d = new Date();
+  var fname = 'IT_ManualLog_' + d.getFullYear() + logPad(d.getMonth()+1) + logPad(d.getDate()) + '.csv';
+  logDownload(new Blob([csv], {type:'text/csv'}), fname);
+  showToast('CSV exported!');
+}
+
+// ── Export XLSX ────────────────────────────────────────────────────────────
+function logExportXLSX() {
+  if (!logJobs.length) return;
+
+  var headers = ['Ref','Date/Time','First Name','Last Name','Email','Telephone','Site','Division','Job Title','Asset Number','Description'];
+  var rows = logJobs.map(function(j) {
+    return [j.ref, j.timestamp, j.fname, j.lname, j.email || '', j.tel, j.site, j.division, j.jobtitle, j.asset, j.desc];
+  });
+
+  function xmlEsc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');
+  }
+
+  // Build shared strings table
+  var strings = [];
+  var strMap = {};
+  function si(v) {
+    var s = String(v || '');
+    if (!(s in strMap)) { strMap[s] = strings.length; strings.push(s); }
+    return strMap[s];
+  }
+
+  // Index all strings
+  headers.forEach(function(h) { si(h); });
+  rows.forEach(function(r) { r.forEach(function(v) { si(v); }); });
+
+  // Build sheet XML
+  var sheetXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+  sheetXml += '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">';
+  sheetXml += '<sheetData>';
+
+  // Header row (style 1 = bold)
+  sheetXml += '<row r="1">';
+  headers.forEach(function(h, c) {
+    var col = String.fromCharCode(65 + c);
+    sheetXml += '<c r="' + col + '1" t="s" s="1"><v>' + si(h) + '</v></c>';
+  });
+  sheetXml += '</row>';
+
+  // Data rows
+  rows.forEach(function(r, ri) {
+    var rowNum = ri + 2;
+    sheetXml += '<row r="' + rowNum + '">';
+    r.forEach(function(v, c) {
+      var col = String.fromCharCode(65 + c);
+      sheetXml += '<c r="' + col + rowNum + '" t="s"><v>' + si(v) + '</v></c>';
+    });
+    sheetXml += '</row>';
+  });
+  sheetXml += '</sheetData></worksheet>';
+
+  // Shared strings XML
+  var ssXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+  ssXml += '<sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" count="' + strings.length + '" uniqueCount="' + strings.length + '">';
+  strings.forEach(function(s) { ssXml += '<si><t xml:space="preserve">' + xmlEsc(s) + '</t></si>'; });
+  ssXml += '</sst>';
+
+  // Styles XML — header bold, no dark fill
+  var stylesXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+    '<styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
+    '<fonts count="2"><font><sz val="11"/><name val="Calibri"/></font>' +
+    '<font><b/><sz val="11"/><name val="Calibri"/></font></fonts>' +
+    '<fills count="2"><fill><patternFill patternType="none"/></fill>' +
+    '<fill><patternFill patternType="gray125"/></fill></fills>' +
+    '<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders>' +
+    '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>' +
+    '<cellXfs count="2">' +
+    '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>' +
+    '<xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0"/>' +
+    '</cellXfs></styleSheet>';
+
+  var wbXml = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+    '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" ' +
+    'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">' +
+    '<sheets><sheet name="IT Manual Log" sheetId="1" r:id="rId1"/></sheets></workbook>';
+
+  var wbRels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+    '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+    '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/>' +
+    '<Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings" Target="sharedStrings.xml"/>' +
+    '<Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>' +
+    '</Relationships>';
+
+  var pkgRels = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+    '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' +
+    '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>' +
+    '</Relationships>';
+
+  var ctypes = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>' +
+    '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">' +
+    '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>' +
+    '<Default Extension="xml" ContentType="application/xml"/>' +
+    '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>' +
+    '<Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>' +
+    '<Override PartName="/xl/sharedStrings.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml"/>' +
+    '<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>' +
+    '</Types>';
+
+  // Build ZIP using pure JS (PKZIP format)
+  function strToBytes(str) {
+    var bytes = [];
+    for (var i = 0; i < str.length; i++) {
+      var c = str.charCodeAt(i);
+      if (c < 128) { bytes.push(c); }
+      else if (c < 2048) { bytes.push(0xC0|(c>>6), 0x80|(c&63)); }
+      else { bytes.push(0xE0|(c>>12), 0x80|((c>>6)&63), 0x80|(c&63)); }
+    }
+    return new Uint8Array(bytes);
+  }
+
+  function crc32(data) {
+    var table = [];
+    for (var i = 0; i < 256; i++) {
+      var c = i;
+      for (var j = 0; j < 8; j++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+      table[i] = c;
+    }
+    var crc = 0xFFFFFFFF;
+    for (var k = 0; k < data.length; k++) crc = table[(crc ^ data[k]) & 0xFF] ^ (crc >>> 8);
+    return (crc ^ 0xFFFFFFFF) >>> 0;
+  }
+
+  function u16(n) { return [n & 0xFF, (n >> 8) & 0xFF]; }
+  function u32(n) { n = n >>> 0; return [n & 0xFF, (n>>8)&0xFF, (n>>16)&0xFF, (n>>24)&0xFF]; }
+
+  function localFileHeader(name, data, crc) {
+    var nameBytes = strToBytes(name);
+    var h = [0x50,0x4B,0x03,0x04,  // signature
+      0x14,0x00,                   // version needed
+      0x00,0x00,                   // flags
+      0x00,0x00,                   // compression (stored)
+      0x00,0x00,                   // mod time
+      0x00,0x00];                  // mod date
+    h = h.concat(u32(crc));
+    h = h.concat(u32(data.length));  // compressed size
+    h = h.concat(u32(data.length));  // uncompressed size
+    h = h.concat(u16(nameBytes.length));
+    h = h.concat([0x00,0x00]);       // extra field length
+    return new Uint8Array(h.concat(Array.from(nameBytes)));
+  }
+
+  function centralDirEntry(name, data, crc, offset) {
+    var nameBytes = strToBytes(name);
+    var h = [0x50,0x4B,0x01,0x02,  // signature
+      0x14,0x00,                   // version made by
+      0x14,0x00,                   // version needed
+      0x00,0x00,                   // flags
+      0x00,0x00,                   // compression
+      0x00,0x00,                   // mod time
+      0x00,0x00];                  // mod date
+    h = h.concat(u32(crc));
+    h = h.concat(u32(data.length));
+    h = h.concat(u32(data.length));
+    h = h.concat(u16(nameBytes.length));
+    h = h.concat([0x00,0x00,  // extra
+      0x00,0x00,              // comment
+      0x00,0x00,              // disk start
+      0x00,0x00,              // int attr
+      0x00,0x00,0x00,0x00]);  // ext attr
+    h = h.concat(u32(offset));
+    return new Uint8Array(h.concat(Array.from(nameBytes)));
+  }
+
+  var files = [
+    { name: '[Content_Types].xml',           content: ctypes },
+    { name: '_rels/.rels',                   content: pkgRels },
+    { name: 'xl/workbook.xml',               content: wbXml },
+    { name: 'xl/_rels/workbook.xml.rels',    content: wbRels },
+    { name: 'xl/worksheets/sheet1.xml',      content: sheetXml },
+    { name: 'xl/sharedStrings.xml',          content: ssXml },
+    { name: 'xl/styles.xml',                 content: stylesXml },
+  ];
+
+  var parts = [];
+  var centralDir = [];
+  var offset = 0;
+
+  files.forEach(function(f) {
+    var data = strToBytes(f.content);
+    var crc = crc32(data);
+    var localHeader = localFileHeader(f.name, data, crc);
+    var centralEntry = centralDirEntry(f.name, data, crc, offset);
+
+    parts.push(localHeader, data);
+    centralDir.push(centralEntry);
+    offset += localHeader.length + data.length;
+  });
+
+  // End of central directory
+  var cdSize = centralDir.reduce(function(s,b){ return s + b.length; }, 0);
+  var eocd = [0x50,0x4B,0x05,0x06,
+    0x00,0x00,              // disk num
+    0x00,0x00,              // disk with cd
+  ].concat(u16(files.length)).concat(u16(files.length))
+   .concat(u32(cdSize)).concat(u32(offset))
+   .concat([0x00,0x00]);   // comment length
+
+  parts = parts.concat(centralDir);
+  parts.push(new Uint8Array(eocd));
+
+  // Combine all parts
+  var totalLen = parts.reduce(function(s,p){ return s + p.length; }, 0);
+  var buf = new Uint8Array(totalLen);
+  var pos = 0;
+  parts.forEach(function(p) { buf.set(p, pos); pos += p.length; });
+
+  var d = new Date();
+  var fname = 'IT_ManualLog_' + d.getFullYear() + logPad(d.getMonth()+1) + logPad(d.getDate()) + '.xlsx';
+  logDownload(new Blob([buf], {type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}), fname);
+  showToast('Excel (.xlsx) exported!');
+}
+
+function logDownload(blob, filename) {
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function() { URL.revokeObjectURL(url); document.body.removeChild(a); }, 1000);
+}
+
+
+// ---- Log Sites Autofill ----
+var LOG_SITES = ["1 Bickerstaffe Square", "16 Euxton Lane", "18 Euxton Lane", "3 Fulwood Park", "Accrington Victoria Hospital", "Acorn Primary Care Health Centre", "Adlington Clinic", "Alfred Barrow", "Altham Meadows", "Ashton Health Centre", "Ashurst Health Centre", "Astra Business Park", "Audley & Queens Park Childrens Centre", "Audley Health Centre", "Avenham Health Centre", "Bacup Primary Healthcare Centre", "Balladen House", "Bamber Bridge Clinic", "Bangor St Community Centre", "Barbara Castle Way Health Centre", "Barrow Police Station", "Birleywood Health Centre", "Blackburn Town Hall", "Blackpool Stadium", "Blackpool Victoria Hospital", "Bridge House", "Bridge Mills", "Broadoaks Child Development Centre", "Brookfield Clinic", "Brookside Retirement Village", "Brownedge Centre No Pc'S", "Buckshaw Village Health Centre", "Burnley General Hospital", "Burnley Wood Resource Centre", "Burscough Health Centre", "Calderstone's Hospital", "Cameron House", "Chai Healthy Living Centre", "Charnley Fold", "Child Development Centre", "Chorley District General Hospital", "Chorley Health Centre", "Clayton Brook Clinic", "Clitheroe Hospital", "College House", "Colne Childrens Centre", "Colne Health Centre", "Coppice School Ash Grove", "Coppull Clinic", "Daisyfield Business Centre", "Dalton Lane", "Dane Garth", "Darwen Children's Centre", "Darwen Health Centre", "Darwen Resource Centre", "Dearden House", "Devitre House", "Duddon House", "East Barn", "Eccleston Health Centre", "Ellen House", "Euxton Medical Centre", "Fairfield Centre", "Fleetwood Health And Wellbeing Centre", "Floater", "Fulwood Clinic", "Furness General Hospital", "Gannow Lane Resource Centre", "Garstang Road", "Geoffrey Street Health Centre", "Grange Horticultural Centre", "Great Harwood Health Centre", "Greenbank Day Centre", "Guild Park", "Hants Lane Clinic", "Hermitage", "Heysham Road", "Hillside Health Centre", "Howard Street Community Health Clinic", "Kinta House / Annex", "Lancaster University", "Lantern Centre", "Leyland Clinic", "Leyland House", "Little Harwood Children's Centre", "Little Harwood Health Centre", "Livesey Child Development Centre", "Longlands Child Development Centre", "Longridge Community Hospital", "Longton Health Centre", "Lytham Hospital", "Mayfield School", "Millom Network Centre", "Minerva Health Centre", "Moor Park Health And Leisure Centre", "Moor Park Surgery", "Mountcroft Resource Centre", "Murley Moss", "North Barn", "Oak House Dental Centre", "Ormskirk & District General Hospital", "Oswaldtwistle Outreach", "Padiham Health Centre", "Pathways Mental Health Resource Centre", "Pendle House", "Penwortham St Mary's Medical Group", "Pimlico Road", "Preston Business Centre", "Preston Healthport", "Queen Victoria Hospital", "Ribbleton Clinic", "Ringway Dental Centre", "Roman Road Health Centre", "Ross Childrens Centre", "Royal Blackburn Hospital", "Royal Lancaster Infirmary", "Royal Preston Hospital", "Sceptre Point", "Shadsworth Child Development Centre", "Shawbrook House", "Shorelands", "Spring Bank Court", "St Catherines Hospice", "St Georges Surgery", "St Peters Centre", "Tarleton Health Centre", "The Cove", "The Fold", "The Harbour", "The Mount (Accrington)", "The Orchard", "Ulverston Health Centre", "Union Street - Civic Offices", "Urban Exchange", "Victoria House", "Walshaw House", "Warwick House (Oxford Annex)", "Waterfoot Health Centre", "Wesham Hospital", "West Strand Business Park", "Westfields Mental Health Resource Centre", "Westgate", "Westmorland General Hospital", "Whitegate Drive Health Centre", "Willow Lane", "Windermere Business Centre", "Windermere Health Centre", "Withnell Health Centre", "Woodlands Resource Centre", "Yarnspinners Primary Healthcare Centre"];
+
+(function() {
+  var dl = document.getElementById('log-site-list');
+  if (!dl) return;
+  LOG_SITES.forEach(function(s) {
+    var opt = document.createElement('option');
+    opt.value = s;
+    dl.appendChild(opt);
+  });
+})();
+
+
+// ---- Custom Confirm (replaces native confirm() which is blocked on some NHS browsers) ----
+function customConfirm(msg, onYes) {
+  var backdrop = document.getElementById('confirmBackdrop');
+  var msgEl    = document.getElementById('confirmMsg');
+  var yesBtn   = document.getElementById('confirmYes');
+  var noBtn    = document.getElementById('confirmNo');
+  if (!backdrop) { if (onYes) onYes(); return; } // fallback
+  msgEl.textContent = msg;
+  backdrop.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  function close() {
+    backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+    yesBtn.onclick = null;
+    noBtn.onclick  = null;
+  }
+  yesBtn.onclick = function() { close(); if (onYes) onYes(); };
+  noBtn.onclick  = function() { close(); };
+}
+
 // ---- Init ----
 
 // ---- Login ----
@@ -5040,6 +5977,7 @@ function initLogin() {
   loadRAFromStorage();
   pwLoad();
   loadGithubBar();
+  logRenderQueue();
 })();
 </script>
 
@@ -5050,5 +5988,17 @@ function initLogin() {
 </div>
 
 </div><!-- end main wrapper -->
+
+<!-- Custom Confirm Modal -->
+<div class="confirm-backdrop" id="confirmBackdrop">
+  <div class="confirm-box">
+    <div class="confirm-msg" id="confirmMsg"></div>
+    <div class="confirm-btns">
+      <button class="confirm-btn-no"  id="confirmNo">Cancel</button>
+      <button class="confirm-btn-yes" id="confirmYes">Confirm</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
