@@ -1660,36 +1660,28 @@
 
 
   /* ---- Manual Log Tab ---- */
-  .tab-btn.tab-log.active { background: #0d9488; color: #fff; }
+  .tab-btn.tab-log.active { background: var(--accent); color: #fff; }
 
   .log-wrap {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 20px;
     align-items: start;
   }
-
   @media (max-width: 700px) { .log-wrap { grid-template-columns: 1fr; } }
 
-  .log-form-card {
-    background: #1a1f2e;
-    border: 1px solid #2d3748;
-    border-radius: 12px;
+  .log-form-card, .log-queue-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
     padding: 20px;
-  }
-
-  .log-queue-card {
-    background: #1a1f2e;
-    border: 1px solid #2d3748;
-    border-radius: 12px;
-    padding: 20px;
+    box-shadow: var(--shadow);
   }
 
   .log-card-title {
-    font-family: 'Consolas', 'Courier New', monospace;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
-    color: #64748b;
+    color: var(--text2);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 16px;
@@ -1697,24 +1689,20 @@
     align-items: center;
     justify-content: space-between;
     gap: 10px;
+    font-family: 'Inter', 'Segoe UI', system-ui, Arial, sans-serif;
   }
 
   .log-badge {
-    background: #0d3330;
-    color: #2dd4bf;
-    border: 1px solid #0f766e;
+    background: var(--accent-lt);
+    color: var(--accent);
+    border: 1px solid #bfdbfe;
     border-radius: 10px;
     padding: 2px 8px;
     font-size: 11px;
+    font-weight: 600;
   }
 
-  /* Form rows */
-  .log-row {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    margin-bottom: 12px;
-  }
+  .log-row { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
 
   .log-row-split {
     display: grid;
@@ -1722,88 +1710,74 @@
     gap: 10px;
     margin-bottom: 12px;
   }
-
   .log-row-split .log-row { margin-bottom: 0; }
 
   .log-label {
-    font-size: 11px;
-    font-family: 'Consolas', 'Courier New', monospace;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text2);
     display: flex;
     align-items: center;
     gap: 4px;
   }
 
-  .log-required {
-    color: #f87171;
-    font-size: 13px;
-    line-height: 1;
-  }
+  .log-required { color: var(--red); font-size: 13px; line-height: 1; }
 
   .log-input, .log-select, .log-textarea {
-    background: #0f1117;
-    border: 1.5px solid #2d3748;
-    border-radius: 8px;
+    background: var(--surface);
+    border: 1.5px solid var(--border2);
+    border-radius: var(--radius);
     padding: 9px 12px;
-    color: #e2e8f0;
+    color: var(--text);
     font-size: 13px;
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Inter', 'Segoe UI', system-ui, Arial, sans-serif;
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
     width: 100%;
     box-sizing: border-box;
   }
-
-  .log-input:focus, .log-select:focus, .log-textarea:focus { border-color: #0d9488; }
-  .log-input::placeholder, .log-textarea::placeholder { color: #334155; }
-  .log-input.error, .log-select.error, .log-textarea.error { border-color: #ef4444; }
-
-  .log-select { cursor: pointer; }
-  .log-select option { background: #1a1f2e; }
-
-  .log-textarea {
-    resize: vertical;
-    min-height: 80px;
-    font-family: 'Segoe UI', Arial, sans-serif;
+  .log-input:focus, .log-select:focus, .log-textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(29,78,216,.1);
   }
+  .log-input::placeholder, .log-textarea::placeholder { color: var(--text4); }
+  .log-input.error, .log-select.error, .log-textarea.error {
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(220,38,38,.1);
+  }
+  .log-select { cursor: pointer; background: var(--surface); }
+  .log-textarea { resize: vertical; min-height: 80px; }
 
   .log-submit-btn {
     width: 100%;
-    background: linear-gradient(135deg, #0d9488, #0f766e);
+    background: var(--accent);
     color: #fff;
     border: none;
-    border-radius: 9px;
-    padding: 12px;
+    border-radius: var(--radius);
+    padding: 11px;
     font-size: 14px;
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Inter', 'Segoe UI', system-ui, Arial, sans-serif;
     font-weight: 700;
     cursor: pointer;
-    transition: opacity 0.15s;
+    transition: background 0.15s;
     margin-top: 4px;
-    letter-spacing: 0.3px;
   }
-  .log-submit-btn:hover { opacity: 0.88; }
+  .log-submit-btn:hover { background: var(--accent-h); }
 
   .log-field-note {
-    font-size: 10px;
-    color: #475569;
-    font-family: 'Consolas', 'Courier New', monospace;
-    margin-top: -8px;
-    margin-bottom: 4px;
+    font-size: 11px;
+    color: var(--text4);
+    margin-top: -6px;
   }
 
-  /* Queue */
   .log-queue-empty {
     text-align: center;
     padding: 32px 16px;
-    color: #334155;
+    color: var(--text4);
     font-size: 13px;
-    font-family: 'Consolas', 'Courier New', monospace;
     line-height: 1.7;
-    border: 1.5px dashed #1e2535;
-    border-radius: 8px;
+    border: 1.5px dashed var(--border);
+    border-radius: var(--radius);
   }
 
   .log-job-list {
@@ -1816,15 +1790,14 @@
   }
 
   .log-job-item {
-    background: #0f1117;
-    border: 1px solid #2d3748;
-    border-radius: 8px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
     padding: 12px 14px;
     position: relative;
     transition: border-color 0.15s;
   }
-
-  .log-job-item:hover { border-color: #0d9488; }
+  .log-job-item:hover { border-color: var(--accent); }
 
   .log-job-header {
     display: flex;
@@ -1834,19 +1807,14 @@
     margin-bottom: 4px;
   }
 
-  .log-job-name {
-    font-size: 13px;
-    font-weight: 600;
-    color: #e2e8f0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-  }
+  .log-job-name { font-size: 13px; font-weight: 600; color: var(--text); }
 
   .log-job-ref {
     font-size: 10px;
     font-family: 'Consolas', 'Courier New', monospace;
-    color: #2dd4bf;
-    background: #0d3330;
-    border: 1px solid #0f766e;
+    color: var(--accent);
+    background: var(--accent-lt);
+    border: 1px solid #bfdbfe;
     border-radius: 6px;
     padding: 2px 7px;
     white-space: nowrap;
@@ -1855,18 +1823,18 @@
 
   .log-job-meta {
     font-size: 11px;
-    color: #64748b;
+    color: var(--text3);
     font-family: 'Consolas', 'Courier New', monospace;
     margin-bottom: 5px;
   }
 
   .log-job-desc {
     font-size: 12px;
-    color: #94a3b8;
-    font-family: 'Segoe UI', Arial, sans-serif;
+    color: var(--text2);
     line-height: 1.5;
-    background: #1a1f2e;
-    border-radius: 5px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
     padding: 6px 8px;
     margin-top: 4px;
     white-space: pre-wrap;
@@ -1879,7 +1847,7 @@
     right: 10px;
     background: none;
     border: none;
-    color: #334155;
+    color: var(--text4);
     cursor: pointer;
     font-size: 14px;
     padding: 2px 6px;
@@ -1887,127 +1855,279 @@
     transition: all 0.15s;
     line-height: 1;
   }
-  .log-job-delete:hover { color: #f87171; background: #3b0a0a; }
+  .log-job-delete:hover { color: var(--red); background: var(--red-lt); }
 
-  .log-export-row {
-    display: flex;
-    gap: 8px;
-  }
+  .log-export-row { display: flex; gap: 8px; }
 
   .log-export-btn {
     flex: 1;
-    border: none;
-    border-radius: 8px;
+    border-radius: var(--radius);
     padding: 9px 12px;
     font-size: 12px;
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Inter', 'Segoe UI', system-ui, Arial, sans-serif;
     font-weight: 600;
     cursor: pointer;
     transition: opacity 0.15s;
+    border: 1.5px solid transparent;
   }
   .log-export-btn:hover { opacity: 0.85; }
-  .log-export-btn.xlsx { background: #064e3b; color: #6ee7b7; border: 1px solid #065f46; }
-  .log-export-btn.txt  { background: #1e3a5f; color: #93c5fd; border: 1px solid #1d4ed8; }
-  .log-export-btn.clear { background: #3b0a0a; color: #fca5a5; border: 1px solid #7f1d1d; }
+  .log-export-btn.xlsx { background: var(--green-lt); color: var(--green); border-color: #a7f3d0; }
+  .log-export-btn.txt  { background: var(--accent-lt); color: var(--accent); border-color: #bfdbfe; }
+  .log-export-btn.clear { background: var(--red-lt); color: var(--red); border-color: #fecaca; }
   .log-export-btn:disabled { opacity: 0.35; cursor: not-allowed; }
 
   .log-error-msg {
     font-size: 11px;
-    color: #f87171;
-    font-family: 'Consolas', 'Courier New', monospace;
-    margin-top: 6px;
+    color: var(--red);
     min-height: 14px;
+    margin-top: 6px;
   }
 
   .log-success-flash {
-    background: #042f1c;
-    border: 1px solid #065f46;
-    border-radius: 8px;
+    background: var(--green-lt);
+    border: 1px solid #a7f3d0;
+    border-radius: var(--radius);
     padding: 10px 14px;
     font-size: 13px;
-    color: #6ee7b7;
-    font-family: 'Segoe UI', Arial, sans-serif;
+    color: var(--green);
     margin-top: 8px;
     display: none;
     animation: fadeIn 0.2s ease;
   }
 
-  .log-divider {
-    border: none;
-    border-top: 1px solid #1e2535;
-    margin: 14px 0;
-  }
+  .log-divider { border: none; border-top: 1px solid var(--border); margin: 14px 0; }
 
   .log-section-label {
-    font-size: 10px;
-    font-family: 'Consolas', 'Courier New', monospace;
-    color: #334155;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text4);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-bottom: 8px;
   }
 
-
-  /* ---- Custom Confirm Modal ---- */
-  .confirm-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.75);
-    z-index: 100000;
-    display: none;
+  /* Appointment badge */
+  .log-appt-badge {
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
+    gap: 5px;
+    background: var(--green-lt);
+    border: 1px solid #a7f3d0;
+    color: var(--green);
+    border-radius: 6px;
+    padding: 3px 8px;
+    font-size: 11px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    margin-top: 6px;
   }
-  .confirm-backdrop.open { display: flex; }
-  .confirm-box {
-    background: #1a1f2e;
-    border: 1.5px solid #2d3748;
-    border-radius: 12px;
-    padding: 24px 24px 20px;
-    max-width: 340px;
-    width: 90%;
-    animation: fadeIn 0.15s ease;
-    text-align: center;
-  }
-  .confirm-msg {
-    font-size: 14px;
-    color: #e2e8f0;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    line-height: 1.6;
-    margin-bottom: 20px;
-  }
-  .confirm-btns {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-  }
-  .confirm-btn-yes {
-    background: #ef4444;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 9px 24px;
-    font-size: 13px;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    transition: opacity 0.15s;
-  }
-  .confirm-btn-yes:hover { opacity: 0.85; }
-  .confirm-btn-no {
-    background: #374151;
-    color: #d1d5db;
-    border: none;
-    border-radius: 8px;
-    padding: 9px 24px;
-    font-size: 13px;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.15s;
-  }
-  .confirm-btn-no:hover { background: #4b5563; }
+  .log-appt-badge.remote { background: var(--accent-lt); border-color: #bfdbfe; color: var(--accent); }
 
+  /* Appointment toggle */
+  /* Appointment toggle */
+  .log-toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .log-toggle {
+    width: 38px;
+    height: 22px;
+    background: var(--border2);
+    border-radius: 11px;
+    position: relative;
+    transition: background 0.2s;
+    flex-shrink: 0;
+    cursor: pointer;
+    border: none;
+    outline: none;
+  }
+
+  .log-toggle.on { background: var(--accent); }
+
+  .log-toggle::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: left 0.2s;
+  }
+
+  .log-toggle.on::after { left: 19px; }
+
+  .log-toggle-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text3);
+    transition: color 0.2s;
+  }
+
+  .log-toggle.on + .log-toggle-label { color: var(--accent); }
+
+  .log-appt-fields {
+    background: var(--accent-lt);
+    border: 1.5px solid #bfdbfe;
+    border-radius: var(--radius);
+    padding: 14px;
+    margin-bottom: 12px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    animation: fadeIn 0.2s ease;
+  }
+
+  .log-appt-fields.visible { display: flex; }
+
+  .log-appt-header {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+
+
+  /* ---- Digital Champions Tab ---- */
+  .tab-btn.tab-dc.active { background: #4f46e5; color: #fff; }
+
+  .dc-search-bar { position: relative; margin-bottom: 14px; }
+  .dc-search-bar input {
+    width: 100%;
+    background: var(--surface);
+    border: 1.5px solid var(--border2);
+    border-radius: var(--radius-lg);
+    padding: 13px 16px 13px 44px;
+    color: var(--text);
+    font-size: 14px;
+    font-family: 'Inter', 'Segoe UI', system-ui, Arial, sans-serif;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: var(--shadow);
+  }
+  .dc-search-bar input:focus { border-color: #4f46e5; box-shadow: 0 0 0 3px rgba(79,70,229,.1); }
+  .dc-search-bar input::placeholder { color: var(--text4); }
+
+  .dc-results-label {
+    font-size: 12px;
+    color: var(--text3);
+    margin-bottom: 12px;
+  }
+
+  .dc-network-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    animation: fadeIn 0.15s ease;
+  }
+
+  .dc-network-header {
+    padding: 11px 16px;
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .dc-network-name {
+    font-size: 13px;
+    font-weight: 700;
+    color: #4f46e5;
+    font-family: 'Inter', 'Segoe UI', system-ui, Arial, sans-serif;
+  }
+
+  .dc-agent-count {
+    font-size: 11px;
+    background: #eef2ff;
+    color: #4f46e5;
+    border: 1px solid #c7d2fe;
+    border-radius: 10px;
+    padding: 2px 8px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .dc-agents { padding: 0; }
+
+  .dc-agent-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+    flex-wrap: wrap;
+  }
+  .dc-agent-row:last-child { border-bottom: none; }
+  .dc-agent-row:hover { background: var(--surface2); }
+
+  .dc-agent-avatar {
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: #eef2ff;
+    border: 1.5px solid #c7d2fe;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    color: #4f46e5;
+    flex-shrink: 0;
+  }
+
+  .dc-agent-info { flex: 1; min-width: 0; }
+
+  .dc-agent-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 3px;
+  }
+
+  .dc-agent-detail {
+    font-size: 12px;
+    color: var(--text3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .dc-team { color: var(--text3); }
+
+  .dc-email {
+    color: #4f46e5;
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background 0.1s;
+    font-size: 11px;
+    word-break: break-all;
+  }
+  .dc-email:hover { background: #eef2ff; }
+
+  .dc-empty {
+    text-align: center;
+    padding: 40px;
+    color: var(--text4);
+    font-size: 13px;
+    line-height: 1.8;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+  }
 </style>
 </head>
 <body>
@@ -2045,8 +2165,8 @@
   <div class="how-to-modal">
     <div class="how-to-header">
       <div>
-        <div class="how-to-title">How to use IT Helpdesk Helper</div>
-        <div class="how-to-sub">A reference guide for every tab and feature on this site</div>
+        <div class="how-to-title">How to use — IT Helpdesk Tool</div>
+        <div class="how-to-sub">A guide to every tab and feature · v3.14</div>
       </div>
       <button class="how-to-close" onclick="document.getElementById('howToModal').classList.remove('open')">&times;</button>
     </div>
@@ -2054,90 +2174,117 @@
     <div class="how-to-body">
 
       <div class="how-to-section">
-        <div class="how-to-section-title">Getting started — Personalisation bar</div>
-        <p>At the top of every page is the <strong>Personalisation bar</strong>. Enter your name in <strong>Your Name</strong> and it will be inserted automatically as the sign-off in every script you copy (<em>Thanks, [Your Name] — IT Helpdesk</em>). Optionally enter the <strong>Customer Name</strong> to personalise greetings inside scripts (<em>Hi [Customer Name]</em>). Clear the customer name between tickets so the next customer's name doesn't carry over.</p>
+        <div class="how-to-section-title">Password &amp; Access</div>
+        <p>The site is password protected. Enter <strong>sceptre</strong> to unlock. Once unlocked it stays open for the rest of your browser session — you won't need to re-enter it unless you close and reopen the browser.</p>
+        <p style="margin-top:8px">The tool is hosted at <strong>fraaz-kagzi.github.io/IT_Helpdesk_Tool</strong> and works on any NHS laptop in any browser. No install required. All data is stored locally in your browser — nothing is sent externally.</p>
       </div>
 
       <div class="how-to-section">
-        <div class="how-to-section-label">Tab</div>
+        <div class="how-to-section-title">Personalisation Bar</div>
+        <p>Sits at the top of every page. Enter your <strong>name</strong> once and every script you copy will automatically sign off as <em>Your Name — IT Helpdesk</em>. Your name is remembered between sessions.</p>
+        <p style="margin-top:8px">Optionally enter the <strong>customer's name</strong> to personalise the greeting in scripts (<em>Hi [Name],</em>). Clear this between tickets so one customer's name doesn't carry over to the next.</p>
+      </div>
+
+      <div class="how-to-section">
+        <div class="how-to-section-label">Tab 1</div>
         <div class="how-to-section-title">Script Finder</div>
-        <p>The main tab. Contains a library of pre-written helpdesk scripts for common situations — password resets, printer issues, Teams problems, remote access, and more.</p>
+        <p>A library of <strong>129 pre-written helpdesk scripts</strong> covering the most common issues — printers, access requests, MFA, Teams, Egress, RiO, EMIS, known inactive, leavers, and more.</p>
         <ul>
-          <li><strong>Search bar</strong> — type a few keywords (e.g. "printer", "drive", "Teams") to filter scripts instantly.</li>
-          <li><strong>Category tags</strong> — click a tag below the search bar to filter by topic. Click again to clear.</li>
-          <li><strong>Script card</strong> — click any result to expand and read the full script.</li>
-          <li><strong>Copy</strong> — copies the script to your clipboard with your name and customer name already inserted. Paste straight into your ticket or chat.</li>
-          <li><strong>Edit</strong> — modify the script body inline. Changes are saved locally in your browser.</li>
-          <li><strong>Delete</strong> — permanently removes a custom script.</li>
-          <li><strong>Add new script</strong> — use the form at the bottom to create your own scripts. Give it a name, keywords (comma-separated, used for search), and a body. Use <code>{{agent}}</code> for your name and <code>{{customer}}</code> for the customer name.</li>
-          <li><strong>Import from file</strong> — drag and drop a <code>.txt</code> or <code>.json</code> file to bulk-import scripts.</li>
+          <li><strong>Search bar</strong> — type a few words (e.g. "canon", "drive access", "teams") to instantly filter. Results are ranked by relevance.</li>
+          <li><strong>Category tags</strong> — click a tag (access, printer, mobile, email etc.) to filter by topic. Combine with a search for more precision.</li>
+          <li><strong>Copy</strong> — copies the full script with your name and the customer name already filled in. Paste straight into Sostenuto or an email.</li>
+          <li><strong>Edit</strong> — modify any script inline. Changes save locally.</li>
+          <li><strong>Delete</strong> — removes a custom script permanently.</li>
+          <li><strong>Add new script</strong> — create your own at the bottom of the tab. Give it a name, comma-separated keywords (used for search), and a body. Use <code>{{agent}}</code> where you want your name and <code>{{customer}}</code> for the customer greeting.</li>
+          <li><strong>Import scripts</strong> — upload a <code>.txt</code> file to bulk-import scripts. Supports the <code>[label]</code> format used in the original IT_Prompts.txt file.</li>
+          <li><strong>Team Files</strong> — download the latest RA spreadsheet and scripts file from GitHub with one click.</li>
         </ul>
       </div>
 
       <div class="how-to-section">
-        <div class="how-to-section-label">Tab</div>
+        <div class="how-to-section-label">Tab 2</div>
         <div class="how-to-section-title">Known Inactive</div>
-        <p>Used to quickly generate the correct <strong>Active Directory OU path</strong> for a known inactive user account when you need to move or disable it.</p>
+        <p>Quickly generates the standard output message for processing a <strong>known inactive account</strong>.</p>
         <ul>
-          <li><strong>Username field</strong> — type the user's AD username.</li>
-          <li><strong>Select region</strong> — choose the correct OU region (North, East, West, Central) that the user belongs to.</li>
-          <li>The tool generates the full OU path string which you can <strong>Copy</strong> and paste directly into your AD command or ticket.</li>
-          <li><strong>History</strong> — your last-used entries are shown below the output for quick re-use.</li>
+          <li>Type the account name as <strong>Firstname.Lastname</strong> — the tool appends <code>@lscft.nhs.uk</code> automatically.</li>
+          <li>Select the <strong>OU</strong> (North, East, West, Central) the account should be moved to.</li>
+          <li>The output is generated instantly: <em>Firstname.Lastname@lscft.nhs.uk details changed and moved to [OU] OU</em></li>
+          <li>Click <strong>Copy</strong> to copy it. Entries are logged in the <strong>Recent Entries</strong> history below — click any entry to re-copy it.</li>
         </ul>
       </div>
 
       <div class="how-to-section">
-        <div class="how-to-section-label">Tab</div>
+        <div class="how-to-section-label">Tab 3</div>
         <div class="how-to-section-title">RA Agents</div>
-        <p>A searchable directory of <strong>Remote Access (RA) agents</strong> — the people who have been set up with remote access accounts. Useful when you need to verify whether a user is already registered, find their contact details, or check their certifications.</p>
+        <p>A searchable directory of all <strong>LCFT Registration Authority (RA) agents</strong> — the local staff who can unblock smartcards, reset passcodes, and assist with certificate expiry.</p>
         <ul>
-          <li><strong>Search</strong> — search by agent name, site, town, postcode, or email.</li>
-          <li><strong>Agent card</strong> — shows name, phone number, email, site, and any cert/note badges.</li>
-          <li><strong>Copy email</strong> — click an email address to copy it to clipboard.</li>
-          <li><strong>Upload spreadsheet</strong> — load an updated <code>Local_RA_Admins.xlsx</code> to refresh the agent list. The data is stored locally and persists between sessions.</li>
+          <li><strong>Search</strong> — type a site name, town, postcode, or agent name. All matching sites and agents appear instantly.</li>
+          <li>Each agent card shows their <strong>phone number</strong>, <strong>email</strong> (click to copy), and any notes such as availability hours or RA support at weekends.</li>
+          <li>Agents with a <strong>Repairs Certificates</strong> badge can fix expired smartcard certificates.</li>
+          <li><strong>Upload spreadsheet</strong> — if the RA list has been updated, upload the new <code>Local_RA_Admins.xlsx</code> (or a CSV version) to refresh the data. It saves to your browser and loads automatically next time.</li>
+          <li>The built-in data covers <strong>174 agents</strong> across all LCFT sites.</li>
         </ul>
       </div>
 
       <div class="how-to-section">
-        <div class="how-to-section-label">Tab</div>
+        <div class="how-to-section-label">Tab 4</div>
         <div class="how-to-section-title">Passwords</div>
-        <p>A local bank of <strong>temporary passwords</strong> you can hand out to users who need a reset. Copy passwords to hand out to users needing a reset.</p>
+        <p>A local bank of <strong>temporary passwords</strong> to hand out to users who need a reset. Passwords can be reused freely.</p>
         <ul>
-          <li><strong>Copy</strong> — click a password card to copy it. It will be marked as <em>Used</em> automatically so you don't accidentally reuse it.</li>
-          <li><strong>Add password</strong> — type a custom word/phrase in the box at the bottom and press Enter or click Add to add it to the pool.</li>
-          <li><strong>Upload file</strong> — load a plain text file (one password per line) to bulk-replace the password list.</li>
+          <li><strong>Copy</strong> — click the Copy button on any password card. It flashes green for confirmation then resets, ready to copy again.</li>
+          <li><strong>Favourite</strong> — star a password to pin it to the top of the list.</li>
+          <li><strong>Add manually</strong> — type a password at the bottom and press Enter or click Add.</li>
+          <li><strong>Upload .txt file</strong> — load a plain text file with one password per line to replace or add to the list.</li>
+          <li><strong>Clear all</strong> — wipes the entire list.</li>
+          <li>The default list includes the 8 standard temp passwords. The list persists in your browser between sessions.</li>
         </ul>
       </div>
 
       <div class="how-to-section">
-        <div class="how-to-section-label">Tab</div>
+        <div class="how-to-section-label">Tab 5</div>
         <div class="how-to-section-title">Site Info</div>
-        <p>Lets you look up any LSCFT site to find out <strong>which field technician covers it</strong> and which area it belongs to. Useful when a user calls in and you need to know who their on-site tech is or which team to escalate to.</p>
+        <p>Look up any LSCFT site to find the <strong>field technician area</strong>, <strong>field technician</strong>, and <strong>remote technician</strong> assigned to it. Covers all 155 sites in the LCFT Site Directory.</p>
         <ul>
-          <li><strong>Search</strong> — type part of a site name (e.g. "Blackpool", "Preston", "Harbour"). Results update as you type.</li>
-          <li>Each result card shows the <strong>site name</strong>, <strong>field tech area</strong>, and <strong>assigned field technician</strong>.</li>
-          <li>Data is sourced directly from the LSCFT Site Directory spreadsheet.</li>
+          <li><strong>Search</strong> — type part of a site name, town, or tech name. Results update as you type.</li>
+          <li>Useful when a user calls and you need to know who to book a field tech appointment with, or which remote tech covers their area.</li>
         </ul>
       </div>
 
       <div class="how-to-section">
-        <div class="how-to-section-label">Tab</div>
+        <div class="how-to-section-label">Tab 6</div>
         <div class="how-to-section-title">MFA Resync</div>
-        <p>Provides a ready-to-run <strong>PowerShell command</strong> for re-syncing a user's Multi-Factor Authentication (MFA) in Active Directory using the MFA Resyncer script.</p>
+        <p>Provides ready-to-run <strong>PowerShell commands</strong> for re-syncing a user's MFA registration in Active Directory.</p>
         <ul>
-          <li><strong>Copy Command</strong> — copies the full PowerShell command to your clipboard. Paste it directly into a PowerShell window opened as your standard AD admin account.</li>
-          <li>The script runs in <strong>simulation mode by default</strong> — it will only report what it would do. The <code>-RunForReal</code> flag (already included in the copied command) makes it apply the change.</li>
-          <li>You will be prompted to enter the <strong>username</strong> of the user to re-sync, and if they are un-synced, a <strong>SOS job number</strong> to log against their account.</li>
-          <li>The full step-by-step guide is available in the expandable section below the command block on that tab.</li>
+          <li>Two command blocks are available — the standard script and the <strong>v3.14</strong> version. Click <strong>Copy Command</strong> on the relevant one and paste it into PowerShell opened as your standard AD account.</li>
+          <li>You will be prompted to enter the user's <strong>username</strong> and if they are un-synced, a <strong>Sostenuto job number</strong>.</li>
+          <li>Expand the <strong>How to use</strong> section on that tab for a full step-by-step walkthrough.</li>
+        </ul>
+      </div>
+
+      <div class="how-to-section">
+        <div class="how-to-section-label">Tab 7</div>
+        <div class="how-to-section-title">Manual Log</div>
+        <p>An emergency job-logging form for use when <strong>Sostenuto is unavailable</strong>. Logs jobs locally so nothing is lost.</p>
+        <ul>
+          <li>Fill in the caller details, site, division, asset number, and job description. Required fields are marked with a red <strong>*</strong> — the form won't submit without them.</li>
+          <li>The <strong>site field has autocomplete</strong> — start typing and matching LCFT sites will appear as suggestions.</li>
+          <li>Each job gets an auto-generated reference number in the format <code>MAN-YYYYMMDD-XX</code>.</li>
+          <li>Logged jobs appear on the right. Click <strong>&times;</strong> on any job to remove it individually.</li>
+          <li><strong>Export as XLSX</strong> — downloads a proper Excel file with all jobs and a bold header row.</li>
+          <li><strong>Export as CSV</strong> — downloads a plain comma-separated file compatible with any spreadsheet app.</li>
+          <li><strong>Clear All Jobs</strong> — removes all logged jobs after confirmation.</li>
+          <li>Jobs persist in your browser between sessions until you export or clear them.</li>
         </ul>
       </div>
 
       <div class="how-to-section" style="border-bottom:none;padding-bottom:0;">
-        <div class="how-to-section-title">Tips</div>
+        <div class="how-to-section-title">Tips &amp; Notes</div>
         <ul>
-          <li>All data (custom scripts, passwords, RA agents) is stored in your browser's local storage — it stays between sessions but is specific to this device and browser.</li>
-          <li>Use <code>{{agent}}</code> and <code>{{customer}}</code> placeholders in any script body to have them auto-filled when you copy.</li>
-          <li>The site works offline once loaded — no internet connection is required after the page opens.</li>
+          <li>All data (scripts, passwords, RA agents, logged jobs) is stored in <strong>your browser's local storage</strong>. It persists between sessions but is specific to your device and browser — it won't sync to a colleague's machine.</li>
+          <li>If a colleague opens the site and sees fewer scripts than expected, they may have an older version cached. The scripts will reset to the latest defaults automatically when a new version is published.</li>
+          <li>The site works fully <strong>offline</strong> once loaded — no internet is required after the initial page load.</li>
+          <li>Use the <strong>Team Files</strong> bar at the top to download the latest shared files (RA spreadsheet, scripts file) directly from GitHub.</li>
+          <li>The <strong>boss banner</strong> at the top is clickable — it opens the full image.</li>
         </ul>
       </div>
 
@@ -2176,6 +2323,7 @@
   <button class="tab-btn active" id="tab-scripts" onclick="switchTab('scripts')">Script Finder</button>
   <button class="tab-btn tab-inactive" id="tab-inactive" onclick="switchTab('inactive')">Known Inactive</button>
   <button class="tab-btn tab-ra" id="tab-ra" onclick="switchTab('ra')">RA Agents</button>
+  <button class="tab-btn tab-dc" id="tab-dc" onclick="switchTab('dc')">Digital Champions</button>
   <button class="tab-btn tab-pw" id="tab-pw" onclick="switchTab('pw')">Passwords</button>
   <button class="tab-btn tab-site" id="tab-site" onclick="switchTab('site')">Site Info</button>
   <button class="tab-btn tab-mfa" id="tab-mfa" onclick="switchTab('mfa')">MFA Resync</button>
@@ -2327,7 +2475,18 @@
   </div>
   <div class="ra-results-label" id="raResultsLabel">Search a site to find RA agents</div>
   <div id="raResults"></div>
+
 </div><!-- end panel-ra -->
+
+<!-- TAB: Digital Champions -->
+<div class="tab-panel" id="panel-dc">
+  <div class="dc-search-bar">
+    <span class="search-icon" style="position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#475569;font-size:16px;pointer-events:none">&#128269;</span>
+    <input type="text" id="dcSearchInput" placeholder="Search name, team, or network… e.g. Fylde Coast, CAMHS, Harbour…" oninput="runDCSearch()" autocomplete="off" />
+  </div>
+  <div class="dc-results-label" id="dcResultsLabel">Search or browse all <strong style="color:#818cf8">97 Digital Champions</strong></div>
+  <div id="dcResults"></div>
+</div><!-- end panel-dc -->
 
 <!-- TAB: Passwords -->
 <div class="tab-panel" id="panel-pw">
@@ -2444,7 +2603,7 @@
 <!-- TAB: Manual Log -->
 <div class="tab-panel" id="panel-log">
 
-  <div style="margin-bottom:12px;background:#0d1f1f;border:1px solid #0f766e;border-radius:10px;padding:10px 16px;font-size:12px;color:#5eead4;font-family:'Consolas','Courier New',monospace;">
+  <div style="margin-bottom:12px;background:var(--accent-lt);border:1px solid #bfdbfe;border-radius:var(--radius);padding:10px 16px;font-size:12px;color:var(--accent);font-family:'Inter','Segoe UI',system-ui,Arial,sans-serif;">
     Use this form to manually log jobs when Sostenuto is unavailable. All jobs are stored locally in your browser and can be exported as a spreadsheet or CSV file.
   </div>
 
@@ -2527,6 +2686,46 @@
       <div class="log-row">
         <label class="log-label">Job Description <span class="log-required">*</span></label>
         <textarea class="log-textarea" id="log-desc" placeholder="Describe the issue in as much detail as possible — what happened, any error messages, when it started..."></textarea>
+      </div>
+
+
+      <hr class="log-divider" />
+      <div class="log-toggle-row" onclick="logToggleAppt()">
+        <button class="log-toggle" id="log-appt-toggle" type="button"></button>
+        <span class="log-toggle-label" id="log-appt-toggle-label">Book a technician appointment?</span>
+      </div>
+
+      <div class="log-appt-fields" id="log-appt-fields">
+        <div class="log-appt-header">Appointment Details</div>
+
+        <div class="log-row" style="margin-bottom:0">
+          <label class="log-label">Appointment Type</label>
+          <select class="log-select" id="log-appt-type">
+            <option value="Remote">Remote Technician</option>
+            <option value="Field">Field Technician (On-site)</option>
+          </select>
+        </div>
+
+        <div class="log-row" style="margin-bottom:0">
+          <label class="log-label">Technician Name</label>
+          <input type="text" class="log-input" id="log-appt-tech" placeholder="e.g. Jack Dixon" autocomplete="off" />
+        </div>
+
+        <div class="log-row-split">
+          <div class="log-row" style="margin-bottom:0">
+            <label class="log-label">Date</label>
+            <input type="date" class="log-input" id="log-appt-date" />
+          </div>
+          <div class="log-row" style="margin-bottom:0">
+            <label class="log-label">Time</label>
+            <input type="time" class="log-input" id="log-appt-time" />
+          </div>
+        </div>
+
+        <div class="log-row" style="margin-bottom:0">
+          <label class="log-label">Appointment Notes <span style="color:#475569;font-size:10px;text-transform:none;font-weight:400">(optional)</span></label>
+          <input type="text" class="log-input" id="log-appt-notes" placeholder="e.g. User available after 10am, call before arriving" autocomplete="off" />
+        </div>
       </div>
 
       <div class="log-error-msg" id="log-error"></div>
@@ -4258,6 +4457,7 @@ function switchTab(tab) {
   document.getElementById('tab-' + tab).classList.add('active');
   // Re-render log queue when switching to it so buttons are correctly enabled
   if (tab === 'log') logRenderQueue();
+  if (tab === 'dc') runDCSearch();
 }
 
 function copyMfaCmdV314() {
@@ -5555,11 +5755,18 @@ function logSubmitJob() {
     jobtitle:  document.getElementById('log-jobtitle').value.trim(),
     asset:     document.getElementById('log-asset').value.trim(),
     desc:      document.getElementById('log-desc').value.trim(),
+    hasAppt:   document.getElementById('log-appt-toggle').classList.contains('on'),
+    apptType:  document.getElementById('log-appt-type').value.trim(),
+    apptTech:  document.getElementById('log-appt-tech').value.trim(),
+    apptDate:  document.getElementById('log-appt-date').value,
+    apptTime:  document.getElementById('log-appt-time').value,
+    apptNotes: document.getElementById('log-appt-notes').value.trim(),
   };
 
   logJobs.unshift(job);
   logSave();
   logRenderQueue();
+  runDCSearch();
   logClearForm();
 
   // Flash success
@@ -5572,15 +5779,21 @@ function logSubmitJob() {
 }
 
 function logClearForm() {
-  var ids = ['log-fname','log-lname','log-email','log-tel','log-site','log-division','log-jobtitle','log-asset','log-desc'];
+  var ids = ['log-fname','log-lname','log-email','log-tel','log-site','log-division','log-jobtitle','log-asset','log-desc','log-appt-tech','log-appt-date','log-appt-time','log-appt-notes'];
   ids.forEach(function(id) {
     var el = document.getElementById(id);
     if (!el) return;
-    el.value = id === 'log-division' ? '' : '';
+    el.value = '';
     el.classList.remove('error');
   });
+  // Reset appointment toggle
+  var toggle = document.getElementById('log-appt-toggle');
+  var fields = document.getElementById('log-appt-fields');
+  var label  = document.getElementById('log-appt-toggle-label');
+  if (toggle) toggle.classList.remove('on');
+  if (fields) fields.classList.remove('visible');
+  if (label)  label.textContent = 'Book a technician appointment?';
   document.getElementById('log-error').textContent = '';
-  // Re-focus first name for quick repeat entry
   document.getElementById('log-fname').focus();
 }
 
@@ -5619,6 +5832,13 @@ function logRenderQueue() {
         escHtml(job.jobtitle) + (job.tel ? ' &nbsp;|&nbsp; ' + escHtml(job.tel) : '') + ' &nbsp;|&nbsp; ' + escHtml(job.timestamp) +
       '</div>' +
       '<div class="log-job-desc">' + escHtml(job.desc) + '</div>' +
+      (job.hasAppt ? '<div class="log-appt-badge' + (job.apptType === 'Remote' ? ' remote' : '') + '">' +
+        (job.apptType === 'Remote' ? 'Remote' : 'Field') + ' Appt: ' +
+        (job.apptTech ? escHtml(job.apptTech) + ' · ' : '') +
+        (job.apptDate ? new Date(job.apptDate).toLocaleDateString('en-GB') : '') +
+        (job.apptTime ? ' at ' + job.apptTime : '') +
+        (job.apptNotes ? ' · ' + escHtml(job.apptNotes) : '') +
+      '</div>' : '') +
       '<button class="log-job-delete" onclick="logDeleteJob(' + i + ')" title="Remove this job">&#x2715;</button>';
     list.appendChild(div);
   });
@@ -5629,6 +5849,7 @@ function logDeleteJob(i) {
     logJobs.splice(i, 1);
     logSave();
     logRenderQueue();
+  runDCSearch();
   });
 }
 
@@ -5643,6 +5864,7 @@ function logClearAll() {
       if (el) el.disabled = true;
     });
     logRenderQueue();
+  runDCSearch();
     showToast('All jobs cleared.');
   });
 }
@@ -5650,7 +5872,7 @@ function logClearAll() {
 // ── Export CSV ──────────────────────────────────────────────────────────────
 function logExportCSV() {
   if (!logJobs.length) return;
-  var headers = ['Ref','Date/Time','First Name','Last Name','Email','Telephone','Site','Division','Job Title','Asset Number','Description'];
+  var headers = ['Ref','Date/Time','First Name','Last Name','Email','Telephone','Site','Division','Job Title','Asset Number','Description','Appointment Type','Technician','Appt Date','Appt Time','Appt Notes'];
   var rows = logJobs.map(function(j) {
     return [j.ref, j.timestamp, j.fname, j.lname, j.email, j.tel, j.site, j.division, j.jobtitle, j.asset, j.desc]
       .map(function(v) { return '"' + String(v || '').replace(/"/g, '""') + '"'; })
@@ -5667,9 +5889,17 @@ function logExportCSV() {
 function logExportXLSX() {
   if (!logJobs.length) return;
 
-  var headers = ['Ref','Date/Time','First Name','Last Name','Email','Telephone','Site','Division','Job Title','Asset Number','Description'];
+  var headers = ['Ref','Date/Time','First Name','Last Name','Email','Telephone','Site','Division','Job Title','Asset Number','Description','Appointment Type','Technician','Appt Date','Appt Time','Appt Notes'];
   var rows = logJobs.map(function(j) {
-    return [j.ref, j.timestamp, j.fname, j.lname, j.email || '', j.tel, j.site, j.division, j.jobtitle, j.asset, j.desc];
+    return [
+      j.ref, j.timestamp, j.fname, j.lname, j.email || '', j.tel,
+      j.site, j.division, j.jobtitle, j.asset, j.desc,
+      j.hasAppt ? (j.apptType || '') : '',
+      j.hasAppt ? (j.apptTech || '') : '',
+      j.hasAppt && j.apptDate ? new Date(j.apptDate).toLocaleDateString('en-GB') : '',
+      j.hasAppt ? (j.apptTime || '') : '',
+      j.hasAppt ? (j.apptNotes || '') : ''
+    ];
   });
 
   function xmlEsc(s) {
@@ -5920,6 +6150,100 @@ function customConfirm(msg, onYes) {
   noBtn.onclick  = function() { close(); };
 }
 
+
+function logToggleAppt() {
+  var toggle = document.getElementById('log-appt-toggle');
+  var fields = document.getElementById('log-appt-fields');
+  var label  = document.getElementById('log-appt-toggle-label');
+  if (!toggle) return;
+  var on = toggle.classList.toggle('on');
+  fields.classList.toggle('visible', on);
+  label.textContent = on ? 'Appointment booked' : 'Book a technician appointment?';
+}
+
+
+// ---- Digital Champions ----
+var DC_DATA = [{"name": "Julie Statham", "email": "Julie.Statham@lscft.nhs.uk", "team": "IRS", "network": "Central & West"}, {"name": "David Elsworthy", "email": "David.elswothey@lscft.nhs.uk", "team": "West Lancs HTT", "network": "Central & West"}, {"name": "Ian White", "email": "Ian.white@lscft.nhs.uk", "team": "CTT", "network": "Central & West"}, {"name": "Liz Forster", "email": "Liz.forster@lscft.nhs.uk", "team": "Support Worker Lead", "network": "Other"}, {"name": "Linda Scanlan", "email": "Linda.scanlan@lscft.nhs.uk", "team": "Peer Support Services", "network": "Central & West"}, {"name": "Mandy Wilson", "email": "Mandy.Wilson@lscft.nhs.uk", "team": "Psychosis and Bipolar Psychological Care Network (PBPCN) Central", "network": "Central & West"}, {"name": "Shefa Giash", "email": "Shefa.Giash@lscft.nhs.uk", "team": "Mental Health Law Team", "network": "Central & West"}, {"name": "Kim Kirkham", "email": "Kim.Kirkham@lscft.nhs.uk", "team": "IRS", "network": "Central & West"}, {"name": "Simon Carlton", "email": "Simon.Carleton@lscft.nhs.uk", "team": "IRS", "network": "Central & West"}, {"name": "Jeanette Jennings", "email": "Jeanette.Jennings@lscft.nhs.uk", "team": "CAMHS Triage and Assessment Hub", "network": "Specialist Services"}, {"name": "Karen Lee", "email": "karen.lee@lscft.nhs.uk", "team": "CAMHS", "network": "Specialist Services"}, {"name": "Aimee Wharton", "email": "Aimee.Wharton@lscft.nhs.uk", "team": "RITT", "network": "Central & West"}, {"name": "Lara Singleton", "email": "Lara.Singleton@lscft.nhs.uk", "team": "Preston CMHT", "network": "Central & West"}, {"name": "William Davis", "email": "William.Davis@lscft.nhs.uk", "team": "Perinatal Services", "network": "Specialist Services"}, {"name": "Susan Derbyshire", "email": "susan.derbyshire@lscft.nhs.uk", "team": "South Ribble CMHT", "network": "Central & West"}, {"name": "Kevin Mistry", "email": "Kevin.Mistry@lscft.nhs.uk", "team": "Central and West Admin Lead", "network": "Central & West"}, {"name": "Kayleigh Ashworth", "email": "Kayleigh.Ashworth@lscft.nhs.uk", "team": "CTT", "network": "Central & West"}, {"name": "Annabel Jonas", "email": "annabel.jonas@lscft.nhs.uk", "team": "", "network": "Central & West"}, {"name": "Edison Awa", "email": "Edison.Awa@lscft.nhs.uk", "team": "", "network": "Specialist Services"}, {"name": "Claire Swarbrick", "email": "Clare.Swarbrick@lcft.nhs.uk", "team": "IIRMS Practitioner", "network": "Specialist Services"}, {"name": "Anne Pye", "email": "anne.pye@lscft.nhs.uk", "team": "Forensic Flow & Capacity Team, Specialist Services Network", "network": "Specialist Services"}, {"name": "Kevin Otter", "email": "Kevin.otter@lscft.nhs.uk", "team": "Reconnect - Care After Custody Team", "network": "Specialist Services"}, {"name": "Carole Keegan", "email": "Carole.Keegan@lscft.nhs.uk", "team": "Perinatal CMHT", "network": "Specialist Services"}, {"name": "Taiwo Shyllon", "email": "Taiwo.Shyllon@lscft.nhs.uk", "team": "Greenside Ward (Guild Lodge)", "network": "Specialist Services"}, {"name": "Catherine Ogbonna", "email": "Catherine.Ogbonna@lscft.nhs.uk", "team": "Guild Lodge", "network": "Specialist Services"}, {"name": "Charlotte Rogers", "email": "Charlotte.Rogers@lscft.nhs.uk", "team": "RAIST Specialist Services", "network": "Specialist Services"}, {"name": "Laura Forshaw", "email": "Laura.Forshaw@lscft.nhs.uk", "team": "RAIST Specialist Services", "network": "Specialist Services"}, {"name": "Dustin Marquardt", "email": "Dustin.Marquardt@lscft.nhs.uk", "team": "Preston East CMHT", "network": "Central & West"}, {"name": "Julie Carten", "email": "Julie.Carten@lscft.nhs.uk", "team": "CPET West Lancs", "network": "Specialist Services"}, {"name": "Neil Traynor", "email": "Neil.traynor@lscft.nhs.uk", "team": "Whalley IPC", "network": "Specialist Services"}, {"name": "Elizabeth Horrocks", "email": "Elizabeth.horrocks@lscft.nhs.uk", "team": "Eating Disorder Services", "network": "Specialist Services"}, {"name": "Connor Edwards", "email": "Connor.Edwards@lscft.nhs.uk", "team": "IRS", "network": "Pennine"}, {"name": "Amy Begley", "email": "Amy.Begley@lscft.nhs.uk", "team": "IRS", "network": "Pennine"}, {"name": "Daniel Whittaker", "email": "Daniel.Whittaker@lscft.nhs.uk", "team": "IRS/HTT", "network": "Pennine"}, {"name": "Keith Catlow", "email": "Keith.Catlow@lscft.nhs.uk", "team": "HTT", "network": "Pennine"}, {"name": "Harriet Ratcliffe", "email": "Harriet.Ratcliffe@lscft.nhs.uk", "team": "Blackburn Inpatients", "network": "Pennine"}, {"name": "Sharee Woods", "email": "Sharee.Woods@lscft.nhs.uk", "team": "Hyndburn Ward", "network": "Pennine"}, {"name": "Nikki Clarke", "email": "Nikki.Clark@lscft.nhs.uk", "team": "Eating Disorder Services", "network": "Specialist Services"}, {"name": "Andrew Corns", "email": "andrew.corns@lscft.nhs.uk", "team": "Learning Disability Services", "network": "Specialist Services"}, {"name": "Scott Moore", "email": "scott.moore@lscft.nhs.uk", "team": "Pennine Admin Lead", "network": "Pennine"}, {"name": "Karen Skillett", "email": "Karen.Sillett@lscft.nhs.uk", "team": "Mental Health Support Teams East Lancs", "network": "Pennine"}, {"name": "Lauren Morton", "email": "Lauren.Morton@lscft.nhs.uk", "team": "Team Leader Perinatal Team", "network": "Specialist Services"}, {"name": "Samantha Dawes", "email": "Samantha.Dawes@lscft.nhs.uk", "team": "Eating Disorder Services", "network": "Specialist Services"}, {"name": "Claire Thompson", "email": "Clare.Thompson@lscft.nhs.uk", "team": "Bed Hub", "network": "Fylde Coast"}, {"name": "Christopher Upton", "email": "Christopher.Upton@lscft.nhs.uk", "team": "Learning Disabilities Services", "network": "Specialist Services"}, {"name": "Charlotte Kennedy", "email": "Charlotte.kennedy@lscft.nhs.uk", "team": "Deputy Admin Lead Blackpool and Fylde", "network": "Fylde Coast"}, {"name": "Tonicha Wilmore", "email": "Tonicha.Wilmore@lscft.nhs.uk", "team": "CMHT", "network": "Fylde Coast"}, {"name": "Diane Heaton", "email": "diane.heaton@lscft.nhs.uk", "team": "CPET", "network": "Specialist Services"}, {"name": "Anthony Warren", "email": "Anthony.Warren@lscft.nhs.uk", "team": "", "network": "Fylde Coast"}, {"name": "Steven Jewell", "email": "Steven.Jewell@lscft.nhs.uk", "team": "CMHT Blackpool", "network": "Fylde Coast"}, {"name": "Kenny Brown", "email": "Kenneth.Brown@lscft.nhs.uk", "team": "Fylde IRS", "network": "Fylde Coast"}, {"name": "Mark Brown", "email": "Mark.Brown@lscft.nhs.uk", "team": "Fylde MHLT", "network": "Fylde Coast"}, {"name": "Nathan East", "email": "Nathan.East@lscft.nhs.uk", "team": "Blackpool ATS", "network": "Fylde Coast"}, {"name": "Mandy Halstead", "email": "Mandy.Halstead@lscft.nhs.uk", "team": "Frequent Attenders", "network": "Fylde Coast"}, {"name": "Charlotte Newman", "email": "Charlotte.Newman@lscft.nhs.uk", "team": "Frequent Attenders", "network": "Fylde Coast"}, {"name": "Emily Eaton", "email": "Emily.Eaton@lscft.nhs.uk", "team": "Fylde CMHT", "network": "Fylde Coast"}, {"name": "Katie Summers", "email": "Katie.Summers@lscft.nhs.uk", "team": "Fylde CMHT", "network": "Fylde Coast"}, {"name": "Laurence Halpin", "email": "Laurence.Halpin@lscft.nhs.uk", "team": "Fylde CMHT", "network": "Fylde Coast"}, {"name": "Anne-Marie Rowe", "email": "Anne-marie.Rowe@lscft.nhs.uk", "team": "Blackpool CMHT", "network": "Fylde Coast"}, {"name": "Jacqueline Marshall", "email": "Jacqueline.Marshall@lscft.nhs.uk", "team": "Fylde CMHT", "network": "Fylde Coast"}, {"name": "Laura Hayes", "email": "Laura.S.Hayes@lscft.nhs.uk", "team": "EIS", "network": "Fylde Coast"}, {"name": "Alice Probert", "email": "Alice.Probert@lscft.nhs.uk", "team": "Fylde RITT", "network": "Fylde Coast"}, {"name": "Kyle Worthington", "email": "Kyle.Worthington@lscft.nhs.uk", "team": "Austin Ward The Harbour", "network": "Fylde Coast"}, {"name": "Kiri Thompson", "email": "Kiri.Thompson@lscft.nhs.uk", "team": "Austin Ward The Harbour", "network": "Fylde Coast"}, {"name": "Lucy Wadsworth", "email": "Lucy.Wadsworth@lscft.nhs.uk", "team": "Bronte Ward The Harbour", "network": "Fylde Coast"}, {"name": "Matthew Hargreaves", "email": "Matthew.Hargreaves@lscft.nhs.uk", "team": "Bronte Ward The Harbour", "network": "Fylde Coast"}, {"name": "Steven Moore", "email": "", "team": "Byron Ward The Harbour", "network": "Fylde Coast"}, {"name": "Philani Shabangu", "email": "Philani.Shabangu@lscft.nhs.uk", "team": "Byron Ward The Harbour", "network": "Fylde Coast"}, {"name": "Joanne Nixon", "email": "Joanne.Nixon@lscft.nhs.uk", "team": "Churchill Ward The Harbour", "network": "Fylde Coast"}, {"name": "Amy John", "email": "Amy.John@lscft.nhs.uk", "team": "Churchill Ward The Harbour", "network": "Fylde Coast"}, {"name": "Clair Ashton", "email": "Clair.Ashton@lscft.nhs.uk", "team": "Dickins Ward The Harbour", "network": "Fylde Coast"}, {"name": "Adam Roach", "email": "Adam.Roach@lscft.nhs.uk", "team": "Dickins Ward The Harbour", "network": "Fylde Coast"}, {"name": "Zowiee Sharp", "email": "Zowiee.Sharp@lscft.nhs.uk", "team": "Orwell Ward The Harbour", "network": "Fylde Coast"}, {"name": "Narisse Mulholland", "email": "Narisse.Mulholland@lscft.nhs.uk", "team": "Orwell Ward The Harbour", "network": "Fylde Coast"}, {"name": "Daisey-Ann Molyneux", "email": "Daisy-anne.Molyneaux@lscft.nhs.uk", "team": "Shakespeare Ward The Harbour", "network": "Fylde Coast"}, {"name": "Jennifer Bird", "email": "Jennifer.Bird@lscft.nhs.uk", "team": "Shakespeare Ward The Harbour", "network": "Fylde Coast"}, {"name": "Jesil Josephdcruz", "email": "Jesil.Josephdcruz@lscft.nhs.uk", "team": "Stevenson Ward The Harbour", "network": "Fylde Coast"}, {"name": "Bethany Smith", "email": "Bethany.Smith@lscft.nhs.uk", "team": "Stevenson Ward The Harbour", "network": "Fylde Coast"}, {"name": "Vicky Rawding", "email": "Vicky.Rawding@lscft.nhs.uk", "team": "Stevenson Ward The Harbour", "network": "Fylde Coast"}, {"name": "Mireille Mcbrearty", "email": "Mireille.Mcbrearty@lscft.nhs.uk", "team": "Wordsworth Ward The Harbour", "network": "Fylde Coast"}, {"name": "Melonie Harvey", "email": "Melonie.Harvey@lscft.nhs.uk", "team": "136 Suite The Harbour", "network": "Fylde Coast"}, {"name": "Neethu Prasannakumar", "email": "Neethu.Prasannakumar@lscft.nhs.uk", "team": "136 Suite The Harbour", "network": "Fylde Coast"}, {"name": "Rushna Chowdhury", "email": "rushna.choudhury@lscft.nhs.uk", "team": "Bronte Ward The Harbour", "network": "Fylde Coast"}, {"name": "Annie Entwhistle-Frain", "email": "Annie.Entwistlefrain@lscft.nhs.uk", "team": "Moorgate Ward", "network": "Fylde Coast"}, {"name": "Maryann Mwaura", "email": "Maryann.Mwaura@lscft.nhs.uk", "team": "Stevenson Ward The Harbour", "network": "Fylde Coast"}, {"name": "Vicky Webster", "email": "Vicky.Webster@lscft.nhs.uk", "team": "CAMHS Fylde and Wyre", "network": "Specialist Services"}, {"name": "Alex Petcu", "email": "Alex.petcu@lscft.nhs.uk", "team": "South Lakes Locality", "network": "The Bay"}, {"name": "Zoe Toon", "email": "Zoe.Toon@lscft.nhs.uk", "team": "Eating Disorder Service - Kendal", "network": "Specialist Services"}, {"name": "Noreen Akhtar", "email": "Noreen.akhtar@lscft.nhs.uk", "team": "EIS", "network": "The Bay"}, {"name": "Kathryn Hayes", "email": "Kathryn.Hayes@lscft.nhs.uk", "team": "The Cove", "network": "Specialist Services"}, {"name": "Lauren Laisby", "email": "Lauren.Laisby@lscft.nhs.uk", "team": "Older Adult CMHT", "network": "The Bay"}, {"name": "Melanie Maxwell-Scott", "email": "Melanie.Maxwell-Scott@lscft.nhs.uk", "team": "CAMHS", "network": "Specialist Services"}, {"name": "Amy Armstrong", "email": "Amy.Armstrong@lscft.nhs.uk", "team": "Kentmere Ward", "network": "The Bay"}, {"name": "Maggie Kirkbride", "email": "Maggie.Kirkbride@lscft.nhs.uk", "team": "Furness CMHT", "network": "The Bay"}, {"name": "Jenny England", "email": "Jenny.England@lscft.nhs.uk", "team": "South Lakes CMHT", "network": "The Bay"}, {"name": "Paige Grant Lloyd", "email": "Paige.Grant-Lloyd@lscft.nhs.uk", "team": "The Cove", "network": "Specialist Services"}, {"name": "Zoe Cogle", "email": "zoe.cogle@lscft.nhs.uk", "team": "EIS", "network": "The Bay"}];
+
+function runDCSearch() {
+  var q = document.getElementById('dcSearchInput').value.trim().toLowerCase();
+  var label   = document.getElementById('dcResultsLabel');
+  var results = document.getElementById('dcResults');
+
+  var filtered = q
+    ? DC_DATA.filter(function(c) {
+        return (c.name + ' ' + c.team + ' ' + c.network + ' ' + c.email).toLowerCase().includes(q);
+      })
+    : DC_DATA;
+
+  // Group by network
+  var groups = {};
+  filtered.forEach(function(c) {
+    var net = c.network || 'Other';
+    if (!groups[net]) groups[net] = [];
+    groups[net].push(c);
+  });
+
+  var networkOrder = ['Central & West','Fylde Coast','Pennine','Specialist Services','The Bay','Other'];
+  var nets = Object.keys(groups).sort(function(a, b) {
+    var ia = networkOrder.indexOf(a), ib = networkOrder.indexOf(b);
+    if (ia === -1) ia = 99;
+    if (ib === -1) ib = 99;
+    return ia - ib;
+  });
+
+  var total = filtered.length;
+  label.innerHTML = q
+    ? total + ' champion' + (total !== 1 ? 's' : '') + ' found'
+    : 'Search or browse all <strong style="color:#818cf8">97 Digital Champions</strong>';
+
+  if (!total) {
+    results.innerHTML = '<div class="dc-empty">No champions match your search.<br>Try a name, team, or network.</div>';
+    return;
+  }
+
+  results.innerHTML = '';
+  nets.forEach(function(net) {
+    var champs = groups[net];
+    var group  = document.createElement('div');
+    group.className = 'dc-network-group';
+
+    var rows = champs.map(function(c) {
+      var initials = c.name.split(' ').map(function(p) { return p[0] || ''; }).slice(0,2).join('').toUpperCase();
+      var emailHtml = c.email
+        ? '<span class="dc-email" title="Click to copy" onclick="dcCopyEmail(\''+c.email+'\', this)">&#9993; ' + c.email + '</span>'
+        : '<span style="color:#334155;font-size:11px">no email</span>';
+      var teamHtml = c.team ? '<span class="dc-team">&#128203; ' + c.team + '</span>' : '';
+      return '<div class="dc-agent-row">' +
+        '<div class="dc-agent-avatar">' + initials + '</div>' +
+        '<div class="dc-agent-info">' +
+          '<div class="dc-agent-name">' + c.name + '</div>' +
+          '<div class="dc-agent-detail">' + teamHtml + emailHtml + '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+
+    group.innerHTML =
+      '<div class="dc-network-header">' +
+        '<div class="dc-network-name">&#127760; ' + net + '</div>' +
+        '<span class="dc-agent-count">' + champs.length + ' champion' + (champs.length !== 1 ? 's' : '') + '</span>' +
+      '</div>' +
+      '<div class="dc-agents">' + rows + '</div>';
+
+    results.appendChild(group);
+  });
+}
+
+function dcCopyEmail(email, el) {
+  var done = function() {
+    var orig = el.textContent;
+    el.textContent = 'Copied!';
+    setTimeout(function() { el.textContent = orig; }, 1800);
+    showToast('Email copied!');
+  };
+  copyToClipboard(email, done);
+}
+
 // ---- Init ----
 
 // ---- Login ----
@@ -5978,6 +6302,7 @@ function initLogin() {
   pwLoad();
   loadGithubBar();
   logRenderQueue();
+  runDCSearch();
 })();
 </script>
 
