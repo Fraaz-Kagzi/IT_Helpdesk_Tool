@@ -2748,11 +2748,11 @@
       <div style="margin-top:12px;">
         <div class="log-section-label">Export all jobs</div>
         <div class="log-export-row">
-          <button class="log-export-btn xlsx" onclick="logExportXLSX()" id="log-btn-xlsx" disabled>Export as XLSX</button>
-          <button class="log-export-btn txt"  onclick="logExportCSV()"  id="log-btn-csv"  disabled>Export as CSV</button>
+          <button class="log-export-btn xlsx" onclick="logExportXLSX()" id="log-btn-xlsx">Export as XLSX</button>
+          <button class="log-export-btn txt"  onclick="logExportCSV()"  id="log-btn-csv">Export as CSV</button>
         </div>
         <div class="log-export-row" style="margin-top:8px;">
-          <button class="log-export-btn clear" onclick="logClearAll()" id="log-btn-clear" disabled>Clear All Jobs</button>
+          <button class="log-export-btn clear" onclick="logClearAll()" id="log-btn-clear">Clear All Jobs</button>
         </div>
       </div>
     </div>
@@ -5809,9 +5809,6 @@ function logRenderQueue() {
 
   var count = logJobs.length;
   badge.textContent = count + (count === 1 ? ' job' : ' jobs');
-  if (btnXls) btnXls.disabled = count === 0;
-  if (btnCsv) btnCsv.disabled = count === 0;
-  if (btnClr) btnClr.disabled = count === 0;
 
   if (!count) {
     list.innerHTML = '<div class="log-queue-empty">No jobs logged yet.<br>Fill in the form and click<br>"Log This Job" to add one.</div>';
@@ -5849,7 +5846,6 @@ function logDeleteJob(i) {
     logJobs.splice(i, 1);
     logSave();
     logRenderQueue();
-  runDCSearch();
   });
 }
 
@@ -5859,19 +5855,14 @@ function logClearAll() {
     logJobs = [];
     logJobCounter = 0;
     logSave();
-    ['log-btn-xlsx','log-btn-csv','log-btn-clear'].forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) el.disabled = true;
-    });
     logRenderQueue();
-  runDCSearch();
     showToast('All jobs cleared.');
   });
 }
 
 // ── Export CSV ──────────────────────────────────────────────────────────────
 function logExportCSV() {
-  if (!logJobs.length) return;
+  if (!logJobs.length) { showToast('No jobs to export.'); return; }
   var headers = ['Ref','Date/Time','First Name','Last Name','Email','Telephone','Site','Division','Job Title','Asset Number','Description','Appointment Type','Technician','Appt Date','Appt Time','Appt Notes'];
   var rows = logJobs.map(function(j) {
     return [j.ref, j.timestamp, j.fname, j.lname, j.email, j.tel, j.site, j.division, j.jobtitle, j.asset, j.desc]
