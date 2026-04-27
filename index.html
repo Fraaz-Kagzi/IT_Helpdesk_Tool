@@ -2128,6 +2128,70 @@
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow);
   }
+  /* ---- Custom Confirm Modal ---- */
+  .confirm-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    z-index: 999999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .confirm-backdrop.open {
+    display: flex;
+  }
+  .confirm-box {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius-lg);
+    padding: 28px 28px 22px;
+    max-width: 380px;
+    width: calc(100% - 40px);
+    box-shadow: var(--shadow-md);
+    animation: fadeIn 0.15s ease;
+    text-align: center;
+  }
+  .confirm-msg {
+    font-size: 15px;
+    color: var(--text);
+    font-family: 'Inter', 'Segoe UI', system-ui, Arial, sans-serif;
+    line-height: 1.6;
+    margin-bottom: 22px;
+    font-weight: 500;
+  }
+  .confirm-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  .confirm-btn-no {
+    background: var(--surface2);
+    color: var(--text2);
+    border: 1.5px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 10px 28px;
+    font-size: 14px;
+    font-family: 'Inter', 'Segoe UI', system-ui, Arial, sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .confirm-btn-no:hover { background: var(--border); }
+  .confirm-btn-yes {
+    background: var(--red);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    padding: 10px 28px;
+    font-size: 14px;
+    font-family: 'Inter', 'Segoe UI', system-ui, Arial, sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .confirm-btn-yes:hover { opacity: 0.85; }
+
 </style>
 </head>
 <body>
