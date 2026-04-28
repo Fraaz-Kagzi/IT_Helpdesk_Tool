@@ -2199,8 +2199,8 @@
 <!-- Login Screen -->
 <div class="login-screen" id="loginScreen">
   <div class="login-box">
-    <div class="login-banner" style="display:none"><img id="loginBannerImg" alt="IT Helpdesk" /></div>
-    <div class="login-title">IT Helpdesk Tool</div>
+    
+    <div class="login-title" style="font-size:18px;margin-bottom:8px">IT Helpdesk Tool</div>
     <div class="login-sub">Enter the password to continue</div>
     <input type="password" class="login-input" id="loginInput" placeholder="••••••••"
       onkeydown="if(event.key==='Enter')checkLogin()" autocomplete="off" />
@@ -2386,8 +2386,8 @@
 <div class="tab-nav">
   <button class="tab-btn active" id="tab-scripts" onclick="switchTab('scripts')">Script Finder</button>
   <button class="tab-btn tab-inactive" id="tab-inactive" onclick="switchTab('inactive')">Known Inactive</button>
-  <button class="tab-btn tab-ra" id="tab-ra" onclick="switchTab('ra')">RA Agents</button>
-  <button class="tab-btn tab-dc" id="tab-dc" onclick="switchTab('dc')">Digital Champions</button>
+  <button class="tab-btn tab-ra" id="tab-ra" onclick="switchTab('ra')" style="display:none">RA Agents</button>
+  <button class="tab-btn tab-dc" id="tab-dc" onclick="switchTab('dc')" style="display:none">Digital Champions</button>
   <button class="tab-btn tab-pw" id="tab-pw" onclick="switchTab('pw')">Passwords</button>
   <button class="tab-btn tab-site" id="tab-site" onclick="switchTab('site')">Site Info</button>
   <button class="tab-btn tab-mfa" id="tab-mfa" onclick="switchTab('mfa')">MFA Resync</button>
