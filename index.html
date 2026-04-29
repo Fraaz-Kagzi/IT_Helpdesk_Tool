@@ -5934,7 +5934,7 @@ function logClearAll() {
 // ── Export CSV ──────────────────────────────────────────────────────────────
 function logExportCSV() {
   if (!logJobs.length) { showToast('No jobs to export.'); return; }
-  var headers = ['Forename','Surname','Email','Site Address','Contact Telephone','Division','Asset Number','Summary & Description of Jobs','Remote Apt booked? If so, when & who with','Job Chase? SD number required','SD number of Job logged on Sostenuto'];
+  var headers = ['Forename','Surname','Email','Site Address','Contact Telephone','Division','Asset Number','Summary & Description of Jobs','Apt booked? If so, when & who with','Job Chase? SD number required','SD number of Job logged on Sostenuto'];
   var rows = logJobs.map(function(j) {
     return [j.ref, j.timestamp, j.fname, j.lname, j.email, j.tel, j.site, j.division, j.jobtitle, j.asset, j.desc]
       .map(function(v) { return '"' + String(v || '').replace(/"/g, '""') + '"'; })
@@ -5951,7 +5951,7 @@ function logExportCSV() {
 function logExportXLSX() {
   if (!logJobs.length) return;
 
-  var headers = ['Forename','Surname','Email','Site Address','Contact Telephone','Division','Asset Number','Summary & Description of Jobs','Remote Apt booked? If so, when & who with','Job Chase? SD number required','SD number of Job logged on Sostenuto'];
+  var headers = ['Forename','Surname','Email','Site Address','Contact Telephone','Division','Asset Number','Summary & Description of Jobs','Apt booked? If so, when & who with','Job Chase? SD number required','SD number of Job logged on Sostenuto'];
   var rows = logJobs.map(function(j) {
     var apptInfo = '';
     if (j.hasAppt) {
@@ -6282,9 +6282,9 @@ function runDCSearch() {
     var rows = champs.map(function(c) {
       var initials = c.name.split(' ').map(function(p) { return p[0] || ''; }).slice(0,2).join('').toUpperCase();
       var emailHtml = c.email
-        ? '<span class="dc-email" title="Click to copy" onclick="dcCopyEmail(\''+c.email+'\', this)">&#9993; ' + c.email + '</span>'
+        ? '<span class="dc-email" title="Click to copy" onclick="dcCopyEmail(\''+c.email+'\', this)">' + c.email + '</span>'
         : '<span style="color:#334155;font-size:11px">no email</span>';
-      var teamHtml = c.team ? '<span class="dc-team">&#128203; ' + c.team + '</span>' : '';
+      var teamHtml = c.team ? '<span class="dc-team">' + c.team + '</span>' : '';
       return '<div class="dc-agent-row">' +
         '<div class="dc-agent-avatar">' + initials + '</div>' +
         '<div class="dc-agent-info">' +
@@ -6296,7 +6296,7 @@ function runDCSearch() {
 
     group.innerHTML =
       '<div class="dc-network-header">' +
-        '<div class="dc-network-name">&#127760; ' + net + '</div>' +
+        '<div class="dc-network-name">' + net + '</div>' +
         '<span class="dc-agent-count">' + champs.length + ' champion' + (champs.length !== 1 ? 's' : '') + '</span>' +
       '</div>' +
       '<div class="dc-agents">' + rows + '</div>';
