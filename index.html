@@ -2548,7 +2548,7 @@
     <span class="search-icon" style="position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#475569;font-size:16px;pointer-events:none">&#128269;</span>
     <input type="text" id="dcSearchInput" placeholder="Search name, team, or network… e.g. Fylde Coast, CAMHS, Harbour…" oninput="runDCSearch()" autocomplete="off" />
   </div>
-  <div class="dc-results-label" id="dcResultsLabel">Search or browse all <strong style="color:#818cf8">97 Digital Champions</strong></div>
+  <div class="dc-results-label" id="dcResultsLabel">Search or browse all <strong style="color:#818cf8">239 Digital Champions</strong></div>
   <div id="dcResults"></div>
 </div><!-- end panel-dc -->
 
@@ -6234,7 +6234,1681 @@ function logToggleAppt() {
 
 
 // ---- Digital Champions ----
-var DC_DATA = [{"name": "Julie Statham", "email": "Julie.Statham@lscft.nhs.uk", "team": "IRS", "network": "Central & West"}, {"name": "David Elsworthy", "email": "David.elswothey@lscft.nhs.uk", "team": "West Lancs HTT", "network": "Central & West"}, {"name": "Ian White", "email": "Ian.white@lscft.nhs.uk", "team": "CTT", "network": "Central & West"}, {"name": "Liz Forster", "email": "Liz.forster@lscft.nhs.uk", "team": "Support Worker Lead", "network": "Other"}, {"name": "Linda Scanlan", "email": "Linda.scanlan@lscft.nhs.uk", "team": "Peer Support Services", "network": "Central & West"}, {"name": "Mandy Wilson", "email": "Mandy.Wilson@lscft.nhs.uk", "team": "Psychosis and Bipolar Psychological Care Network (PBPCN) Central", "network": "Central & West"}, {"name": "Shefa Giash", "email": "Shefa.Giash@lscft.nhs.uk", "team": "Mental Health Law Team", "network": "Central & West"}, {"name": "Kim Kirkham", "email": "Kim.Kirkham@lscft.nhs.uk", "team": "IRS", "network": "Central & West"}, {"name": "Simon Carlton", "email": "Simon.Carleton@lscft.nhs.uk", "team": "IRS", "network": "Central & West"}, {"name": "Jeanette Jennings", "email": "Jeanette.Jennings@lscft.nhs.uk", "team": "CAMHS Triage and Assessment Hub", "network": "Specialist Services"}, {"name": "Karen Lee", "email": "karen.lee@lscft.nhs.uk", "team": "CAMHS", "network": "Specialist Services"}, {"name": "Aimee Wharton", "email": "Aimee.Wharton@lscft.nhs.uk", "team": "RITT", "network": "Central & West"}, {"name": "Lara Singleton", "email": "Lara.Singleton@lscft.nhs.uk", "team": "Preston CMHT", "network": "Central & West"}, {"name": "William Davis", "email": "William.Davis@lscft.nhs.uk", "team": "Perinatal Services", "network": "Specialist Services"}, {"name": "Susan Derbyshire", "email": "susan.derbyshire@lscft.nhs.uk", "team": "South Ribble CMHT", "network": "Central & West"}, {"name": "Kevin Mistry", "email": "Kevin.Mistry@lscft.nhs.uk", "team": "Central and West Admin Lead", "network": "Central & West"}, {"name": "Kayleigh Ashworth", "email": "Kayleigh.Ashworth@lscft.nhs.uk", "team": "CTT", "network": "Central & West"}, {"name": "Annabel Jonas", "email": "annabel.jonas@lscft.nhs.uk", "team": "", "network": "Central & West"}, {"name": "Edison Awa", "email": "Edison.Awa@lscft.nhs.uk", "team": "", "network": "Specialist Services"}, {"name": "Claire Swarbrick", "email": "Clare.Swarbrick@lcft.nhs.uk", "team": "IIRMS Practitioner", "network": "Specialist Services"}, {"name": "Anne Pye", "email": "anne.pye@lscft.nhs.uk", "team": "Forensic Flow & Capacity Team, Specialist Services Network", "network": "Specialist Services"}, {"name": "Kevin Otter", "email": "Kevin.otter@lscft.nhs.uk", "team": "Reconnect - Care After Custody Team", "network": "Specialist Services"}, {"name": "Carole Keegan", "email": "Carole.Keegan@lscft.nhs.uk", "team": "Perinatal CMHT", "network": "Specialist Services"}, {"name": "Taiwo Shyllon", "email": "Taiwo.Shyllon@lscft.nhs.uk", "team": "Greenside Ward (Guild Lodge)", "network": "Specialist Services"}, {"name": "Catherine Ogbonna", "email": "Catherine.Ogbonna@lscft.nhs.uk", "team": "Guild Lodge", "network": "Specialist Services"}, {"name": "Charlotte Rogers", "email": "Charlotte.Rogers@lscft.nhs.uk", "team": "RAIST Specialist Services", "network": "Specialist Services"}, {"name": "Laura Forshaw", "email": "Laura.Forshaw@lscft.nhs.uk", "team": "RAIST Specialist Services", "network": "Specialist Services"}, {"name": "Dustin Marquardt", "email": "Dustin.Marquardt@lscft.nhs.uk", "team": "Preston East CMHT", "network": "Central & West"}, {"name": "Julie Carten", "email": "Julie.Carten@lscft.nhs.uk", "team": "CPET West Lancs", "network": "Specialist Services"}, {"name": "Neil Traynor", "email": "Neil.traynor@lscft.nhs.uk", "team": "Whalley IPC", "network": "Specialist Services"}, {"name": "Elizabeth Horrocks", "email": "Elizabeth.horrocks@lscft.nhs.uk", "team": "Eating Disorder Services", "network": "Specialist Services"}, {"name": "Connor Edwards", "email": "Connor.Edwards@lscft.nhs.uk", "team": "IRS", "network": "Pennine"}, {"name": "Amy Begley", "email": "Amy.Begley@lscft.nhs.uk", "team": "IRS", "network": "Pennine"}, {"name": "Daniel Whittaker", "email": "Daniel.Whittaker@lscft.nhs.uk", "team": "IRS/HTT", "network": "Pennine"}, {"name": "Keith Catlow", "email": "Keith.Catlow@lscft.nhs.uk", "team": "HTT", "network": "Pennine"}, {"name": "Harriet Ratcliffe", "email": "Harriet.Ratcliffe@lscft.nhs.uk", "team": "Blackburn Inpatients", "network": "Pennine"}, {"name": "Sharee Woods", "email": "Sharee.Woods@lscft.nhs.uk", "team": "Hyndburn Ward", "network": "Pennine"}, {"name": "Nikki Clarke", "email": "Nikki.Clark@lscft.nhs.uk", "team": "Eating Disorder Services", "network": "Specialist Services"}, {"name": "Andrew Corns", "email": "andrew.corns@lscft.nhs.uk", "team": "Learning Disability Services", "network": "Specialist Services"}, {"name": "Scott Moore", "email": "scott.moore@lscft.nhs.uk", "team": "Pennine Admin Lead", "network": "Pennine"}, {"name": "Karen Skillett", "email": "Karen.Sillett@lscft.nhs.uk", "team": "Mental Health Support Teams East Lancs", "network": "Pennine"}, {"name": "Lauren Morton", "email": "Lauren.Morton@lscft.nhs.uk", "team": "Team Leader Perinatal Team", "network": "Specialist Services"}, {"name": "Samantha Dawes", "email": "Samantha.Dawes@lscft.nhs.uk", "team": "Eating Disorder Services", "network": "Specialist Services"}, {"name": "Claire Thompson", "email": "Clare.Thompson@lscft.nhs.uk", "team": "Bed Hub", "network": "Fylde Coast"}, {"name": "Christopher Upton", "email": "Christopher.Upton@lscft.nhs.uk", "team": "Learning Disabilities Services", "network": "Specialist Services"}, {"name": "Charlotte Kennedy", "email": "Charlotte.kennedy@lscft.nhs.uk", "team": "Deputy Admin Lead Blackpool and Fylde", "network": "Fylde Coast"}, {"name": "Tonicha Wilmore", "email": "Tonicha.Wilmore@lscft.nhs.uk", "team": "CMHT", "network": "Fylde Coast"}, {"name": "Diane Heaton", "email": "diane.heaton@lscft.nhs.uk", "team": "CPET", "network": "Specialist Services"}, {"name": "Anthony Warren", "email": "Anthony.Warren@lscft.nhs.uk", "team": "", "network": "Fylde Coast"}, {"name": "Steven Jewell", "email": "Steven.Jewell@lscft.nhs.uk", "team": "CMHT Blackpool", "network": "Fylde Coast"}, {"name": "Kenny Brown", "email": "Kenneth.Brown@lscft.nhs.uk", "team": "Fylde IRS", "network": "Fylde Coast"}, {"name": "Mark Brown", "email": "Mark.Brown@lscft.nhs.uk", "team": "Fylde MHLT", "network": "Fylde Coast"}, {"name": "Nathan East", "email": "Nathan.East@lscft.nhs.uk", "team": "Blackpool ATS", "network": "Fylde Coast"}, {"name": "Mandy Halstead", "email": "Mandy.Halstead@lscft.nhs.uk", "team": "Frequent Attenders", "network": "Fylde Coast"}, {"name": "Charlotte Newman", "email": "Charlotte.Newman@lscft.nhs.uk", "team": "Frequent Attenders", "network": "Fylde Coast"}, {"name": "Emily Eaton", "email": "Emily.Eaton@lscft.nhs.uk", "team": "Fylde CMHT", "network": "Fylde Coast"}, {"name": "Katie Summers", "email": "Katie.Summers@lscft.nhs.uk", "team": "Fylde CMHT", "network": "Fylde Coast"}, {"name": "Laurence Halpin", "email": "Laurence.Halpin@lscft.nhs.uk", "team": "Fylde CMHT", "network": "Fylde Coast"}, {"name": "Anne-Marie Rowe", "email": "Anne-marie.Rowe@lscft.nhs.uk", "team": "Blackpool CMHT", "network": "Fylde Coast"}, {"name": "Jacqueline Marshall", "email": "Jacqueline.Marshall@lscft.nhs.uk", "team": "Fylde CMHT", "network": "Fylde Coast"}, {"name": "Laura Hayes", "email": "Laura.S.Hayes@lscft.nhs.uk", "team": "EIS", "network": "Fylde Coast"}, {"name": "Alice Probert", "email": "Alice.Probert@lscft.nhs.uk", "team": "Fylde RITT", "network": "Fylde Coast"}, {"name": "Kyle Worthington", "email": "Kyle.Worthington@lscft.nhs.uk", "team": "Austin Ward The Harbour", "network": "Fylde Coast"}, {"name": "Kiri Thompson", "email": "Kiri.Thompson@lscft.nhs.uk", "team": "Austin Ward The Harbour", "network": "Fylde Coast"}, {"name": "Lucy Wadsworth", "email": "Lucy.Wadsworth@lscft.nhs.uk", "team": "Bronte Ward The Harbour", "network": "Fylde Coast"}, {"name": "Matthew Hargreaves", "email": "Matthew.Hargreaves@lscft.nhs.uk", "team": "Bronte Ward The Harbour", "network": "Fylde Coast"}, {"name": "Steven Moore", "email": "", "team": "Byron Ward The Harbour", "network": "Fylde Coast"}, {"name": "Philani Shabangu", "email": "Philani.Shabangu@lscft.nhs.uk", "team": "Byron Ward The Harbour", "network": "Fylde Coast"}, {"name": "Joanne Nixon", "email": "Joanne.Nixon@lscft.nhs.uk", "team": "Churchill Ward The Harbour", "network": "Fylde Coast"}, {"name": "Amy John", "email": "Amy.John@lscft.nhs.uk", "team": "Churchill Ward The Harbour", "network": "Fylde Coast"}, {"name": "Clair Ashton", "email": "Clair.Ashton@lscft.nhs.uk", "team": "Dickins Ward The Harbour", "network": "Fylde Coast"}, {"name": "Adam Roach", "email": "Adam.Roach@lscft.nhs.uk", "team": "Dickins Ward The Harbour", "network": "Fylde Coast"}, {"name": "Zowiee Sharp", "email": "Zowiee.Sharp@lscft.nhs.uk", "team": "Orwell Ward The Harbour", "network": "Fylde Coast"}, {"name": "Narisse Mulholland", "email": "Narisse.Mulholland@lscft.nhs.uk", "team": "Orwell Ward The Harbour", "network": "Fylde Coast"}, {"name": "Daisey-Ann Molyneux", "email": "Daisy-anne.Molyneaux@lscft.nhs.uk", "team": "Shakespeare Ward The Harbour", "network": "Fylde Coast"}, {"name": "Jennifer Bird", "email": "Jennifer.Bird@lscft.nhs.uk", "team": "Shakespeare Ward The Harbour", "network": "Fylde Coast"}, {"name": "Jesil Josephdcruz", "email": "Jesil.Josephdcruz@lscft.nhs.uk", "team": "Stevenson Ward The Harbour", "network": "Fylde Coast"}, {"name": "Bethany Smith", "email": "Bethany.Smith@lscft.nhs.uk", "team": "Stevenson Ward The Harbour", "network": "Fylde Coast"}, {"name": "Vicky Rawding", "email": "Vicky.Rawding@lscft.nhs.uk", "team": "Stevenson Ward The Harbour", "network": "Fylde Coast"}, {"name": "Mireille Mcbrearty", "email": "Mireille.Mcbrearty@lscft.nhs.uk", "team": "Wordsworth Ward The Harbour", "network": "Fylde Coast"}, {"name": "Melonie Harvey", "email": "Melonie.Harvey@lscft.nhs.uk", "team": "136 Suite The Harbour", "network": "Fylde Coast"}, {"name": "Neethu Prasannakumar", "email": "Neethu.Prasannakumar@lscft.nhs.uk", "team": "136 Suite The Harbour", "network": "Fylde Coast"}, {"name": "Rushna Chowdhury", "email": "rushna.choudhury@lscft.nhs.uk", "team": "Bronte Ward The Harbour", "network": "Fylde Coast"}, {"name": "Annie Entwhistle-Frain", "email": "Annie.Entwistlefrain@lscft.nhs.uk", "team": "Moorgate Ward", "network": "Fylde Coast"}, {"name": "Maryann Mwaura", "email": "Maryann.Mwaura@lscft.nhs.uk", "team": "Stevenson Ward The Harbour", "network": "Fylde Coast"}, {"name": "Vicky Webster", "email": "Vicky.Webster@lscft.nhs.uk", "team": "CAMHS Fylde and Wyre", "network": "Specialist Services"}, {"name": "Alex Petcu", "email": "Alex.petcu@lscft.nhs.uk", "team": "South Lakes Locality", "network": "The Bay"}, {"name": "Zoe Toon", "email": "Zoe.Toon@lscft.nhs.uk", "team": "Eating Disorder Service - Kendal", "network": "Specialist Services"}, {"name": "Noreen Akhtar", "email": "Noreen.akhtar@lscft.nhs.uk", "team": "EIS", "network": "The Bay"}, {"name": "Kathryn Hayes", "email": "Kathryn.Hayes@lscft.nhs.uk", "team": "The Cove", "network": "Specialist Services"}, {"name": "Lauren Laisby", "email": "Lauren.Laisby@lscft.nhs.uk", "team": "Older Adult CMHT", "network": "The Bay"}, {"name": "Melanie Maxwell-Scott", "email": "Melanie.Maxwell-Scott@lscft.nhs.uk", "team": "CAMHS", "network": "Specialist Services"}, {"name": "Amy Armstrong", "email": "Amy.Armstrong@lscft.nhs.uk", "team": "Kentmere Ward", "network": "The Bay"}, {"name": "Maggie Kirkbride", "email": "Maggie.Kirkbride@lscft.nhs.uk", "team": "Furness CMHT", "network": "The Bay"}, {"name": "Jenny England", "email": "Jenny.England@lscft.nhs.uk", "team": "South Lakes CMHT", "network": "The Bay"}, {"name": "Paige Grant Lloyd", "email": "Paige.Grant-Lloyd@lscft.nhs.uk", "team": "The Cove", "network": "Specialist Services"}, {"name": "Zoe Cogle", "email": "zoe.cogle@lscft.nhs.uk", "team": "EIS", "network": "The Bay"}];
+var DC_DATA = [
+  {
+    "name": "Jessica Foster",
+    "email": "Jessica.foster@lscft.nhs.uk",
+    "team": "Penwortham District Nurses",
+    "network": "Other",
+    "role": "Nurse"
+  },
+  {
+    "name": "Sam Quin",
+    "email": "Samantha.Quin@lscft.nhs.uk",
+    "team": "Cardiac and Respiratory (Therapists)",
+    "network": "Other",
+    "role": "Admin"
+  },
+  {
+    "name": "Laura Kerr",
+    "email": "Laura.Kerr@lscft.nhs.uk",
+    "team": "District Nurses Chorley West Coppull Clinic",
+    "network": "Other",
+    "role": "Nurse"
+  },
+  {
+    "name": "Angela Bose",
+    "email": "angela.bose@lscft.nhs.uk",
+    "team": "District Nurses Chorley Buckshaw Health Centre",
+    "network": "Other",
+    "role": "Nurse"
+  },
+  {
+    "name": "Gemma Stuart- Abel",
+    "email": "Gemma.Stuart-abel@lscft.nhs.uk",
+    "team": "Tissue Viability Leyland Clinic",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Jonothan Wells",
+    "email": "Jonathon.wells@lscft.nhs.uk",
+    "team": "District nurses Chorley and Adlington",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Lynn Carmona",
+    "email": "Lynn.Carmona@lscft.nhs.uk",
+    "team": "District nurses Bamber Bridge",
+    "network": "Other",
+    "role": "Nurse"
+  },
+  {
+    "name": "Lorna Pink",
+    "email": "Lorna.Pink@lscft.nhs.uk",
+    "team": "Associate Director for AHPS",
+    "network": "Other",
+    "role": "AHP"
+  },
+  {
+    "name": "Julie Martindale",
+    "email": "julia.martindale@lscft.nhs.uk",
+    "team": "Physiotherapist- Adult community services",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Charlotte Ellison",
+    "email": "charlotte.ellison@lscft.nhs.uk",
+    "team": "Team Coordinator- Adult community services",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Lynn Carmona",
+    "email": "Lynn.Carmona@lscft.nhs.uk",
+    "team": "District nurses - Bamber Bridge",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Linda Johnson",
+    "email": "Linda.P.Johnson@lscft.nhs.uk",
+    "team": "District nurses Bamber Bridge",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Lucinda Hamiliton",
+    "email": "lucinda.hamilton@lscft.nhs.uk",
+    "team": "District nurses Leyland and Clayton Brook",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Siobhan.Campbell",
+    "email": "Siobhan.Campbell@lscft.nhs.uk",
+    "team": "District Nurses Preston East",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Salma Nanawatty",
+    "email": "District nurses Preston East- Admin",
+    "team": "",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Natasha Rowcliffe",
+    "email": "Natasha.Rowcliffe@lscft.nhs.uk",
+    "team": "District Nurses Preston West",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Niall Coxey-Stoker",
+    "email": "Niall.Coxey-Stoker@lscft.nhs.uk",
+    "team": "District Nurses- OOH",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Samantha Parker",
+    "email": "Samantha.Parker@lscft.nhs.uk",
+    "team": "District Nurses- Preston Central",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Kirsty Walker",
+    "email": "Kirsty.Walker@lscft.nhs.uk",
+    "team": "District Nurses Longridge",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Lauren Carway",
+    "email": "Lauren.Carway@lscft.nhs.uk",
+    "team": "District Nurse Coppull Clinic",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Steven Harrison",
+    "email": "Steven.Harrison@lscft.nhs.uk",
+    "team": "Home First Service",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Shannon Conway",
+    "email": "Shannon.Conway@lscft.nhs.uk",
+    "team": "Home First Service",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Debbie Rowe",
+    "email": "Debbie.Rowe@lscft.nhs.uk",
+    "team": "District nurses Bamber Bridge",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Jessica Foster",
+    "email": "Jessica.foster@lscft.nhs.uk",
+    "team": "District Nurses - Penwortham",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Ameera Sidat",
+    "email": "Ameera.Sidat@lscft.nhs.uk",
+    "team": "Safeguarding and Exploitation",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Kathryn Parker",
+    "email": "Kathryn.Parker@lscft.nhs.uk",
+    "team": "CTS West Lancashire",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Rukhsar Patel",
+    "email": "Rukhsar.Patel@lscft.nhs.uk",
+    "team": "Children's Continuing Care and Assessment Team",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Claire Nield",
+    "email": "Clare.Nield@lscft.nhs.uk",
+    "team": "Speech and Language, Pennine C&W",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Susan Chryssovergis",
+    "email": "Susan.Chryssovergis@lscft.nhs.uk",
+    "team": "Speech and Language West Lancashire",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Hannah Borrowdale",
+    "email": "Hannah.Borrowdale@lscft.nhs.uk",
+    "team": "Children\u2019s Complex Needs Nursing Services- Admin",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Katie Bale",
+    "email": "Katherine.Bale@lscft.nhs.uk",
+    "team": "CTS central (SLT)",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Caroline Dowthwaite",
+    "email": "Caroline.Dowthwaite@lscft.nhs.uk",
+    "team": "CTS central (OT)",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Ellie Keenan",
+    "email": "Eleanor.Keenan@lscft.nhs.uk",
+    "team": "CTS central (SLT)",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Diane Smeaton",
+    "email": "Diane.Smeaton@lscft.nhs.uk",
+    "team": "CTS central (PT)",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Cindy Prescott",
+    "email": "Cindy.Prescott@lscft.nhs.uk",
+    "team": "CTS central (SLT)",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Cameron Austin",
+    "email": "Cameron.Austin@lscft.nhs.uk",
+    "team": "CTS central (OT)",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Penny Tranquilino",
+    "email": "Penny.Tranquilino@lscft.nhs.uk",
+    "team": "CTS central (SLT)",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Ruth Poppleton",
+    "email": "Ruth.Poppleton@lscft.nhs.uk",
+    "team": "CTS central (Physio)",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Stacey Wood",
+    "email": "Stacy.Wood@lscft.nhs.uk",
+    "team": "CTS central (Physio)",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Liam Watson",
+    "email": "Liam.Watson@lscft.nhs.uk",
+    "team": "Pennine CTS (SLT)",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Jodi Roberts",
+    "email": "Jodi.Roberts@lscft.nhs.uk",
+    "team": "Pennine CTS (SLT)",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Geraldine Hennigan",
+    "email": "Geraldine.Hennigan@lscft.nhs.uk",
+    "team": "Pennine CTS (SLT)",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Rebecca Cowell",
+    "email": "Rebecca.cowell@lscft.nhs.uk",
+    "team": "Pennine CTS",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Helen Weir",
+    "email": "Helen.weir@lscft.nhs.uk",
+    "team": "Pennine CTS",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Gareth Davies",
+    "email": "Gareth.Davies@lscft.nhs.uk",
+    "team": "Pennine CTS (OT)",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Vicky Pate",
+    "email": "Victoria.pate@lscft.nhs.uk",
+    "team": "Pennine CTS (HCSW)",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Katherine Hennigan",
+    "email": "Katherine.Hennigan@lscft.nhs.uk",
+    "team": "Central and West CTS (OT )",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Joanne McGee",
+    "email": "Joanne.McGee@lscft.nhs.uk",
+    "team": "Central and West CTS (OT )",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Louise Tillett",
+    "email": "Louise.tillett@lscft.nhs.uk",
+    "team": "Central CTS",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Gemma Styles",
+    "email": "Gemma.styles@lscft.nhs.uk",
+    "team": "Central CTS (PT)",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Michelle  Jones",
+    "email": "michelle.a.jones@lscft.nhs.uk",
+    "team": "Children\u2019s Complex Needs Nursing Services",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Sharon Moore",
+    "email": "sharon.moore@lscft.nhs.uk",
+    "team": "Medical Secretary Orwell Ward The Harbour",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Innocent Ayodele",
+    "email": "innocent.ayodele@lscft.nhs.uk",
+    "team": "Bank HCA The habour",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Emily Turley",
+    "email": "emily.turley@lscft.nhs.uk",
+    "team": "MAPPA, Victims and Veterans Team",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Michelle McAteer",
+    "email": "Michelle.McAteer@lscft.nhs.uk",
+    "team": "Community Learning Disability",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Julie Statham",
+    "email": "Julie.Statham@lscft.nhs.uk",
+    "team": "IRS",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "David Elsworthy",
+    "email": "David.elswothey@lscft.nhs.uk",
+    "team": "West Lancs HTT",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Ian White",
+    "email": "Ian.white@lscft.nhs.uk",
+    "team": "CTT",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Linda Scanlan",
+    "email": "Linda.scanlan@lscft.nhs.uk",
+    "team": "Peer Support services",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Mandy Wilson",
+    "email": "Mandy.Wilson@lscft.nhs.uk",
+    "team": "Psychosis and Bipolar Psychological Care Network (PBPCN)  Central",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Shefa Giash",
+    "email": "Shefa.Giash@lscft.nhs.uk",
+    "team": "Mental Health Law Team",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Kim Kirkham",
+    "email": "Kim.Kirkham@lscft.nhs.uk",
+    "team": "IRS",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Simon Carlton",
+    "email": "Simon.Carleton@lscft.nhs.uk",
+    "team": "IRS",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Aimee Wharton",
+    "email": "Aimee.Wharton@lscft.nhs.uk",
+    "team": "RITT",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Lara Singleton",
+    "email": "Lara.Singleton@lscft.nhs.uk",
+    "team": "Preston CMHT",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Susan Derbyshire",
+    "email": "susan.derbyshire@lscft.nhs.uk",
+    "team": "South Ribble CMHT",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Kevin Mistry",
+    "email": "Kevin.Mistry@lscft.nhs.uk",
+    "team": "Central and West admin lead",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Kayleigh Ashworth",
+    "email": "Kayleigh.Ashworth@lscft.nhs.uk",
+    "team": "CTT",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Annabel Jonas",
+    "email": "annabel.jonas@lscft.nhs.uk",
+    "team": "",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Dustin Marquardt",
+    "email": "Dustin.Marquardt@lscft.nhs.uk",
+    "team": "Preston East CMHT",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Victoria Wild",
+    "email": "Victoria.Wild@lscft.nhs.uk",
+    "team": "Positive Lifestyle team (Admin)",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Lisa Hindley",
+    "email": "Lisa.Hindley@lscft.nhs.uk",
+    "team": "Older Adult CMHT & MAS (West Lancashire)",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Muhammed Husseini",
+    "email": "Muhammed.Husseini@lscft.nhs.uk",
+    "team": "Preston West CMHT",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "David Gardner",
+    "email": "David.Gardner@lscft.nhs.uk",
+    "team": "South Ribble CMHT",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Hannah Foley",
+    "email": "Hannah.Foley@lscft.nhs.uk",
+    "team": "West Lancs CMHT",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Vicky Blundell-White",
+    "email": "Victoria.Blundell-White@lscft.nhs.uk",
+    "team": "MAS (Central)",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Andrea Cox",
+    "email": "Andrea.Cox@lscft.nhs.uk",
+    "team": "Worden Ward",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Oliver Banks",
+    "email": "Oliver.Banks@lscft.nhs.uk",
+    "team": "Worden Ward",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Mollie Harrington",
+    "email": "Mollie.Harrington@lscft.nhs.uk",
+    "team": "Duxbury Ward",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Emily Richardson",
+    "email": "Emily.Richardson@lscft.nhs.uk",
+    "team": "Duxbury Ward",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Claire Shaw",
+    "email": "Claire.Shaw@lscft.nhs.uk",
+    "team": "Avenham Ward",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Chloe Oldham",
+    "email": "Chloe.Oldham@lscft.nhs.uk",
+    "team": "Avenham Ward",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Andrea Gibson",
+    "email": "Andrea.Gibson@lscft.nhs.uk",
+    "team": "SIPU",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Lian Edgington",
+    "email": "Lian.Edgington-Lyon@lscft.nhs.uk",
+    "team": "SIPU",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Regan Stockley",
+    "email": "Regan.Stockley@lscft.nhs.uk",
+    "team": "Lathom Ward",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Andrea Simms",
+    "email": "Andrea.Simms@lscft.nhs.uk",
+    "team": "Lathom Ward",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Amino Nur",
+    "email": "Amino.Nur@lscft.nhs.uk",
+    "team": "136 Suites",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Jessica Love",
+    "email": "Jessica.Love@lscft.nhs.uk",
+    "team": "IRS",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Dean Jackson",
+    "email": "Dean.Jackson@lscft.nhs.uk",
+    "team": "Medical Secretary (Central and West)",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Nithya Valsan",
+    "email": "Nithya.Valsan@lscft.nhs.uk",
+    "team": "Wesham Rehabilitation Centre",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Fiona Stevenson",
+    "email": "Fiona.Stevenson@lscft.nhs.uk",
+    "team": "Wesham Rehabilitation Centre",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Miranda Daniels",
+    "email": "Miranda.Daniels@lscft.nhs.uk",
+    "team": "Clinical Treatment Team",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Sarah Fish",
+    "email": "Sarah.Fish@lscft.nhs.uk",
+    "team": "Rheumatology",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Stewart Blair",
+    "email": "Stewart.blaire@lscft.nhs.uk",
+    "team": "Community Rehab and Falls",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Lorraine Wickham",
+    "email": "lorraine.wickham@lscft.nhs.uk",
+    "team": "Children Therapy Service",
+    "network": "Central & West",
+    "role": "Admin"
+  },
+  {
+    "name": "Laura Butler",
+    "email": "laura.butler@lscft.nhs.uk",
+    "team": "Diabetes Service",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "James Brown",
+    "email": "james.brown@lscft.nhs.uk",
+    "team": "Podiatry",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Carol Mooney",
+    "email": "carol.mooney@lscft.nhs.uk",
+    "team": "Children's Therapy Service",
+    "network": "Central & West",
+    "role": "Admin"
+  },
+  {
+    "name": "Jenny Dewing",
+    "email": "Jenny.dewing@lscft.nhs.uk",
+    "team": "Cardiac and Respiratory (Minerva)",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Donna Moss",
+    "email": "Donna.moss@lscft.nhs.uk",
+    "team": "Cardiac and Respiratory (Buckshaw)",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Clare Bolton",
+    "email": "Clare.bolton@lscft.nhs.uk",
+    "team": "Incontinence team (Physiotherapist)",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Hayley Pendlebury",
+    "email": "Hayley.Pendlebury@lscft.nhs.uk",
+    "team": "Heart Failure Team (Minerva)",
+    "network": "Central & West",
+    "role": "Nurse"
+  },
+  {
+    "name": "Lydia Crook",
+    "email": "Lydia.Crook@lscft.nhs.uk",
+    "team": "Heart Failure Service  (Minerva)",
+    "network": "Central & West",
+    "role": "Admin"
+  },
+  {
+    "name": "Sam Livingston",
+    "email": "Sam.livingston@lscft.nhs.uk",
+    "team": "Central Community Rehab/Falls",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Roseanna White",
+    "email": "Roseanna.white@lscft.nhs.uk",
+    "team": "Continence Nurse",
+    "network": "Central & West",
+    "role": "Nurse"
+  },
+  {
+    "name": "Claire Culver Smith",
+    "email": "Claire.Culver-smith.@lscft.nhs.uk",
+    "team": "Frailty",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Michelle Townsend",
+    "email": "Michelle.Townsend@lscft.nhs.uk",
+    "team": "Phlebotomy",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Skye McGreavy",
+    "email": "Skye.McGreavy@lscft.nhs.uk",
+    "team": "District Nurses Chorley Villages- Admin",
+    "network": "Central & West",
+    "role": "Admin"
+  },
+  {
+    "name": "Nichola Nolan",
+    "email": "Nichola.Nolan@lscft.nhs.uk",
+    "team": "Avenham PICU",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Paul Clarkson",
+    "email": "Paul.Clarkson@lscft.nhs.uk",
+    "team": "Talking Therapies",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Rochelle Bentley",
+    "email": "Rochelle.Bentley@lscft.nhs.uk",
+    "team": "Central and West (Physical Helath), Adult Nursing and Therapies, Care Connexions, Urgent Community Response.",
+    "network": "Central & West",
+    "role": "AHP"
+  },
+  {
+    "name": "Cathy Ashcroft",
+    "email": "Cathy.Ashcroft@lscft.nhs.uk",
+    "team": "Central and West (Physical Helath), Adult Nursing and Therapies, Care Connexions, Urgent Community Response.",
+    "network": "Central & West",
+    "role": ""
+  },
+  {
+    "name": "Joseph Corcoran",
+    "email": "joseph.corcoran@lscft.nhs.uk",
+    "team": "Digital Admin Team",
+    "network": "Digital Directorate",
+    "role": ""
+  },
+  {
+    "name": "Claire Thompson",
+    "email": "Clare.Thompson@lscft.nhs.uk",
+    "team": "Bed Hub",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Charlotte Kennedy",
+    "email": "Charlotte.kennedy@lscft.nhs.uk",
+    "team": "Deputy Admin lead Blackpool and Fyled",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Tonicha Wilmore",
+    "email": "Tonicha.Wilmore@lscft.nhs.uk",
+    "team": "CMHT",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Anthony Warren",
+    "email": "Anthony.Warren@lscft.nhs.uk",
+    "team": "",
+    "network": "Fylde Coast",
+    "role": "Admin"
+  },
+  {
+    "name": "Steven Jewell",
+    "email": "Steven.Jewell@lscft.nhs.uk",
+    "team": "CMHT Blackpool",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Kenny Brown",
+    "email": "Kenneth.Brown@lscft.nhs.uk",
+    "team": "Fylde IRS",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Mark Brown",
+    "email": "Mark.Brown@lscft.nhs.uk",
+    "team": "Fylde MHLT",
+    "network": "Fylde Coast",
+    "role": "Nurse"
+  },
+  {
+    "name": "Nathan East",
+    "email": "Nathan.East@lscft.nhs.uk",
+    "team": "Blackpool ATS",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Mandy Halstead",
+    "email": "Mandy.Halstead@lscft.nhs.uk",
+    "team": "Frequent attenders",
+    "network": "Fylde Coast",
+    "role": "Nurse"
+  },
+  {
+    "name": "Charlotte Newman",
+    "email": "Charlotte.Newman@lscft.nhs.uk",
+    "team": "Frequent attenders",
+    "network": "Fylde Coast",
+    "role": "Nurse"
+  },
+  {
+    "name": "Emily Eaton",
+    "email": "Emily.Eaton@lscft.nhs.uk",
+    "team": "Fylde CMHT",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Katie Summers",
+    "email": "Katie.Summers@lscft.nhs.uk",
+    "team": "Fylde CMHT",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Laurence Haplin",
+    "email": "Laurence.Halpin@lscft.nhs.uk",
+    "team": "Fylde CMHT",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Anne-Marie Rowe",
+    "email": "Anne-marie.Rowe@lscft.nhs.uk",
+    "team": "Blackpool CMHT",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Jacqueline Marshall",
+    "email": "Jacqueline.Marshall@lscft.nhs.uk",
+    "team": "Fylde CMHT",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Laura Hayes",
+    "email": "Laura.S.Hayes@lscft.nhs.uk",
+    "team": "EIS",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Alice Probert",
+    "email": "Alice.Probert@lscft.nhs.uk",
+    "team": "Fylde RITT",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Kyle Worthington",
+    "email": "Kyle.Worthington@lscft.nhs.uk",
+    "team": "Austin Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": "Nurse"
+  },
+  {
+    "name": "Kiri Thompson",
+    "email": "Kiri.Thompson@lscft.nhs.uk",
+    "team": "Austin Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Lucy Wadsworth",
+    "email": "Lucy.Wadsworth@lscft.nhs.uk",
+    "team": "Bronte Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Matthew Hargreaves",
+    "email": "Matthew.Hargreaves@lscft.nhs.uk",
+    "team": "Bronte Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Steven Moore",
+    "email": "",
+    "team": "Byron Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Philani Shabangu",
+    "email": "Philani.Shabangu@lscft.nhs.uk",
+    "team": "Byron Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Joanne Nixon",
+    "email": "Joanne.Nixon@lscft.nhs.uk",
+    "team": "Churchill Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Amy John",
+    "email": "Amy.John@lscft.nhs.uk",
+    "team": "Churchill Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Clair Ashton",
+    "email": "Clair.Ashton@lscft.nhs.uk",
+    "team": "Dickins Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Adam Roach",
+    "email": "Adam.Roach@lscft.nhs.uk",
+    "team": "Dickins Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Zowiee Sharp",
+    "email": "Zowiee.Sharp@lscft.nhs.uk",
+    "team": "Orwell Ward the harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Narisse Mulholland",
+    "email": "Narisse.Mulholland@lscft.nhs.uk",
+    "team": "Orwell Ward the harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Daisey-Ann Molyneux",
+    "email": "Daisy-anne.Molyneaux@lscft.nhs.uk",
+    "team": "Shakespeare Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Jennifer Bird",
+    "email": "Jennifer.Bird@lscft.nhs.uk",
+    "team": "Shakespeare Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Jesil Josephdcruz",
+    "email": "Jesil.Josephdcruz@lscft.nhs.uk",
+    "team": "Stevenson Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Bethany Smith",
+    "email": "Bethany.Smith@lscft.nhs.uk",
+    "team": "Stevenson Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Vicky Rawding",
+    "email": "Vicky.Rawding@lscft.nhs.uk",
+    "team": "Stevenson Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Mireille Mcbreaty",
+    "email": "Mireille.Mcbrearty@lscft.nhs.uk",
+    "team": "Wordsworth Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Melonie Harvey",
+    "email": "Melonie.Harvey@lscft.nhs.uk",
+    "team": "136 suite the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Neethu Prasannakumar",
+    "email": "Neethu.Prasannakumar@lscft.nhs.uk",
+    "team": "136 suite the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Rushna Chowdhury",
+    "email": "rushna.choudhury@lscft.nhs.uk",
+    "team": "Bronte Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Annie Entwhistle-Frain",
+    "email": "Annie.Entwistlefrain@lscft.nhs.uk",
+    "team": "Moorgate Ward",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Maryann Mwaura",
+    "email": "Maryann.Mwaura@lscft.nhs.uk",
+    "team": "Stevenson Ward the Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Sharon Moore",
+    "email": "sharon.moore@lscft.nhs.uk",
+    "team": "Medical Secretary Orwell Ward The Harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Innocent Ayodele",
+    "email": "innocent.ayodele@lscft.nhs.uk",
+    "team": "Bank HCA The harbour",
+    "network": "Fylde Coast",
+    "role": ""
+  },
+  {
+    "name": "Anne-Marie Bentham",
+    "email": "Anne-Marie.Bentham@lscft.nhs.uk",
+    "team": "Nursing and Quality",
+    "network": "Nursing & Quality",
+    "role": "Nurse"
+  },
+  {
+    "name": "Liz Forster",
+    "email": "Liz.forster@lscft.nhs.uk",
+    "team": "Support Worker Lead",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Aliah Quayum",
+    "email": "Aliah. Quayum@lscft.nhs.uk",
+    "team": "Bank Staff",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Clair Greenwood",
+    "email": "clair.greenwood@lscft.nhs.uk",
+    "team": "Medical Education",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Clair Greenwood",
+    "email": "clair.greenwood@lscft.nhs.uk",
+    "team": "Medical Education",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Amy Bond",
+    "email": "Amy.Bond@lscft.nhs.uk",
+    "team": "Patient experience",
+    "network": "Other",
+    "role": ""
+  },
+  {
+    "name": "Connor Edwards",
+    "email": "Connor.Edwards@lscft,nhs.uk",
+    "team": "IRS",
+    "network": "Pennine",
+    "role": ""
+  },
+  {
+    "name": "Amy Begley",
+    "email": "Amy.Begley@lscft.nhs.uk",
+    "team": "IRS",
+    "network": "Pennine",
+    "role": ""
+  },
+  {
+    "name": "Daniel Whittaker",
+    "email": "Daniel.Whittaker@lscft.nhs.uk",
+    "team": "IRS/HTT",
+    "network": "Pennine",
+    "role": ""
+  },
+  {
+    "name": "Keith Catlow",
+    "email": "Keith.Catlow@lscft.nhs.uk",
+    "team": "HTT",
+    "network": "Pennine",
+    "role": ""
+  },
+  {
+    "name": "Harriet Ratcliffe",
+    "email": "Harriet.Ratcliffe@lscft.nhs.uk",
+    "team": "Blackburn Inpatients",
+    "network": "Pennine",
+    "role": ""
+  },
+  {
+    "name": "Sharee Woods",
+    "email": "Sharee.Woods@lscft.nhs.uk",
+    "team": "Hyndburn Ward",
+    "network": "Pennine",
+    "role": ""
+  },
+  {
+    "name": "Scott Moore",
+    "email": "scott.moore@lscft.nhs.uk",
+    "team": "Pennine Admin lead",
+    "network": "Pennine",
+    "role": ""
+  },
+  {
+    "name": "Karen Skillett",
+    "email": "Karen.Sillett@lscft.nhs.uk",
+    "team": "Mental Health Support Teams East Lancs",
+    "network": "Pennine",
+    "role": ""
+  },
+  {
+    "name": "Andrew Bence",
+    "email": "Andrew.Bence@lscft.nhs.uk",
+    "team": "Senior Call Handler IRS Pennine",
+    "network": "Pennine",
+    "role": ""
+  },
+  {
+    "name": "Daniel Greenlees",
+    "email": "Daniel.Greenlees@lscft.nhs.uk",
+    "team": "CMHT Pennine",
+    "network": "Pennine",
+    "role": ""
+  },
+  {
+    "name": "Christine Stonehewer",
+    "email": "Christine.Stonehewer@lscft.nhs.uk",
+    "team": "RITT",
+    "network": "Pennine",
+    "role": ""
+  },
+  {
+    "name": "Ashley Golding",
+    "email": "Ashley.golding@lscft.nhs.uk",
+    "team": "Children's Therapy Service",
+    "network": "Pennine",
+    "role": "Admin"
+  },
+  {
+    "name": "Alison McCarthy",
+    "email": "Alison.McCarthy@lscft.nhs.uk",
+    "team": "Children's Therapy Service",
+    "network": "Pennine",
+    "role": ""
+  },
+  {
+    "name": "Caroline Mercer",
+    "email": "Caroline.Mercer@lscft.nhs.uk",
+    "team": "Children's Therapy Service",
+    "network": "Pennine",
+    "role": ""
+  },
+  {
+    "name": "Rebecca Higham",
+    "email": "Rebecca.Higham@lscft.nhs.uk",
+    "team": "Children's Therapy Service",
+    "network": "Pennine",
+    "role": ""
+  },
+  {
+    "name": "Julie Brannon",
+    "email": "Julie.Brannon@lscft.nhs.uk",
+    "team": "Children's Therapy Service",
+    "network": "Pennine",
+    "role": ""
+  },
+  {
+    "name": "Janet Boulton",
+    "email": "Janet.Boulton@lscft.nhs.uk",
+    "team": "Children's Therapy Service",
+    "network": "Pennine",
+    "role": "Admin"
+  },
+  {
+    "name": "Jeanette Jennings",
+    "email": "Jeanette.Jennings@lscft.nhs.uk",
+    "team": "CAMHS Triage and Assessment hub",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Karen Lee",
+    "email": "karen.lee@lscft.nhs.uk",
+    "team": "CAMHS",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "William Davis",
+    "email": "William.Davis@lscft.nhs.uk",
+    "team": "Perinatal Services",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Edison Awa",
+    "email": "Edison.Awa@lscft.nhs.uk",
+    "team": "",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Claire Swarbrick",
+    "email": "Clare.Swarbrick@lcft.nhs.uk",
+    "team": "IIRMS Practitioner",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Anne Pye",
+    "email": "anne.pye@lscft.nhs.uk",
+    "team": "Forensic Flow & Capacity Team, Specialist Services Network",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Kevin Otter",
+    "email": "Kevin.otter@lscft.nhs.uk",
+    "team": "Reconnect- Care after custody team",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Carole Keegan",
+    "email": "Carole.Keegan@lscft.nhs.uk",
+    "team": "Perinatal CMHT",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Taiwo Shyllon",
+    "email": "Taiwo.Shyllon@lscft.nhs.uk",
+    "team": "Greenside Ward (Guild Lodge)",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Catherine Ogbonna",
+    "email": "Catherine.Ogbonna@lscft.nhs.uk",
+    "team": "Guild Lodge",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Charlotte Rogers",
+    "email": "Charlotte.Rogers@lscft.nhs.uk",
+    "team": "RAIST Specialist Services",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Laura Forshaw",
+    "email": "Laura.Forshaw@lscft.nhs.uk",
+    "team": "RAIST Specialist Services",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Julie Carten",
+    "email": "Julie.Carten@lscft.nhs.uk",
+    "team": "CPET West Lancs",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Neil Traynor",
+    "email": "Neil.traynor@lscft.nhs.uk",
+    "team": "Whalley IPC",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Elizabeth Horrocks",
+    "email": "Elizabeth.horrocks@lscft.nhs.uk",
+    "team": "Eating Disorder Services",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Nikki Clarke",
+    "email": "Nikki.Clark@lscft.nhs.uk",
+    "team": "Eating Disorder Services",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Andrew Corns",
+    "email": "andrew.corns@lscft.nhs.uk",
+    "team": "Learning Disability Services",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Lauren Morton",
+    "email": "Lauren.Morton@lscft.nhs.uk",
+    "team": "Team Leader  Perinatal team",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Samantha Dawes",
+    "email": "Samantha.Dawes@lscft.nhs.uk",
+    "team": "Eating Disorder services",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Christopher Upton",
+    "email": "Christopher.Upton@lscft.nhs.uk",
+    "team": "Learning Disabilities Services",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Diane Heaton",
+    "email": "diane.heaton@lscft.nhs.uk",
+    "team": "CPET",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Vicky Webster",
+    "email": "Vicky.Webster@lscft.nhs.uk",
+    "team": "CAMHS Fylde and Wyre",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Zoe Toon",
+    "email": "Zoe.Toon@lscft.nhs.uk",
+    "team": "Eating Disorder Service- Kendal",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Kathryn Hayes",
+    "email": "Kathryn.Hayes@lscft.nhs.uk",
+    "team": "The Cove",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Melanie Maxwell-Scott",
+    "email": "Melanie.Maxwell-Scott@lscft.nhs.uk",
+    "team": "CAMHS",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Paige Grant Lloyd",
+    "email": "Paige.Grant-Lloyd@lscft.nhs.uk",
+    "team": "The Cove",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Joanne Jefferson",
+    "email": "joanne.jefferson@lscft.nhs.uk",
+    "team": "Learning Disability Services",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Kay Lynas",
+    "email": "kay.lynas@lscft.nhs.uk",
+    "team": "Community Learning disability service",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Fran Carey",
+    "email": "fran.carey@lscft.nhs.uk",
+    "team": "F&W CYPMHS",
+    "network": "Specialist Services",
+    "role": "Nurse"
+  },
+  {
+    "name": "Lisa Bower",
+    "email": "Lisa.Bower@lscft.nhs.uk",
+    "team": "RAIST Specialist Services",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Joanne Pearce",
+    "email": "Joanne.pearce@lscft.nhs.uk",
+    "team": "Dental Service Coordinator",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Sarah Reynolds",
+    "email": "sarah.reynolds@lscft.nhs.uk",
+    "team": "Rehabilitation Flow Team",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Emma Standing",
+    "email": "Emma.standing@lscft.nhs.uk",
+    "team": "Rehabilitation Flow Team",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Julie Carten",
+    "email": "Julie.carten@lscft.nhs.uk",
+    "team": "Rehabilitation Flow Team",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Yazmin Ozkan",
+    "email": "Yazmin.Ozkan@lscft.nhs.uk",
+    "team": "Forensic Autism Team",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Clare Shipway",
+    "email": "Clare.Shipway@lscft.nhs.uk",
+    "team": "Fairoak Ward- Guild Lodge (Medical Secretary)",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Alison Holding",
+    "email": "Alison.Holding@lscft.nhs.uk",
+    "team": "Guild Lodge (Admin)",
+    "network": "Specialist Services",
+    "role": "AHP"
+  },
+  {
+    "name": "Sophie Titherington",
+    "email": "Sophie.Titherington",
+    "team": "PDN Secure Services",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Lucy Richardson",
+    "email": "Lucy.Richardson@lscft.nhs.uk",
+    "team": "PDN Secure Services",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Lee Drake",
+    "email": "Lee.Drake@lscft.nhs.uk",
+    "team": "Matron (Guild Lodge)",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Andrew Edge",
+    "email": "Andre.Edge@lscft@lscft.nhs.uk",
+    "team": "Guild Lodge (Occupational Therapist)",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Bradley Simms",
+    "email": "Bradley.Simms@lscft.nhs.uk",
+    "team": "Forensic Community Mental Health Team",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Lauren Freestone",
+    "email": "Lauren.Freestone@lscft.nhs.uk",
+    "team": "Reconnect Care After Custody Team",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Lewis Stones",
+    "email": "lewis.stones@lscft.nhs.uk",
+    "team": "CYPMH Bay",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Munzhir PatturAli",
+    "email": "munzhir.putturali@lscft.nhs.uk",
+    "team": "Rehab Care Group",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Neil Clements",
+    "email": "Neil.Clements@lscft.nhs.uk",
+    "team": "Eating Disorder services West Lancashire",
+    "network": "Specialist Services",
+    "role": "Nurse"
+  },
+  {
+    "name": "Georgia Winder",
+    "email": "Georgia.Winder@lscft.nhs.uk",
+    "team": "Central Lancashire All age Eating Disorders service",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Gehad Hamada",
+    "email": "Gehad.Hamada@lscft.nhs.uk",
+    "team": "Guild Lodge",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Emily Turley",
+    "email": "emily.turley@lscft.nhs.uk",
+    "team": "MAPPA, Victims and Veterans Team",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Maruf Mustapha",
+    "email": "maruf.mustapha@lscft.nhs.uk",
+    "team": "Watermeadow View",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Jonathon Turner",
+    "email": "jonathan.turner@lscft.nhs.uk",
+    "team": "CYPMH and Child Psychology Lancaster and Morecambe",
+    "network": "Specialist Services",
+    "role": ""
+  },
+  {
+    "name": "Alex Petcu",
+    "email": "Alex.petcu@lscft.nhs.uk",
+    "team": "South Lakes locality",
+    "network": "The Bay",
+    "role": ""
+  },
+  {
+    "name": "Noreen Akhtar",
+    "email": "Noreen.akhtar@lscft.nhs.uk",
+    "team": "EIS",
+    "network": "The Bay",
+    "role": ""
+  },
+  {
+    "name": "Lauren Laisby",
+    "email": "Lauren.Laisby@lscft.nhs.uk",
+    "team": "Older Adult CMHT",
+    "network": "The Bay",
+    "role": ""
+  },
+  {
+    "name": "Amy Armstrong",
+    "email": "Amy.Armstrong@lscft.nhs.uk",
+    "team": "Kentmere Ward",
+    "network": "The Bay",
+    "role": ""
+  },
+  {
+    "name": "Maggie Kirkbride",
+    "email": "Maggie.Kirkbride@lscft.nhs.uk",
+    "team": "Furness CMHT",
+    "network": "The Bay",
+    "role": ""
+  },
+  {
+    "name": "Jenny England",
+    "email": "Jenny.England@lscft.nhs.uk",
+    "team": "South Lakes CMHT",
+    "network": "The Bay",
+    "role": ""
+  },
+  {
+    "name": "Zoe Cogle",
+    "email": "zoe.cogle@lscft.nhs.uk",
+    "team": "EIS",
+    "network": "The Bay",
+    "role": ""
+  },
+  {
+    "name": "Gary Raffaelli",
+    "email": "Gary.Raffaelli@lscft.nhs.uk",
+    "team": "Older Adults CMHT",
+    "network": "The Bay",
+    "role": ""
+  },
+  {
+    "name": "Andrew Kent",
+    "email": "Andrew.Kent@lscft.nhs.uk",
+    "team": "OA CMHT Furness",
+    "network": "The Bay",
+    "role": ""
+  },
+  {
+    "name": "Jemma Louise Crouch",
+    "email": "Jemma.Louise.Crouch@lscft.nhs.uk",
+    "team": "Liaison and Diversion Team",
+    "network": "The Bay",
+    "role": ""
+  }
+];
 
 function runDCSearch() {
   var q = document.getElementById('dcSearchInput').value.trim().toLowerCase();
@@ -6266,7 +7940,7 @@ function runDCSearch() {
   var total = filtered.length;
   label.innerHTML = q
     ? total + ' champion' + (total !== 1 ? 's' : '') + ' found'
-    : 'Search or browse all <strong style="color:#818cf8">97 Digital Champions</strong>';
+    : 'Search or browse all <strong style="color:#818cf8">239 Digital Champions</strong>';
 
   if (!total) {
     results.innerHTML = '<div class="dc-empty">No champions match your search.<br>Try a name, team, or network.</div>';
@@ -6284,7 +7958,8 @@ function runDCSearch() {
       var emailHtml = c.email
         ? '<span class="dc-email" title="Click to copy" onclick="dcCopyEmail(\''+c.email+'\', this)">' + c.email + '</span>'
         : '<span style="color:#334155;font-size:11px">no email</span>';
-      var teamHtml = c.team ? '<span class="dc-team">' + c.team + '</span>' : '';
+      var roleTeam = [c.role, c.team].filter(Boolean).join(' — ');
+      var teamHtml = roleTeam ? '<span class="dc-team">' + roleTeam + '</span>' : '';
       return '<div class="dc-agent-row">' +
         '<div class="dc-agent-avatar">' + initials + '</div>' +
         '<div class="dc-agent-info">' +
